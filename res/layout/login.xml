@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+  <TextView
+  	android:id="@+id/username"
+  	android:layout_height="wrap_content"
+  	android:layout_width="fill_parent"
+  	android:text="@string/username"
+  />
+  <EditText
+  	android:id="@+id/usernameInput"
+  	android:layout_height="wrap_content"
+  	android:layout_width="fill_parent"
+  	android:inputType="text"
+  	android:layout_below="@id/username"
+  />
+  
+  <TextView
+  	android:id="@+id/password"
+  	android:layout_height="wrap_content"
+  	android:layout_width="fill_parent"
+  	android:text="@string/password"
+  	android:layout_below="@id/usernameInput"
+  />
+  <EditText
+  	android:id="@+id/passwordInput"
+  	android:inputType="textPassword"
+  	android:layout_height="wrap_content"
+  	android:layout_width="fill_parent"
+  	android:layout_below="@id/password"
+  />
+  
+  <Button
+  	android:id="@+id/loginButton"
+  	android:text="@string/loginText"
+  	android:layout_below="@id/passwordInput"
+  	android:layout_height="wrap_content"
+  	android:layout_width="fill_parent"
+  />
+  
+</RelativeLayout>
