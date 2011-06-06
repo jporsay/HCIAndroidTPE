@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="companyName">Zen Faktor</string>
     <string name="logoString">ZF</string>
     <string name="app_name">Product Consultory</string>
     <string name="username">Username:</string>
