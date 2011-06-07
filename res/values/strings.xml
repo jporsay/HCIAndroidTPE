@@ -6,4 +6,5 @@
     <string name="username">Username:</string>
     <string name="password">Password:</string>
     <string name="loginText">Log In</string>
+    <string name="categoryTitle">Categories</string>
 </resources>

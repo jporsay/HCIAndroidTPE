@@ -6,4 +6,5 @@
     <string name="username">Usuario:</string>
     <string name="password">Contraseña:</string>
     <string name="loginText">Iniciar Sesión</string>
+    <string name="categoryTitle">Categorias</string>
 </resources>
