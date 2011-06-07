@@ -17,7 +17,7 @@
         		  android:label="@string/loginText">
         </activity>
 
-        <activity android:name=".activities.CategorySelectionActivity" 
+        <activity android:name=".activities.CategoryListView" 
         		  android:label="@string/categoryTitle">
         </activity>
     </application>
