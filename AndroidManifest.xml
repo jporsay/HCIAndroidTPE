@@ -20,5 +20,10 @@
         <activity android:name=".activities.CategoryListView" 
         		  android:label="@string/categoryTitle">
         </activity>
+        
+        <activity android:name=".activities.SubCategoryListView" 
+        		  android:label="@string/subCategoryTitle">
+        </activity>
+        
     </application>
 </manifest>
