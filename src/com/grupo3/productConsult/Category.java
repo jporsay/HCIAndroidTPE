@@ -6,12 +6,12 @@ import java.util.List;
 public class Category {
 	private String name;
 	private int id;
-	private List<String> subCategories;
+	private List<Category> subCategories;
 
 	public Category(String name, int id) {
 		this.name = name;
 		this.id = id;
-		subCategories = new ArrayList<String>();
+		subCategories = new ArrayList<Category>();
 	}
 
 	public int getId() {
@@ -22,7 +22,17 @@ public class Category {
 		return name;
 	}
 
-	public List<String> getSubCategories() {
+	public List<Category> getSubCategories() {
 		return subCategories;
+	}
+
+	public void setSubCategories(List<Category> subCategories) {
+		this.subCategories = subCategories;
+	}
+
+	@Override
+	public String toString() {
+		return "[ category: " + name + " subcategories: "
+				+ subCategories.toString() + " ]";
 	}
 }
