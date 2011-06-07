@@ -6,7 +6,7 @@ import com.grupo3.productConsult.services.CategoriesSearchService;
 
 public class CategoryManager {
 	private static CategoryManager instance = null;
-	private List<Category> categoryList = null;
+	private List<Category> categoryList;
 
 	public static CategoryManager getInstance() {
 		if (instance == null) {
@@ -16,16 +16,27 @@ public class CategoryManager {
 	}
 
 	private CategoryManager() {
+		categoryList = CategoriesSearchService.fetchCategories();
 	}
 
-	public String[] getCategories() {
-		if (categoryList == null) {
-			categoryList = CategoriesSearchService.fetchCategories();
+	public String[] getCategoryNames() {
+		return getNames(categoryList);
+	}
+
+	public String[] getSubCategoryNames(int index) {
+		Category c = categoryList.get(index);
+		if (c.getSubCategories().isEmpty()) {
+			int id = c.getId();
+			c.setSubCategories(CategoriesSearchService.fetchSubCategories(id));
 		}
-		String[] categoryNames = new String[categoryList.size()];
+		return getNames(c.getSubCategories());
+	}
+
+	private String[] getNames(List<Category> categories) {
+		String[] categoryNames = new String[categories.size()];
 		int i = 0;
-		for (Category c : categoryList) {
-			categoryNames[i++] = c.getName();
+		for (Category subCat : categories) {
+			categoryNames[i++] = subCat.getName();
 		}
 		return categoryNames;
 	}
