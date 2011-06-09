@@ -46,14 +46,19 @@
   	android:layout_width="fill_parent"
   	android:layout_below="@id/password"
   />
-  
-  <Button
-  	android:id="@+id/loginButton"
-  	android:text="@string/loginText"
-  	android:layout_below="@id/passwordInput"
-  	android:layout_height="wrap_content"
+  <RelativeLayout
   	android:layout_width="fill_parent"
-  	android:onClick="doLogin"
-  />
-  
+  	android:layout_height="wrap_content"
+  	android:paddingTop="20sp"
+  	android:gravity="center_horizontal"
+  	android:layout_below="@id/passwordInput"
+  >
+	  <Button
+	  	android:id="@+id/loginButton"
+	  	android:text="@string/loginText"
+	  	android:layout_height="wrap_content"
+	  	android:layout_width="wrap_content"
+	  	android:onClick="doLogin"
+	  />
+  </RelativeLayout>
 </RelativeLayout>

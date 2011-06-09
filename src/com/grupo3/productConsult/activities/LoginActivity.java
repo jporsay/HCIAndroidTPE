@@ -37,7 +37,9 @@ public class LoginActivity extends Activity {
 				super.onReceiveResult(resultCode, resultData);
 				switch (resultCode) {
 					case LoginService.STATUS_OK:
-						Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
+						Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+						startActivity(intent);
+						LoginActivity.this.finish();
 					break;
 					
 					case LoginService.STATUS_CONNECTION_ERROR:

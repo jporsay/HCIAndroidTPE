@@ -8,4 +8,8 @@
     <string name="loginText">Log In</string>
     <string name="categoryTitle">Categories</string>
     <string name="subCategoryTitle">Sub-Categories</string>
+    <string name="menuTitle">Menu</string>
+    <string name="browseItems">Browse</string>
+    <string name="logOut">Log Out</string>
+    <string name="orders">Orders</string>
 </resources>

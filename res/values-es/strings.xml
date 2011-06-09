@@ -8,4 +8,8 @@
     <string name="loginText">Iniciar Sesión</string>
     <string name="categoryTitle">Categorias</string>
     <string name="subCategoryTitle">Subcategorias</string>
+    <string name="menuTitle">Menú</string>
+    <string name="browseItems">Navegar</string>
+    <string name="logOut">Cerrar Sesión</string>
+    <string name="orders">Órdenes</string>
 </resources>

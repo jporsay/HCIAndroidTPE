@@ -32,5 +32,9 @@
         <activity android:name=".activities.ProductListView" 
         		  android:label="Products">
         </activity>
+        
+        <activity android:name=".activities.MenuActivity"
+        		androidLabel="@string/menuTitle">
+        </activity>
     </application>
 </manifest>
