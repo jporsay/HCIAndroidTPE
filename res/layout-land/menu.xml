@@ -3,4 +3,66 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
+  
+  <TextView
+  	android:id="@+id/companyName"
+  	android:text="@string/companyName"
+  	android:textSize="40sp"
+  	android:paddingBottom="10sp"
+  	android:paddingTop="5sp"
+  	android:layout_height="wrap_content"
+  	android:layout_width="fill_parent"
+  	android:gravity="center_horizontal"
+  />
+  
+  <RelativeLayout
+  	android:id="@+id/mBrowseH"
+  	android:paddingBottom="10sp"
+  	android:layout_height="wrap_content"
+  	android:layout_width="fill_parent"
+  	android:gravity="center_horizontal"
+  	android:layout_below="@id/companyName"
+  >
+	  <Button
+	  	android:id="@+id/mBrowse"
+	  	android:layout_height="wrap_content"
+  		android:layout_width="wrap_content"
+	  	android:text="@string/browseItems"
+	  	android:textSize="20sp"
+	  />
+  </RelativeLayout>
+  
+  <RelativeLayout
+  	android:id="@+id/mOrdersH"
+  	android:paddingBottom="10sp"
+  	android:layout_height="wrap_content"
+  	android:layout_width="fill_parent"
+  	android:gravity="center_horizontal"
+  	android:layout_below="@id/mBrowseH"
+  >
+	  <Button
+	  	android:id="@+id/mOrders"
+		android:layout_height="wrap_content"
+  		android:layout_width="wrap_content"
+	  	android:text="@string/orders"
+	  	android:textSize="20sp"
+	  />
+  </RelativeLayout>
+  
+  <RelativeLayout
+  	android:id="@+id/mLogOutH"
+  	android:paddingBottom="10sp"
+  	android:layout_height="wrap_content"
+  	android:layout_width="fill_parent"
+  	android:gravity="center_horizontal"
+  	android:layout_below="@id/mOrdersH"
+  >
+	  <Button
+	  	android:id="@+id/mLogOut"
+	  	android:text="@string/logOut"
+	  	android:textSize="20sp"
+	  	android:layout_height="wrap_content"
+	  	android:layout_width="wrap_content"
+	  />
+  </RelativeLayout>
 </RelativeLayout>
