@@ -41,4 +41,8 @@ public class CategoryManager {
 		return categoryNames;
 	}
 
+	public List<Category> getCategoryList() {
+		return categoryList;
+	}
+
 }
