@@ -3,8 +3,13 @@ package com.grupo3.productConsult.activities;
 import java.util.List;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.grupo3.productConsult.Category;
 import com.grupo3.productConsult.CategoryManager;
@@ -23,6 +28,21 @@ public class ProductListView extends ListActivity {
 		String[] products = getProductNames();
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				products));
+
+		ListView lv = getListView();
+		lv.setTextFilterEnabled(true);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent newIntent = new Intent(ProductListView.this
+						.getApplicationContext(), ProductDisplayActivity.class);
+
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("product", currList.get(position));
+				newIntent.putExtras(bundle);
+				startActivityForResult(newIntent, 0);
+			}
+		});
 	}
 
 	private String[] getProductNames() {
