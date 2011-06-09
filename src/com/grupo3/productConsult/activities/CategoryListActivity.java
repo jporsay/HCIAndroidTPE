@@ -3,18 +3,19 @@ package com.grupo3.productConsult.activities;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.grupo3.productConsult.CategoryManager;
 import com.grupo3.productConsult.R;
 
-public class CategoryListView extends ListActivity {
+public class CategoryListActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,7 +34,7 @@ public class CategoryListView extends ListActivity {
 
 				Bundle bundle = new Bundle();
 				bundle.putString("categoryPos", position + "");
-				Intent newIntent = new Intent(CategoryListView.this
+				Intent newIntent = new Intent(CategoryListActivity.this
 						.getApplicationContext(), SubCategoryListView.class);
 				newIntent.putExtras(bundle);
 				startActivityForResult(newIntent, 0);

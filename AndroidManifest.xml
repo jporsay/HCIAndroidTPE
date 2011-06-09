@@ -21,7 +21,7 @@
 		
 		<service android:name=".services.LoginService"></service>
 
-        <activity android:name=".activities.CategoryListView" 
+        <activity android:name=".activities.CategoryListActivity" 
         		  android:label="@string/categoryTitle">
         </activity>
         
