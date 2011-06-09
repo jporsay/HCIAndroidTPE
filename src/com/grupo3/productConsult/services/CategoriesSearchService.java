@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.grupo3.productConsult.Category;
+import com.grupo3.productConsult.Product;
 
 public class CategoriesSearchService {
 	// FIXME: Creo que no hace falta explicar que es lo que hay que arreglar...
@@ -30,5 +31,13 @@ public class CategoriesSearchService {
 			subCategories.add(new Category("Mystery", 4));
 		}
 		return subCategories;
+	}
+
+	public static List<Product> fetchProductsBySubcategory(int categoryId,
+			int subCategoryId) {
+		List<Product> products = new LinkedList<Product>();
+		products.add(new Product(32, "Wolverine", 19.0));
+		products.add(new Product(67, "Thinkerbell", 12.5));
+		return products;
 	}
 }
