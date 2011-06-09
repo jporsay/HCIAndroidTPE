@@ -36,5 +36,10 @@
         <activity android:name=".activities.MenuActivity"
         		androidLabel="@string/menuTitle">
         </activity>
+        
+        <activity android:name=".activities.ProductDisplayActivity" 
+        		  android:label="Products">
+        </activity>
+        
     </application>
 </manifest>

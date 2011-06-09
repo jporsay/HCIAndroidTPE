@@ -1,14 +1,22 @@
 package com.grupo3.productConsult;
 
-public class Product {
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Product implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	public final static String CURRENCY = "$";
 
 	private int id;
 	private String imgSrc;
 	private String name;
 	private double price;
+	private float salesRank;
+	private Map<String, String> properties;
 
-	// private float sales_rank;
 	// private int categoryId;
 	// private int subCategoryId;
 
@@ -16,7 +24,8 @@ public class Product {
 		this.id = id;
 		this.name = name;
 		this.price = price;
-		this.imgSrc = "poner la ruta a la imagen...";
+		this.imgSrc = "http://www.moviewallpaper.net/wpp/David_Hasselhoff_in_Baywatch_Wallpaper_1_1024.jpg";
+		properties = new HashMap<String, String>();
 	}
 
 	public String getName() {
@@ -33,5 +42,26 @@ public class Product {
 
 	public int getId() {
 		return id;
+	}
+
+	public void setInformation(String key, String value) {
+		properties.put(key, value);
+	}
+
+	public String getProperty(String key) {
+		return properties.get(key);
+	}
+
+	public void setSaleRank(float salesRank) {
+		this.salesRank = salesRank;
+	}
+
+	public float getSalesRank() {
+		return salesRank;
+	}
+
+	@Override
+	public String toString() {
+		return name + " -- Prop: " + properties.toString();
 	}
 }
