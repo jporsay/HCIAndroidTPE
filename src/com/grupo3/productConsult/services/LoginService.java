@@ -42,7 +42,11 @@ public class LoginService extends IntentService {
 		final Bundle b = new Bundle();
 		try {
 			if (command.equals(DO_LOGIN)) {
-				doLogin(receiver, b, user, password);
+				if(doLogin(receiver, b, user, password)) {
+					receiver.send(STATUS_OK, b);
+				} else {
+					receiver.send(STATUS_ERROR, b);
+				}
 			}
 		} catch (SocketTimeoutException e) {
 			Log.e(TAG, e.getMessage());
@@ -56,7 +60,7 @@ public class LoginService extends IntentService {
 		}
 	}
 	
-	private void doLogin(ResultReceiver r, Bundle b, String userName, String password)
+	private boolean doLogin(ResultReceiver r, Bundle b, String userName, String password)
 		throws IOException, ClientProtocolException {
 		
 		ServerURLGenerator security = new ServerURLGenerator("Security");
@@ -68,11 +72,21 @@ public class LoginService extends IntentService {
 		HttpResponse response = client.execute(new HttpGet(url));
 		try {
 			XMLParser xp = new XMLParser(response);
-			NodeList resp = xp.getElements("response");
-			String status = xp.getAttribute((Element) resp.item(0), "status");
+			return this.checkLogin(b, xp);
 		} catch (Exception e) {
 			
 		}
+		return false;
 		
+	}
+	
+	private boolean checkLogin(Bundle b, XMLParser xp) {
+		NodeList resp = xp.getElements("response");
+		String status = xp.getAttribute((Element) resp.item(0), "status");
+		if (status.equals("fail")) {
+			b.putString("errorMessage", xp.getAttribute((Element) xp.getElements("error").item(0), "message"));
+			return false;
+		}
+		return true;
 	}
 }

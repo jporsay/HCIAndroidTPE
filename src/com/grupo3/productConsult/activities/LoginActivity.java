@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.LoginService;
@@ -35,9 +37,17 @@ public class LoginActivity extends Activity {
 				super.onReceiveResult(resultCode, resultData);
 				switch (resultCode) {
 					case LoginService.STATUS_OK:
+						Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
 					break;
 					
 					case LoginService.STATUS_CONNECTION_ERROR:
+					break;
+					
+					case LoginService.STATUS_ERROR:
+						if (resultData.containsKey("errorMessage")) {
+							String errorMessage = resultData.getString("errorMessage");
+							Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+						}
 					break;
 					
 					default:
