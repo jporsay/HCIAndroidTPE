@@ -15,7 +15,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.LoginActivity" android:label="@string/loginText"></activity>
+        <activity android:name=".activities.LoginActivity" 
+        	android:label="@string/loginText">
+        </activity>
+		
 		<service android:name=".services.LoginService"></service>
+
+        <activity android:name=".activities.CategoryListView" 
+        		  android:label="@string/categoryTitle">
+        </activity>
+        
+        <activity android:name=".activities.SubCategoryListView" 
+        		  android:label="@string/subCategoryTitle">
+        </activity>
+        
     </application>
 </manifest>
