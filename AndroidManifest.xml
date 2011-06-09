@@ -29,5 +29,8 @@
         		  android:label="@string/subCategoryTitle">
         </activity>
         
+        <activity android:name=".activities.ProductListView" 
+        		  android:label="Products">
+        </activity>
     </application>
 </manifest>
