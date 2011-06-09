@@ -1,8 +1,8 @@
 package com.grupo3.productConsult.activities;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,11 +20,11 @@ public class SubCategoryListView extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		Bundle recdData = getIntent().getExtras();
-		int pos = Integer.parseInt(recdData.getString("categoryPos"));
+		final int catPos = Integer.parseInt(recdData.getString("categoryPos"));
 
 		CategoryManager catManager = CategoryManager.getInstance();
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-				catManager.getSubCategoryNames(pos)));
+				catManager.getSubCategoryNames(catPos)));
 
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
@@ -34,6 +34,15 @@ public class SubCategoryListView extends ListActivity {
 				CharSequence text = ((TextView) view).getText();
 				Toast.makeText(getApplicationContext(), text,
 						Toast.LENGTH_SHORT).show();
+				
+				Intent newIntent = new Intent(SubCategoryListView.this
+						.getApplicationContext(), ProductListView.class);
+
+				Bundle bundle = new Bundle();
+				bundle.putString("categoryPos", catPos + "");
+				bundle.putString("subCategoryPos", position + "");
+				newIntent.putExtras(bundle);
+				startActivityForResult(newIntent, 0);
 			}
 		});
 	}
