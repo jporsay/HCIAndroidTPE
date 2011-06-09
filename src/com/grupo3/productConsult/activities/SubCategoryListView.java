@@ -35,14 +35,14 @@ public class SubCategoryListView extends ListActivity {
 				Toast.makeText(getApplicationContext(), text,
 						Toast.LENGTH_SHORT).show();
 				
-				//Intent newIntent = new Intent(SubCategoryListView.this
-				//		.getApplicationContext(), ProductListView.class);
+				Intent newIntent = new Intent(SubCategoryListView.this
+						.getApplicationContext(), ProductListView.class);
 
 				Bundle bundle = new Bundle();
 				bundle.putString("categoryPos", catPos + "");
 				bundle.putString("subCategoryPos", position + "");
-				//newIntent.putExtras(bundle);
-				//startActivityForResult(newIntent, 0);
+				newIntent.putExtras(bundle);
+				startActivityForResult(newIntent, 0);
 			}
 		});
 	}
