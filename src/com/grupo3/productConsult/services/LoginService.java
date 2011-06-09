@@ -3,19 +3,12 @@ package com.grupo3.productConsult.services;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.DefaultHandler;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -24,6 +17,7 @@ import android.os.ResultReceiver;
 import android.util.Log;
 
 import com.grupo3.productConsult.utilities.ServerURLGenerator;
+import com.grupo3.productConsult.utilities.XMLParser;
 
 public class LoginService extends IntentService {
 
@@ -70,55 +64,15 @@ public class LoginService extends IntentService {
 		security.addParameter("username", userName);
 		security.addParameter("password", password);
 		String url = security.getFullUrl();
-		final DefaultHttpClient client = new DefaultHttpClient();
-		final HttpResponse response = client.execute(new HttpGet(url));
+		DefaultHttpClient client = new DefaultHttpClient();
+		HttpResponse response = client.execute(new HttpGet(url));
 		try {
-		SAXParserFactory spf = SAXParserFactory.newInstance();
-		SAXParser sp = spf.newSAXParser();
-		XMLReader xr = sp.getXMLReader();
-		xr.setContentHandler(new XMLHandler());
-		xr.parse(new InputSource(response.getEntity().getContent()));
-		} catch (ParserConfigurationException e) {
-			
-		} catch (SAXException e) {
-			
-		} catch (IOException e) {
+			XMLParser xp = new XMLParser(response);
+			NodeList resp = xp.getElements("response");
+			String status = xp.getAttribute((Element) resp.item(0), "status");
+		} catch (Exception e) {
 			
 		}
-	}
-	
-	private class XMLHandler extends DefaultHandler {
-		@Override
-		public void startDocument() throws SAXException {
-			// TODO Auto-generated method stub
-			super.startDocument();
-		}
 		
-		@Override
-		public void endDocument() throws SAXException {
-			// TODO Auto-generated method stub
-			super.endDocument();
-		}
-		
-		@Override
-		public void startElement(String uri, String localName, String qName,
-				Attributes attributes) throws SAXException {
-			// TODO Auto-generated method stub
-			super.startElement(uri, localName, qName, attributes);
-		}
-		
-		@Override
-		public void characters(char[] ch, int start, int length)
-				throws SAXException {
-			// TODO Auto-generated method stub
-			super.characters(ch, start, length);
-		}
-		
-		@Override
-		public void endElement(String uri, String localName, String qName)
-				throws SAXException {
-			// TODO Auto-generated method stub
-			super.endElement(uri, localName, qName);
-		}
 	}
 }
