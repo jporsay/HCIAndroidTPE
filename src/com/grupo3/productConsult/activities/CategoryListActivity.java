@@ -41,11 +41,11 @@ public class CategoryListActivity extends ListActivity {
 		});
 	}
 
-	private void loadSubCategory(final int index) {
+	private void loadSubCategory(final int catIndex) {
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				CategoriesSearchService.class);
 		intent.putExtra("command", CategoriesSearchService.LOAD_SUBCATEGORIES);
-		int catId = CategoryManager.getInstance().getCategoryList().get(index)
+		int catId = CategoryManager.getInstance().getCategoryList().get(catIndex)
 				.getId();
 		intent.putExtra("subCategoryId", catId + "");
 		intent.putExtra("receiver", new ResultReceiver(new Handler()) {
@@ -57,12 +57,12 @@ public class CategoryListActivity extends ListActivity {
 				case CategoriesSearchService.STATUS_SUCCESS:
 					List<Category> subCategories = (List<Category>) resultData
 							.getSerializable("subCategories");
-					CategoryManager.getInstance().saveSubCategories(index,
+					CategoryManager.getInstance().saveSubCategories(catIndex,
 							subCategories);
 					Intent intent = new Intent(CategoryListActivity.this,
 							SubCategoryListActivity.class);
 					Bundle b = new Bundle();
-					b.putString("categoryPos", index + "");
+					b.putString("categoryPos", catIndex + "");
 					intent.putExtras(b);
 					startActivity(intent);
 					break;

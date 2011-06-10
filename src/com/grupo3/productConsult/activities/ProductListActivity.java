@@ -24,9 +24,13 @@ public class ProductListActivity extends ListActivity {
 
 	private List<Product> currList;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		Bundle recdData = getIntent().getExtras();
+		currList = (List<Product>) recdData.getSerializable("products");
 
 		String[] products = getProductNames();
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
@@ -50,28 +54,12 @@ public class ProductListActivity extends ListActivity {
 	}
 
 	private String[] getProductNames() {
-		Bundle recdData = getIntent().getExtras();
-		int catPos = Integer.parseInt(recdData.getString("categoryPos"));
-		int subCatPos = Integer.parseInt(recdData.getString("subCategoryPos"));
-
-		CategoryManager catManager;
-		try {
-			catManager = CategoryManager.getInstance();
-			Category slectedCat = catManager.getCategoryList().get(catPos);
-			int catId = slectedCat.getId();
-			int subCatId = slectedCat.getSubCategories().get(subCatPos).getId();
-			currList = CategoriesSearchService.fetchProductsBySubcategory(
-					catId, subCatId);
-			String[] names = new String[currList.size()];
-			int i = 0;
-			for (Product c : currList) {
-				names[i++] = c.getName() + "  " + Product.CURRENCY + " "
-						+ c.getPrice();
-			}
-			return names;
-		} catch (ClientProtocolException e) {
-		} catch (IOException e) {
+		String[] names = new String[currList.size()];
+		int i = 0;
+		for (Product c : currList) {
+			names[i++] = c.getName() + "  " + Product.CURRENCY + " "
+					+ c.getPrice();
 		}
-		return null;
+		return names;
 	}
 }

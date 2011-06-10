@@ -19,7 +19,6 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.util.Log;
 
 import com.grupo3.productConsult.Category;
 import com.grupo3.productConsult.Product;
@@ -31,6 +30,8 @@ public class CategoriesSearchService extends IntentService {
 
 	public static final String LOAD_CATEGORIES = "1";
 	public static final String LOAD_SUBCATEGORIES = "2";
+	public static final String LOAD_PRODUCTS_BY_SUBCATEGORY = "3";
+	public static final String LOAD_PRODUCT = "3";
 
 	public static final int STATUS_ERROR = 0;
 	public static final int STATUS_SUCCESS = 1;
@@ -199,25 +200,33 @@ public class CategoriesSearchService extends IntentService {
 		ResultReceiver receiver = intent.getParcelableExtra("receiver");
 		String command = intent.getStringExtra("command");
 		Bundle bundle = new Bundle();
-		if (LOAD_CATEGORIES.equals(command)) {
-			try {
+		try {
+			if (LOAD_CATEGORIES.equals(command)) {
 				categories = fetchCategories();
 				bundle.putSerializable("categories", (Serializable) categories);
-				receiver.send(STATUS_SUCCESS, bundle);
-			} catch (Exception e) {
-				receiver.send(STATUS_ERROR, bundle);
-			}
-		} else if (LOAD_SUBCATEGORIES.equals(command)) {
-			try {
+			} else if (LOAD_SUBCATEGORIES.equals(command)) {
 				int id = Integer.parseInt(intent
 						.getStringExtra("subCategoryId"));
 				categories = fetchSubCategories(id);
 				bundle.putSerializable("subCategories",
 						(Serializable) categories);
-				receiver.send(STATUS_SUCCESS, bundle);
-			} catch (Exception e) {
-				receiver.send(STATUS_ERROR, bundle);
+			} else if (LOAD_PRODUCTS_BY_SUBCATEGORY.equals(command)) {
+				int catId = Integer.parseInt(intent
+						.getStringExtra("categoryId"));
+				int subCatId = Integer.parseInt(intent
+						.getStringExtra("subCategoryId"));
+				List<Product> products = fetchProductsBySubcategory(catId,
+						subCatId);
+				bundle.putSerializable("products", (Serializable) products);
+			} else if (LOAD_PRODUCT.equals(command)) {
+				int prodId = Integer.parseInt(intent
+						.getStringExtra("productId"));
+				Product p = fetchProduct(prodId);
+				bundle.putSerializable("product", p);
 			}
+			receiver.send(STATUS_SUCCESS, bundle);
+		} catch (Exception e) {
+			receiver.send(STATUS_ERROR, bundle);
 		}
 	}
 }

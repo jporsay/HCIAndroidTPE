@@ -1,11 +1,6 @@
 package com.grupo3.productConsult;
 
-import java.io.IOException;
 import java.util.List;
-
-import org.apache.http.client.ClientProtocolException;
-
-import com.grupo3.productConsult.services.CategoriesSearchService;
 
 public class CategoryManager {
 	private static CategoryManager instance = null;
@@ -25,13 +20,8 @@ public class CategoryManager {
 		return getNames(categoryList);
 	}
 
-	public String[] getSubCategoryNames(int index)
-			throws ClientProtocolException, IOException {
+	public String[] getSubCategoryNames(int index) {
 		Category c = categoryList.get(index);
-		if (c.getSubCategories().isEmpty()) {
-			int id = c.getId();
-			c.setSubCategories(CategoriesSearchService.fetchSubCategories(id));
-		}
 		return getNames(c.getSubCategories());
 	}
 
@@ -47,8 +37,6 @@ public class CategoryManager {
 	public List<Category> getCategoryList() {
 		return categoryList;
 	}
-
-	// ------------------------------------------
 
 	public void saveCategoryList(List<Category> categories) {
 		this.categoryList = categories;
