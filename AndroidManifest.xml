@@ -42,6 +42,7 @@
         <service android:name=".services.LoginService"></service>
 		<service android:name=".services.RefreshOrdersService"></service>
         <service android:name=".services.CategoriesSearchService"></service>
+        <service android:name=".services.OrderCategoriesListService"></service>
         
     </application>
 </manifest>

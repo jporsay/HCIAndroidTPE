@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.LoginService;
+import com.grupo3.productConsult.services.OrderCategoriesListService;
 import com.grupo3.productConsult.services.RefreshOrdersService;
 
 public class MenuActivity extends Activity {
@@ -60,7 +61,7 @@ public class MenuActivity extends Activity {
 	}
 	
 	public void doViewOrders(View button) {
-		
-		
+		Intent intent = new Intent(MenuActivity.this, OrderCategoriesListService.class);
+		startService(intent);
 	}
 }
