@@ -22,8 +22,8 @@ public class SubCategoryListActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Bundle recdData = getIntent().getExtras();
-		final int catPos = Integer.parseInt(recdData.getString("categoryPos"));
+		Bundle data = getIntent().getExtras();
+		final int catPos = Integer.parseInt(data.getString("categoryPos"));
 
 		try {
 			CategoryManager catManager = CategoryManager.getInstance();

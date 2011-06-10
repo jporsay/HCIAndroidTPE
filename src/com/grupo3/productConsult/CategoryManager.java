@@ -53,4 +53,8 @@ public class CategoryManager {
 	public void saveCategoryList(List<Category> categories) {
 		this.categoryList = categories;
 	}
+
+	public void saveSubCategories(int index, List<Category> subCategories) {
+		categoryList.get(index).setSubCategories(subCategories);
+	}
 }

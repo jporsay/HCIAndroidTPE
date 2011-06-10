@@ -195,14 +195,25 @@ public class CategoriesSearchService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
+		List<Category> categories;
 		ResultReceiver receiver = intent.getParcelableExtra("receiver");
 		String command = intent.getStringExtra("command");
 		Bundle bundle = new Bundle();
 		if (LOAD_CATEGORIES.equals(command)) {
 			try {
-				List<Category> categories = fetchCategories();
-				Log.d("categorias", categories.toString());
+				categories = fetchCategories();
 				bundle.putSerializable("categories", (Serializable) categories);
+				receiver.send(STATUS_SUCCESS, bundle);
+			} catch (Exception e) {
+				receiver.send(STATUS_ERROR, bundle);
+			}
+		} else if (LOAD_SUBCATEGORIES.equals(command)) {
+			try {
+				int id = Integer.parseInt(intent
+						.getStringExtra("subCategoryId"));
+				categories = fetchSubCategories(id);
+				bundle.putSerializable("subCategories",
+						(Serializable) categories);
 				receiver.send(STATUS_SUCCESS, bundle);
 			} catch (Exception e) {
 				receiver.send(STATUS_ERROR, bundle);
