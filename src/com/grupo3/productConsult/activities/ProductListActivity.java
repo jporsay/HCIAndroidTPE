@@ -51,7 +51,7 @@ public class ProductListActivity extends ListActivity {
 	private String[] getProductNames() {
 		Bundle recdData = getIntent().getExtras();
 		int catPos = Integer.parseInt(recdData.getString("categoryPos"));
-		int subCatPos = Integer.parseInt(recdData.getString("categoryPos"));
+		int subCatPos = Integer.parseInt(recdData.getString("subCategoryPos"));
 
 		CategoryManager catManager;
 		try {
