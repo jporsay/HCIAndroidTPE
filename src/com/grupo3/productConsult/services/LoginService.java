@@ -34,12 +34,12 @@ public class LoginService extends IntentService {
 	}
 
 	@Override
-	protected void onHandleIntent(final Intent intent) {
-		final ResultReceiver receiver = intent.getParcelableExtra("receiver");
-		final String command = intent.getStringExtra("command");
-		final String user = intent.getStringExtra("username");
-		final String password = intent.getStringExtra("password");
-		final Bundle b = new Bundle();
+	protected void onHandleIntent(Intent intent) {
+		ResultReceiver receiver = intent.getParcelableExtra("receiver");
+		String command = intent.getStringExtra("command");
+		String user = intent.getStringExtra("username");
+		String password = intent.getStringExtra("password");
+		Bundle b = new Bundle();
 		try {
 			if (command.equals(DO_LOGIN)) {
 				if(doLogin(receiver, b, user, password)) {
@@ -74,19 +74,17 @@ public class LoginService extends IntentService {
 			XMLParser xp = new XMLParser(response);
 			return this.checkLogin(b, xp);
 		} catch (Exception e) {
-			
 		}
 		return false;
 		
 	}
 	
 	private boolean checkLogin(Bundle b, XMLParser xp) {
-		NodeList resp = xp.getElements("response");
-		String status = xp.getAttribute((Element) resp.item(0), "status");
-		if (status.equals("fail")) {
-			b.putString("errorMessage", xp.getAttribute((Element) xp.getElements("error").item(0), "message"));
+		if (xp.getErrorMessage() != null) {
+			b.putString("errorMessage", xp.getErrorMessage());
 			return false;
 		}
+		b.putString("authToken", xp.getStringFromSingleElement("token"));
 		return true;
 	}
 }

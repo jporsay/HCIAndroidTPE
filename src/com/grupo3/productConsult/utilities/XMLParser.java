@@ -18,6 +18,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import android.util.Log;
+
 public class XMLParser {
 	private Document xml;
 	
@@ -50,6 +52,24 @@ public class XMLParser {
 	
 	public NamedNodeMap getAttributes(Element e) {
 		return e.getAttributes();
+	}
+	
+	public String getErrorMessage() {
+		if (!this.serverOk()) {
+			return this.getAttribute((Element) this.getElements("error").item(0), "message");
+		}
+		return null;
+	}
+	
+	public boolean serverOk() {
+		NodeList resp = this.getElements("response");
+		String status = this.getAttribute((Element) resp.item(0), "status");
+		return !status.equals("fail");
+	}
+	
+	public String getStringFromSingleElement(String tag) {
+		Element e = (Element) this.xml.getElementsByTagName(tag).item(0);
+		return e.getFirstChild().getNodeValue();
 	}
 	
 	public String getAttribute(Element element, String attribute) {
