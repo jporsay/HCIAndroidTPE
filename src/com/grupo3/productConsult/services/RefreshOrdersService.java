@@ -2,22 +2,35 @@ package com.grupo3.productConsult.services;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 
+import com.grupo3.productConsult.R;
+import com.grupo3.productConsult.activities.MenuActivity;
+import com.grupo3.productConsult.utilities.Order;
 import com.grupo3.productConsult.utilities.ServerURLGenerator;
 import com.grupo3.productConsult.utilities.XMLParser;
 
@@ -26,11 +39,15 @@ public class RefreshOrdersService extends IntentService {
 	public static final int STATUS_ERROR = -1;
 	public static final int STATUS_CONNECTION_ERROR = -2;
 	public static final int STATUS_OK = 0;
+	private static final int ZFNOTIFICATION_ID = 1;
+	
 	private TimerTask tTask;
 	private String url;
+	private List<Order> oList;
 	
 	public RefreshOrdersService() {
 		super("RefreshOrdersService");
+		this.oList = new ArrayList<Order>();
 	}
 
 	@Override
@@ -43,11 +60,11 @@ public class RefreshOrdersService extends IntentService {
 		this.tTask = new TimerTask() {
 			public void run() {
 				try {
+					Log.d("RefreshOrdersService", "Run");
 					if(getOrderInfo(receiver, b, userName, authToken)) {
-						receiver.send(STATUS_OK, b);
-					} else {
-						receiver.send(STATUS_ERROR, b);
+						b.putString("updated", "yes");
 					}
+					receiver.send(STATUS_OK, b);
 				} catch (SocketTimeoutException e) {
 					Log.e(TAG, e.getMessage());
 					receiver.send(STATUS_CONNECTION_ERROR, b);
@@ -61,6 +78,27 @@ public class RefreshOrdersService extends IntentService {
 		timer.scheduleAtFixedRate(this.tTask, new Date(), 1000);
 	}
 	
+	private void createNotification() {
+		String ns = Context.NOTIFICATION_SERVICE;
+		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
+		
+		int icon = R.drawable.icon;
+		CharSequence tickerText = "Hello";
+		long when = System.currentTimeMillis();
+
+		Notification notification = new Notification(icon, tickerText, when);
+		
+		Context context = getApplicationContext();
+		CharSequence contentTitle = "My notification";
+		CharSequence contentText = "Hello World!";
+		Intent notificationIntent = new Intent(this, MenuActivity.class); //TODO use correct class
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+		
+		mNotificationManager.notify(ZFNOTIFICATION_ID, notification);
+	}
+	
 	private boolean getOrderInfo(ResultReceiver receiver, Bundle b, String username, String token) throws
 		ClientProtocolException, IOException, SocketTimeoutException {
 
@@ -68,22 +106,69 @@ public class RefreshOrdersService extends IntentService {
 		order.addParameter("method", "GetOrderList");
 		order.addParameter("username", username);
 		order.addParameter("authentication_token", token);
-		String url = order.getFullUrl();
-		DefaultHttpClient client = new DefaultHttpClient();
-		HttpResponse response = client.execute(new HttpGet(url));
-		try {
-			XMLParser xp = new XMLParser(response);
-			return this.parseOrderResponse(b, xp);
-		} catch (Exception e) {
+		HttpResponse response = order.getServerResponse();
+			try {
+				XMLParser xp;
+				xp = new XMLParser(response);
+				List<Order> newOrders = this.parseOrderResponse(b, xp);
+				if (newOrders == null) {
+					return false;
+				}
+				if(this.compareWithOldOrders(newOrders)) {
+					this.oList = newOrders;
+					return true;
+				}
+				return false;
+			} catch (ParseException e) {
+				Log.d("parse error", e.getMessage());
+			} catch (ParserConfigurationException e) {
+				Log.d("parse error", e.getMessage());
+			} catch (SAXException e) {
+				Log.d("parse error", e.getMessage());
+			}
+			return false;
+	}
+	
+	private boolean compareWithOldOrders(List<Order> old) {
+		if (old.size() != this.oList.size()) {
+			return true;
+		} else {
+			for (int i = 0; i < old.size(); i++) {
+				for (int j = 0; j < this.oList.size(); j++) {
+					Order oi = old.get(i);
+					Order oj = this.oList.get(j);
+					if (oi.getId().equals(oj.getId())) {
+						if (!(oi.getLatitude().equals(oj.getLatitude()) &&
+							oi.getLongitude().equals(oj.getLongitude()) &&
+							oi.getStatus().equals(oj.getStatus()))) {
+							return true;
+						}
+					}
+				}
+			}
 		}
 		return false;
 	}
 	
-	private boolean parseOrderResponse(Bundle b, XMLParser xp) {
+	private List<Order> parseOrderResponse(Bundle b, XMLParser xp) {
 		if (xp.getErrorMessage() != null) {
 			b.putString("errorMessage", xp.getErrorMessage());
-			return false;
+			return null;
 		}
-		return true;
+		NodeList orders = xp.getElements("order");
+		List<Order> orderList = new ArrayList<Order>();
+		for (int i = 0; i < orders.getLength(); i++) {
+			this.fillOrderData(orderList, orders.item(i), xp);
+		}
+		return orderList;
+	}
+	
+	private void fillOrderData(List<Order> oList, Node order, XMLParser xp) {
+		Order o = new Order();
+		o.setId(xp.getAttribute((Element) order, "id"));
+		o.setLatitude(xp.getStringFromSingleElement("latitude", (Element) order));
+		o.setLongitude(xp.getStringFromSingleElement("longitude", (Element) order));
+		o.setStatus(xp.getStringFromSingleElement("status", (Element) order));
+		oList.add(o);
 	}
 }
