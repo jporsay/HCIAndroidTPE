@@ -11,20 +11,22 @@ import com.grupo3.productConsult.R;
 public class SplashActivity extends Activity {
 	private static final int STOP = 0;
 	private static final int TIME_TO_WAIT_IN_MS = 2000;
-	
+
 	private Handler splashHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-				case SplashActivity.STOP:
-					Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-					startActivity(intent);
-					SplashActivity.this.finish();
-					break;
+			case SplashActivity.STOP:
+				Intent intent = new Intent(SplashActivity.this,
+						LoginActivity.class);
+				startActivity(intent);
+				SplashActivity.this.finish();
+				break;
 			}
 			super.handleMessage(msg);
 		}
 	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

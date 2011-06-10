@@ -74,7 +74,7 @@ public class RefreshOrdersService extends IntentService {
 							order = b.getInt("orderId");
 						}
 						if (!me.first) {
-						me.createNotification(order);
+							me.createNotification(order);
 						} else {
 							me.first = false;
 						}
@@ -91,9 +91,10 @@ public class RefreshOrdersService extends IntentService {
 			};
 		};
 		this.tTask.run();
-		timer.scheduleAtFixedRate(this.tTask, new Date(), 1000 * REFRESH_RATE_IN_SECONDS);
+		timer.scheduleAtFixedRate(this.tTask, new Date(),
+				1000 * REFRESH_RATE_IN_SECONDS);
 	}
-	
+
 	private void createNotification(Integer order) {
 		String langId = PhoneUtils.getLanguageId();
 		String ns = Context.NOTIFICATION_SERVICE;
@@ -108,11 +109,12 @@ public class RefreshOrdersService extends IntentService {
 		long when = System.currentTimeMillis();
 
 		Notification notification = new Notification(icon, tickerText, when);
-		
+
 		Context context = getApplicationContext();
 		CharSequence contentTitle;
 		CharSequence contentText;
-		Intent notificationIntent = new Intent(this, MenuActivity.class); //TODO use correct class
+		// TODO use correct class
+		Intent notificationIntent = new Intent(this, MenuActivity.class);
 		if (langId.equals(PhoneUtils.ENGLISH)) {
 			contentTitle = "Order changed";
 		} else {
@@ -122,53 +124,56 @@ public class RefreshOrdersService extends IntentService {
 			if (langId.equals(PhoneUtils.ENGLISH)) {
 				contentText = "Order " + order + " has been updated";
 			} else {
-				contentText = "La îrden " + order + " ha sido actualizada";
+				contentText = "La ï¿½rden " + order + " ha sido actualizada";
 			}
 			notificationIntent.putExtra("orderId", order);
 		} else {
 			if (langId.equals(PhoneUtils.ENGLISH)) {
 				contentText = "An order has been created or deleted";
 			} else {
-				contentText = "Se ha creado o borrado una —rden";
+				contentText = "Se ha creado o borrado una ï¿½rden";
 			}
 		}
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+				notificationIntent, 0);
 
-		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-		
+		notification.setLatestEventInfo(context, contentTitle, contentText,
+				contentIntent);
+
 		mNotificationManager.notify(ZFNOTIFICATION_ID, notification);
 	}
-	
-	private boolean getOrderInfo(ResultReceiver receiver, Bundle b, String username, String token) throws
-		ClientProtocolException, IOException, SocketTimeoutException {
+
+	private boolean getOrderInfo(ResultReceiver receiver, Bundle b,
+			String username, String token) throws ClientProtocolException,
+			IOException, SocketTimeoutException {
 
 		ServerURLGenerator order = new ServerURLGenerator("Order");
 		order.addParameter("method", "GetOrderList");
 		order.addParameter("username", username);
 		order.addParameter("authentication_token", token);
 		HttpResponse response = order.getServerResponse();
-			try {
-				XMLParser xp;
-				xp = new XMLParser(response);
-				List<Order> newOrders = this.parseOrderResponse(b, xp);
-				if (newOrders == null) {
-					return false;
-				}
-				if(this.compareWithOldOrders(newOrders, b)) {
-					RefreshOrdersService.oList = newOrders;
-					return true;
-				}
+		try {
+			XMLParser xp;
+			xp = new XMLParser(response);
+			List<Order> newOrders = this.parseOrderResponse(b, xp);
+			if (newOrders == null) {
 				return false;
-			} catch (ParseException e) {
-				Log.d("parse error", e.getMessage());
-			} catch (ParserConfigurationException e) {
-				Log.d("parse error", e.getMessage());
-			} catch (SAXException e) {
-				Log.d("parse error", e.getMessage());
+			}
+			if (this.compareWithOldOrders(newOrders, b)) {
+				RefreshOrdersService.oList = newOrders;
+				return true;
 			}
 			return false;
+		} catch (ParseException e) {
+			Log.d("parse error", e.getMessage());
+		} catch (ParserConfigurationException e) {
+			Log.d("parse error", e.getMessage());
+		} catch (SAXException e) {
+			Log.d("parse error", e.getMessage());
+		}
+		return false;
 	}
-	
+
 	private boolean compareWithOldOrders(List<Order> old, Bundle b) {
 		if (old.size() != RefreshOrdersService.oList.size()) {
 			return true;
@@ -178,9 +183,9 @@ public class RefreshOrdersService extends IntentService {
 					Order oi = old.get(i);
 					Order oj = RefreshOrdersService.oList.get(j);
 					if (oi.getId().equals(oj.getId())) {
-						if (!(oi.getLatitude().equals(oj.getLatitude()) &&
-							oi.getLongitude().equals(oj.getLongitude()) &&
-							oi.getStatus().equals(oj.getStatus()))) {
+						if (!(oi.getLatitude().equals(oj.getLatitude())
+								&& oi.getLongitude().equals(oj.getLongitude()) && oi
+								.getStatus().equals(oj.getStatus()))) {
 							b.putInt("orderId", new Integer(oi.getId()));
 							return true;
 						}
@@ -190,7 +195,7 @@ public class RefreshOrdersService extends IntentService {
 		}
 		return false;
 	}
-	
+
 	private List<Order> parseOrderResponse(Bundle b, XMLParser xp) {
 		if (xp.getErrorMessage() != null) {
 			b.putString("errorMessage", xp.getErrorMessage());
@@ -203,12 +208,14 @@ public class RefreshOrdersService extends IntentService {
 		}
 		return orderList;
 	}
-	
+
 	private void fillOrderData(List<Order> oList, Node order, XMLParser xp) {
 		Order o = new Order();
 		o.setId(xp.getAttribute((Element) order, "id"));
-		o.setLatitude(xp.getStringFromSingleElement("latitude", (Element) order));
-		o.setLongitude(xp.getStringFromSingleElement("longitude", (Element) order));
+		o.setLatitude(xp
+				.getStringFromSingleElement("latitude", (Element) order));
+		o.setLongitude(xp.getStringFromSingleElement("longitude",
+				(Element) order));
 		o.setStatus(xp.getStringFromSingleElement("status", (Element) order));
 		oList.add(o);
 	}

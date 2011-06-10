@@ -1,9 +1,5 @@
 package com.grupo3.productConsult.activities;
 
-import java.io.IOException;
-
-import org.apache.http.client.ClientProtocolException;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,32 +17,27 @@ import com.grupo3.productConsult.R;
 public class CategoryListActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		try {
-			super.onCreate(savedInstanceState);
-			CategoryManager catManager = CategoryManager.getInstance();
-			setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-					catManager.getCategoryNames()));
+		super.onCreate(savedInstanceState);
+		CategoryManager catManager = CategoryManager.getInstance();
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
+				catManager.getCategoryNames()));
 
-			ListView lv = getListView();
-			lv.setTextFilterEnabled(true);
-			lv.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					CharSequence text = ((TextView) view).getText();
-					Toast.makeText(getApplicationContext(), text,
-							Toast.LENGTH_SHORT).show();
+		ListView lv = getListView();
+		lv.setTextFilterEnabled(true);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				CharSequence text = ((TextView) view).getText();
+				Toast.makeText(getApplicationContext(), text,
+						Toast.LENGTH_SHORT).show();
 
-					Bundle bundle = new Bundle();
-					bundle.putString("categoryPos", position + "");
-					Intent newIntent = new Intent(CategoryListActivity.this
-							.getApplicationContext(),
-							SubCategoryListActivity.class);
-					newIntent.putExtras(bundle);
-					startActivity(newIntent);
-				}
-			});
-		} catch (ClientProtocolException e) {
-		} catch (IOException e) {
-		}
+				Bundle bundle = new Bundle();
+				bundle.putString("categoryPos", position + "");
+				Intent newIntent = new Intent(CategoryListActivity.this
+						.getApplicationContext(), SubCategoryListActivity.class);
+				newIntent.putExtras(bundle);
+				startActivity(newIntent);
+			}
+		});
 	}
 }

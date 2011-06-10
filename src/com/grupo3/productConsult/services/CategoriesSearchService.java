@@ -1,6 +1,7 @@
 package com.grupo3.productConsult.services;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +17,9 @@ import org.xml.sax.SAXException;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.ResultReceiver;
+import android.util.Log;
 
 import com.grupo3.productConsult.Category;
 import com.grupo3.productConsult.Product;
@@ -25,17 +29,17 @@ import com.grupo3.productConsult.utilities.XMLParser;
 
 public class CategoriesSearchService extends IntentService {
 
+	public static final String LOAD_CATEGORIES = "1";
+	public static final String LOAD_SUBCATEGORIES = "2";
+
+	public static final int STATUS_ERROR = 0;
+	public static final int STATUS_SUCCESS = 1;
+
 	private static ServerURLGenerator catalogServer = new ServerURLGenerator(
 			"Catalog");
-	private static ServerURLGenerator commonServer = new ServerURLGenerator(
-			"Common");
-	private static ServerURLGenerator securityServer = new ServerURLGenerator(
-			"Security");
-	private static ServerURLGenerator orderServer = new ServerURLGenerator(
-			"Order");
 
-	public CategoriesSearchService(String name) {
-		super(name);
+	public CategoriesSearchService() {
+		super("CategoriesSearchService");
 	}
 
 	public static List<Category> fetchCategories()
@@ -191,6 +195,18 @@ public class CategoriesSearchService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-
+		ResultReceiver receiver = intent.getParcelableExtra("receiver");
+		String command = intent.getStringExtra("command");
+		Bundle bundle = new Bundle();
+		if (LOAD_CATEGORIES.equals(command)) {
+			try {
+				List<Category> categories = fetchCategories();
+				Log.d("categorias", categories.toString());
+				bundle.putSerializable("categories", (Serializable) categories);
+				receiver.send(STATUS_SUCCESS, bundle);
+			} catch (Exception e) {
+				receiver.send(STATUS_ERROR, bundle);
+			}
+		}
 	}
 }

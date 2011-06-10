@@ -30,6 +30,7 @@ public class ServerURLGenerator {
 		return this.url.concat(this.argsToString());
 	}
 
+	@SuppressWarnings("unchecked")
 	private String argsToString() {
 		String out = "";
 		Boolean first = true;
