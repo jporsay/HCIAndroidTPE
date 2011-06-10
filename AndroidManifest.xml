@@ -19,26 +19,26 @@
         	android:label="@string/loginText">
         </activity>
 		
+		<activity android:name=".activities.MenuActivity"
+        		androidLabel="@string/menuTitle">
+        </activity>
+        
 		<service android:name=".services.LoginService"></service>
 
         <activity android:name=".activities.CategoryListActivity" 
         		  android:label="@string/categoryTitle">
         </activity>
         
-        <activity android:name=".activities.SubCategoryListView" 
+        <activity android:name=".activities.SubCategoryListActivity" 
         		  android:label="@string/subCategoryTitle">
         </activity>
         
-        <activity android:name=".activities.ProductListView" 
+        <activity android:name=".activities.ProductListActivity" 
         		  android:label="Products">
-        </activity>
-        
-        <activity android:name=".activities.MenuActivity"
-        		androidLabel="@string/menuTitle">
         </activity>
         
         <activity android:name=".activities.ProductDisplayActivity" 
-        		  android:label="Products">
+        		  android:label="Product">
         </activity>
         
     </application>

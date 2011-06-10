@@ -17,7 +17,7 @@ import com.grupo3.productConsult.Product;
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.CategoriesSearchService;
 
-public class ProductListView extends ListActivity {
+public class ProductListActivity extends ListActivity {
 
 	private List<Product> currList;
 
@@ -34,7 +34,7 @@ public class ProductListView extends ListActivity {
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent newIntent = new Intent(ProductListView.this
+				Intent newIntent = new Intent(ProductListActivity.this
 						.getApplicationContext(), ProductDisplayActivity.class);
 
 				Bundle bundle = new Bundle();

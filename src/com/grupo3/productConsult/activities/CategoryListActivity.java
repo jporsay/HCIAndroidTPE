@@ -3,14 +3,13 @@ package com.grupo3.productConsult.activities;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.grupo3.productConsult.CategoryManager;
 import com.grupo3.productConsult.R;
@@ -35,9 +34,9 @@ public class CategoryListActivity extends ListActivity {
 				Bundle bundle = new Bundle();
 				bundle.putString("categoryPos", position + "");
 				Intent newIntent = new Intent(CategoryListActivity.this
-						.getApplicationContext(), SubCategoryListView.class);
+						.getApplicationContext(), SubCategoryListActivity.class);
 				newIntent.putExtras(bundle);
-				startActivityForResult(newIntent, 0);
+				startActivity(newIntent);
 			}
 		});
 	}
