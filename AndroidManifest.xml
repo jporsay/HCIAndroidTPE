@@ -23,9 +23,6 @@
         		androidLabel="@string/menuTitle">
         </activity>
         
-		<service android:name=".services.LoginService"></service>
-		<service android:name=".services.RefreshOrdersService"></service>
-		
         <activity android:name=".activities.CategoryListActivity" 
         		  android:label="@string/categoryTitle">
         </activity>
@@ -41,6 +38,10 @@
         <activity android:name=".activities.ProductDisplayActivity" 
         		  android:label="Product">
         </activity>
+        
+        <service android:name=".services.LoginService"></service>
+		<service android:name=".services.RefreshOrdersService"></service>
+        <service android:name=".services.CategoriesSearchService"></service>
         
     </application>
 </manifest>
