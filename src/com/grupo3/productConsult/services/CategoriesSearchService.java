@@ -120,6 +120,75 @@ public class CategoriesSearchService extends IntentService {
 		return new Product(id, name, price);
 	}
 
+	public static Product fetchProduct(int productId)
+			throws ClientProtocolException, IOException {
+		catalogServer.clearParameters();
+		catalogServer.addParameter("method", "GetProduct");
+		catalogServer.addParameter("product_id", productId + "");
+		HttpResponse response = catalogServer.getServerResponse();
+		try {
+			XMLParser parser = new XMLParser(response);
+			Node productNode = parser.getElements("product").item(0);
+			return parseProductComplete(parser, productNode);
+		} catch (ParseException e) {
+		} catch (ParserConfigurationException e) {
+		} catch (SAXException e) {
+		}
+
+		return null;
+	}
+
+	private static Product parseProductComplete(XMLParser parser, Node node) {
+		Product p = parseProduct(parser, node);
+		int categoryId = Integer.parseInt(parser.getStringFromSingleElement(
+				"category_id", (Element) node));
+		p.setCategoryId(categoryId);
+		int rank = Integer.parseInt(parser.getStringFromSingleElement(
+				"sales_rank", (Element) node));
+		p.setSaleRank(rank);
+		String imgSrc = parser.getStringFromSingleElement("image_url",
+				(Element) node);
+		p.setImgSrc(imgSrc);
+
+		if (categoryId == 1) {
+			p.setInformation("actors", parser.getStringFromSingleElement(
+					"actors", (Element) node));
+			p.setInformation("format", parser.getStringFromSingleElement(
+					"format", (Element) node));
+			p.setInformation("language", parser.getStringFromSingleElement(
+					"language", (Element) node));
+			p.setInformation("subtitles", parser.getStringFromSingleElement(
+					"subtitles", (Element) node));
+			p.setInformation("region", parser.getStringFromSingleElement(
+					"region", (Element) node));
+			p.setInformation("aspect_ratio", parser.getStringFromSingleElement(
+					"aspect_ratio", (Element) node));
+			p.setInformation("number_discs", parser.getStringFromSingleElement(
+					"number_discs", (Element) node));
+			p.setInformation("release_date", parser.getStringFromSingleElement(
+					"release_date", (Element) node));
+			p.setInformation("run_time", parser.getStringFromSingleElement(
+					"run_time", (Element) node));
+			p.setInformation("ASIN", parser.getStringFromSingleElement("ASIN",
+					(Element) node));
+		} else {
+			p.setInformation("authors", parser.getStringFromSingleElement(
+					"authors", (Element) node));
+			p.setInformation("publisher", parser.getStringFromSingleElement(
+					"publisher", (Element) node));
+			p.setInformation("published_date", parser
+					.getStringFromSingleElement("published_date",
+							(Element) node));
+			p.setInformation("ISBN_10", parser.getStringFromSingleElement(
+					"ISBN_10", (Element) node));
+			p.setInformation("ISBN_13", parser.getStringFromSingleElement(
+					"ISBN_13", (Element) node));
+			p.setInformation("language", parser.getStringFromSingleElement(
+					"language", (Element) node));
+		}
+		return p;
+	}
+
 	@Override
 	protected void onHandleIntent(Intent intent) {
 
