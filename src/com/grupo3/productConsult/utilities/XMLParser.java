@@ -21,61 +21,62 @@ import org.xml.sax.SAXException;
 
 public class XMLParser {
 	private Document xml;
-	
-	public XMLParser(HttpResponse response) throws
-		ParseException, IOException, ParserConfigurationException, SAXException {
+
+	public XMLParser(HttpResponse response) throws ParseException, IOException,
+			ParserConfigurationException, SAXException {
 		this.xml = this.createDocument(response);
 	}
-	
-	private Document createDocument(HttpResponse r) throws
-		ParseException, IOException, ParserConfigurationException, SAXException {
-		
+
+	private Document createDocument(HttpResponse r) throws ParseException,
+			IOException, ParserConfigurationException, SAXException {
+
 		HttpEntity r_entity = r.getEntity();
 		String xmlString = EntityUtils.toString(r_entity);
-		
+
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		InputSource inStream = new InputSource();
 		inStream.setCharacterStream(new StringReader(xmlString));
-		
+
 		return db.parse(inStream);
 	}
-	
+
 	public Document getXML() {
 		return this.xml;
 	}
-	
+
 	public NodeList getElements(String element) {
 		return this.xml.getElementsByTagName(element);
 	}
-	
+
 	public NamedNodeMap getAttributes(Element e) {
 		return e.getAttributes();
 	}
-	
+
 	public String getErrorMessage() {
 		if (!this.serverOk()) {
-			return this.getAttribute((Element) this.getElements("error").item(0), "message");
+			return this.getAttribute((Element) this.getElements("error")
+					.item(0), "message");
 		}
 		return null;
 	}
-	
+
 	public boolean serverOk() {
 		NodeList resp = this.getElements("response");
 		String status = this.getAttribute((Element) resp.item(0), "status");
 		return !status.equals("fail");
 	}
-	
+
 	public String getStringFromSingleElement(String tag) {
 		Element e = (Element) this.xml.getElementsByTagName(tag).item(0);
 		return e.getFirstChild().getNodeValue();
 	}
-	
+
 	public String getStringFromSingleElement(String tag, Element root) {
-		Element e = (Element) root.getElementsByTagName("tag").item(0);
+		Element e = (Element) root.getElementsByTagName(tag).item(0);
 		return e.getFirstChild().getNodeValue();
 	}
-	
+
 	public String getAttribute(Element element, String attribute) {
 		return element.getAttribute(attribute);
 	}
