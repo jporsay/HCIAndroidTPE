@@ -3,6 +3,7 @@ package com.grupo3.productConsult.activities;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,11 +15,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.grupo3.productConsult.CategoryManager;
 import com.grupo3.productConsult.R;
 
-public class SubCategoryListView extends ListActivity {
+public class SubCategoryListActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		Bundle recdData = getIntent().getExtras();
 		final int catPos = Integer.parseInt(recdData.getString("categoryPos"));
 
@@ -34,9 +34,9 @@ public class SubCategoryListView extends ListActivity {
 				CharSequence text = ((TextView) view).getText();
 				Toast.makeText(getApplicationContext(), text,
 						Toast.LENGTH_SHORT).show();
-				
-				Intent newIntent = new Intent(SubCategoryListView.this
-						.getApplicationContext(), ProductListView.class);
+
+				Intent newIntent = new Intent(SubCategoryListActivity.this
+						.getApplicationContext(), ProductListActivity.class);
 
 				Bundle bundle = new Bundle();
 				bundle.putString("categoryPos", catPos + "");
