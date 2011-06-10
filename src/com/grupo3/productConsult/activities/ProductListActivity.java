@@ -1,6 +1,9 @@
 package com.grupo3.productConsult.activities;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -50,18 +53,24 @@ public class ProductListActivity extends ListActivity {
 		int catPos = Integer.parseInt(recdData.getString("categoryPos"));
 		int subCatPos = Integer.parseInt(recdData.getString("categoryPos"));
 
-		CategoryManager catManager = CategoryManager.getInstance();
-		Category slectedCat = catManager.getCategoryList().get(catPos);
-		int catId = slectedCat.getId();
-		int subCatId = slectedCat.getSubCategories().get(subCatPos).getId();
-		currList = CategoriesSearchService.fetchProductsBySubcategory(catId,
-				subCatId);
-		String[] names = new String[currList.size()];
-		int i = 0;
-		for (Product c : currList) {
-			names[i++] = c.getName() + "  " + Product.CURRENCY + " "
-					+ c.getPrice();
+		CategoryManager catManager;
+		try {
+			catManager = CategoryManager.getInstance();
+			Category slectedCat = catManager.getCategoryList().get(catPos);
+			int catId = slectedCat.getId();
+			int subCatId = slectedCat.getSubCategories().get(subCatPos).getId();
+			currList = CategoriesSearchService.fetchProductsBySubcategory(
+					catId, subCatId);
+			String[] names = new String[currList.size()];
+			int i = 0;
+			for (Product c : currList) {
+				names[i++] = c.getName() + "  " + Product.CURRENCY + " "
+						+ c.getPrice();
+			}
+			return names;
+		} catch (ClientProtocolException e) {
+		} catch (IOException e) {
 		}
-		return names;
+		return null;
 	}
 }
