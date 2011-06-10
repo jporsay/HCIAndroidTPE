@@ -41,14 +41,6 @@ public class SubCategoryListActivity extends ListActivity {
 				Toast.makeText(getApplicationContext(), text,
 						Toast.LENGTH_SHORT).show();
 				loadProductList(position);
-				/*
-				 * Intent newIntent = new Intent(SubCategoryListActivity.this
-				 * .getApplicationContext(), ProductListActivity.class); Bundle
-				 * bundle = new Bundle(); bundle.putString("categoryPos", catPos
-				 * + ""); bundle.putString("subCategoryPos", position + "");
-				 * newIntent.putExtras(bundle);
-				 * startActivityForResult(newIntent, 0);
-				 */
 			}
 		});
 	}

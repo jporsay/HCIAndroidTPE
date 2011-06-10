@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.apache.http.client.ClientProtocolException;
-
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 
 import com.grupo3.productConsult.Product;
 import com.grupo3.productConsult.R;
-import com.grupo3.productConsult.services.CategoriesSearchService;
 
 public class ProductDisplayActivity extends Activity {
 
@@ -35,52 +32,45 @@ public class ProductDisplayActivity extends Activity {
 		setContentView(R.layout.product);
 
 		Bundle recdData = getIntent().getExtras();
-		int productId = Integer.parseInt(recdData.getString("productId"));
-		Product p;
-		try {
-			p = CategoriesSearchService.fetchProduct(productId);
-			TextView t = (TextView) findViewById(R.id.title);
-			t.setText(p.getName());
+		Product p = (Product) recdData.getSerializable("product");
+		TextView t = (TextView) findViewById(R.id.title);
+		t.setText(p.getName());
 
-			t = (TextView) findViewById(R.id.price);
-			t.setText(Product.CURRENCY + " " + p.getPrice());
+		t = (TextView) findViewById(R.id.price);
+		t.setText(Product.CURRENCY + " " + p.getPrice());
 
-			Object obj = fetch(p.getImgSrc());
-			if (obj != null) {
-				Drawable img = Drawable.createFromStream((InputStream) obj,
-						"src");
-				ImageView imgView = (ImageView) findViewById(R.id.image);
-				imgView.setImageDrawable(img);
-			}
+		Object obj = fetch(p.getImgSrc());
+		if (obj != null) {
+			Drawable img = Drawable.createFromStream((InputStream) obj, "src");
+			ImageView imgView = (ImageView) findViewById(R.id.image);
+			imgView.setImageDrawable(img);
+		}
 
-			String[] fields;
-			Log.d("Category", p.getCategoryId() + "");
-			switch (p.getCategoryId()) {
-			case 1:
-				fields = dvd_fields;
-				break;
-			case 2:
-				fields = book_fields;
-				break;
-			default:
-				fields = dvd_fields;
-			}
+		String[] fields;
+		Log.d("Category", p.getCategoryId() + "");
+		switch (p.getCategoryId()) {
+		case 1:
+			fields = dvd_fields;
+			break;
+		case 2:
+			fields = book_fields;
+			break;
+		default:
+			fields = dvd_fields;
+		}
 
-			int i = 0;
-			for (String fieldName : fields) {
-				t = (TextView) findViewById(textFieldIds[i]);
-				String value = p.getProperty(fieldName);
-				t.setText(fieldName + ": " + value);
-				if (value != null) {
-					i++;
-				}
+		int i = 0;
+		for (String fieldName : fields) {
+			t = (TextView) findViewById(textFieldIds[i]);
+			String value = p.getProperty(fieldName);
+			t.setText(fieldName + ": " + value);
+			if (value != null) {
+				i++;
 			}
-			for (; i < textFieldIds.length; i++) {
-				t = (TextView) findViewById(textFieldIds[i]);
-				t.setText("");
-			}
-		} catch (ClientProtocolException e) {
-		} catch (IOException e) {
+		}
+		for (; i < textFieldIds.length; i++) {
+			t = (TextView) findViewById(textFieldIds[i]);
+			t.setText("");
 		}
 	}
 

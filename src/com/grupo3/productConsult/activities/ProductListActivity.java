@@ -1,21 +1,19 @@
 package com.grupo3.productConsult.activities;
 
-import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
-
-import org.apache.http.client.ClientProtocolException;
 
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.grupo3.productConsult.Category;
-import com.grupo3.productConsult.CategoryManager;
 import com.grupo3.productConsult.Product;
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.CategoriesSearchService;
@@ -31,7 +29,6 @@ public class ProductListActivity extends ListActivity {
 
 		Bundle recdData = getIntent().getExtras();
 		currList = (List<Product>) recdData.getSerializable("products");
-
 		String[] products = getProductNames();
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				products));
@@ -41,14 +38,16 @@ public class ProductListActivity extends ListActivity {
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent newIntent = new Intent(ProductListActivity.this
-						.getApplicationContext(), ProductDisplayActivity.class);
-
-				Bundle bundle = new Bundle();
-				bundle.putString("productId", currList.get(position).getId()
-						+ "");
-				newIntent.putExtras(bundle);
-				startActivityForResult(newIntent, 0);
+				loadProduct(currList.get(position).getId());
+				/*
+				 * Intent newIntent = new Intent(ProductListActivity.this
+				 * .getApplicationContext(), ProductDisplayActivity.class);
+				 * 
+				 * Bundle bundle = new Bundle(); bundle.putString("productId",
+				 * currList.get(position).getId() + "");
+				 * newIntent.putExtras(bundle);
+				 * startActivityForResult(newIntent, 0);
+				 */
 			}
 		});
 	}
@@ -61,5 +60,32 @@ public class ProductListActivity extends ListActivity {
 					+ c.getPrice();
 		}
 		return names;
+	}
+
+	private void loadProduct(int prodId) {
+		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
+				CategoriesSearchService.class);
+		intent.putExtra("command", CategoriesSearchService.LOAD_PRODUCT);
+		intent.putExtra("receiver", new ResultReceiver(new Handler()) {
+			@Override
+			protected void onReceiveResult(int resultCode, Bundle resultData) {
+				super.onReceiveResult(resultCode, resultData);
+				switch (resultCode) {
+				case CategoriesSearchService.STATUS_SUCCESS:
+					Serializable product = resultData
+							.getSerializable("product");
+					Intent intent = new Intent(ProductListActivity.this,
+							ProductDisplayActivity.class);
+					Bundle b = new Bundle();
+					b.putSerializable("product", product);
+					intent.putExtras(b);
+					startActivity(intent);
+					break;
+				case CategoriesSearchService.STATUS_ERROR:
+					break;
+				}
+			}
+		});
+		startService(intent);
 	}
 }
