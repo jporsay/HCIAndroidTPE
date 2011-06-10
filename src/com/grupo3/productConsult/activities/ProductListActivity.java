@@ -41,7 +41,8 @@ public class ProductListActivity extends ListActivity {
 						.getApplicationContext(), ProductDisplayActivity.class);
 
 				Bundle bundle = new Bundle();
-				bundle.putSerializable("product", currList.get(position));
+				bundle.putString("productId", currList.get(position).getId()
+						+ "");
 				newIntent.putExtras(bundle);
 				startActivityForResult(newIntent, 0);
 			}

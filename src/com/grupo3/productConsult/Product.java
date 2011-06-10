@@ -22,11 +22,10 @@ public class Product implements Serializable {
 	// private int subCategoryId;
 
 	public Product(int id, String name, double price) {
+		properties = new HashMap<String, String>();
 		this.id = id;
 		this.name = name;
 		this.price = price;
-		this.imgSrc = "http://funphoneworld.com/wp-content/uploads/2009/04/best-phone-deals1.jpg";
-		properties = new HashMap<String, String>();
 	}
 
 	public String getName() {
@@ -67,6 +66,10 @@ public class Product implements Serializable {
 
 	public int getCategoryId() {
 		return categoryId;
+	}
+
+	public void setImgSrc(String imgSrc) {
+		this.imgSrc = imgSrc;
 	}
 
 	@Override
