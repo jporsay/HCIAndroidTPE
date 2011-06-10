@@ -27,12 +27,6 @@ public class CategoriesSearchService extends IntentService {
 
 	private static ServerURLGenerator catalogServer = new ServerURLGenerator(
 			"Catalog");
-	private static ServerURLGenerator commonServer = new ServerURLGenerator(
-			"Common");
-	private static ServerURLGenerator securityServer = new ServerURLGenerator(
-			"Security");
-	private static ServerURLGenerator orderServer = new ServerURLGenerator(
-			"Order");
 
 	public CategoriesSearchService(String name) {
 		super(name);
