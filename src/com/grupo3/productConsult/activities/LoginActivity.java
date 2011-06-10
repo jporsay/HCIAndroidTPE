@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,7 +38,6 @@ public class LoginActivity extends Activity {
 			@Override
 			protected void onReceiveResult(int resultCode, Bundle resultData) {
 				super.onReceiveResult(resultCode, resultData);
-				Log.d("asdasdasd", String.valueOf(resultCode));
 				switch (resultCode) {
 				case LoginService.STATUS_OK:
 					Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
