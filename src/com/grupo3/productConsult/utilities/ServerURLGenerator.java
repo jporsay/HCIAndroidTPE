@@ -1,10 +1,15 @@
 package com.grupo3.productConsult.utilities;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
-import android.util.Log;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 public class ServerURLGenerator {
 	private String service;
@@ -43,5 +48,18 @@ public class ServerURLGenerator {
 			}
 		}
 		return out;
+	}
+	
+	public HttpResponse getServerResponse() throws ClientProtocolException, IOException {
+		DefaultHttpClient client = new DefaultHttpClient();
+		return client.execute(new HttpGet(this.getFullUrl()));
+	}
+	
+	public String getLanguageId() {
+		String language = Locale.getDefault().getDisplayLanguage();
+		if (language.contains("English")) {
+			return "1";
+		}
+		return "2";
 	}
 }
