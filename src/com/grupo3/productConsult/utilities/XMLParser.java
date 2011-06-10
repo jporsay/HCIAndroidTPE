@@ -14,11 +14,10 @@ import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import android.util.Log;
 
 public class XMLParser {
 	private Document xml;
@@ -69,6 +68,11 @@ public class XMLParser {
 	
 	public String getStringFromSingleElement(String tag) {
 		Element e = (Element) this.xml.getElementsByTagName(tag).item(0);
+		return e.getFirstChild().getNodeValue();
+	}
+	
+	public String getStringFromSingleElement(String tag, Element root) {
+		Element e = (Element) root.getElementsByTagName("tag").item(0);
 		return e.getFirstChild().getNodeValue();
 	}
 	
