@@ -17,14 +17,15 @@ public class Product implements Serializable {
 	private float salesRank;
 	private Map<String, String> properties;
 
-	// private int categoryId;
+	private int categoryId;
+
 	// private int subCategoryId;
 
 	public Product(int id, String name, double price) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
-		this.imgSrc = "http://www.moviewallpaper.net/wpp/David_Hasselhoff_in_Baywatch_Wallpaper_1_1024.jpg";
+		this.imgSrc = "http://funphoneworld.com/wp-content/uploads/2009/04/best-phone-deals1.jpg";
 		properties = new HashMap<String, String>();
 	}
 
@@ -58,6 +59,14 @@ public class Product implements Serializable {
 
 	public float getSalesRank() {
 		return salesRank;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public int getCategoryId() {
+		return categoryId;
 	}
 
 	@Override
