@@ -25,10 +25,6 @@ import com.grupo3.productConsult.utilities.XMLParser;
 
 public class CategoriesSearchService extends IntentService {
 
-	public CategoriesSearchService(String name) {
-		super(name);
-	}
-
 	private static ServerURLGenerator catalogServer = new ServerURLGenerator(
 			"Catalog");
 	private static ServerURLGenerator commonServer = new ServerURLGenerator(
@@ -37,6 +33,10 @@ public class CategoriesSearchService extends IntentService {
 			"Security");
 	private static ServerURLGenerator orderServer = new ServerURLGenerator(
 			"Order");
+
+	public CategoriesSearchService(String name) {
+		super(name);
+	}
 
 	public static List<Category> fetchCategories()
 			throws ClientProtocolException, IOException {
@@ -86,19 +86,42 @@ public class CategoriesSearchService extends IntentService {
 		} catch (SAXException e) {
 		}
 		return null;
-
 	}
 
 	public static List<Product> fetchProductsBySubcategory(int categoryId,
-			int subCategoryId) {
-		List<Product> products = new LinkedList<Product>();
-		products.add(new Product(32, "Wolverine", 19.0));
-		products.add(new Product(67, "Thinkerbell", 12.5));
-		return products;
+			int subCategoryId) throws IOException {
+		catalogServer.clearParameters();
+		catalogServer.addParameter("method", "GetProductListBySubcategory");
+		catalogServer.addParameter("language_id", PhoneUtils.getLanguageId());
+		catalogServer.addParameter("category_id", categoryId + "");
+		catalogServer.addParameter("subcategory_id", subCategoryId + "");
+		HttpResponse response = catalogServer.getServerResponse();
+		try {
+			List<Product> products = new LinkedList<Product>();
+			XMLParser parser = new XMLParser(response);
+			NodeList productNodes = parser.getElements("product");
+			for (int i = 0; i < productNodes.getLength(); i++) {
+				products.add(parseProduct(parser, productNodes.item(i)));
+			}
+			return products;
+		} catch (ParseException e) {
+		} catch (ParserConfigurationException e) {
+		} catch (SAXException e) {
+		}
+		return null;
+	}
+
+	private static Product parseProduct(XMLParser parser, Node node) {
+		int id = Integer.parseInt(node.getAttributes().getNamedItem("id")
+				.getNodeValue());
+		String name = parser.getStringFromSingleElement("name", (Element) node);
+		double price = Double.parseDouble(parser.getStringFromSingleElement(
+				"price", (Element) node));
+		return new Product(id, name, price);
 	}
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		
+
 	}
 }
