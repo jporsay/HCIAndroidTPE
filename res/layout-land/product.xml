@@ -1,55 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:gravity="center_horizontal" android:layout_marginLeft="15dip">
-	<TextView android:id="@+id/title" android:textSize="28sp"
-		android:textStyle="bold" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:layout_marginBottom="10dip">
-	</TextView>
-	<ImageView android:id="@+id/image" android:layout_height="380dip"
-		android:layout_width="250dip" android:src="@drawable/icon"
-		android:layout_below="@+id/title" android:scaleType="fitCenter">
-	</ImageView>
-	<TextView android:id="@+id/price" android:layout_height="wrap_content"
-		android:textColor="#00ff00" android:textSize="25sp" android:textStyle="bold"
-		android:layout_toRightOf="@+id/image" android:layout_alignTop="@+id/image"
-		android:layout_alignBottom="@+id/image" android:layout_width="fill_parent"
-		android:gravity="center">
-	</TextView>
-	<TextView android:id="@+id/info1" android:layout_height="wrap_content"
-		android:text="TextView" android:layout_below="@+id/image"
-		android:layout_width="fill_parent"></TextView>
-	<TextView android:id="@+id/info2" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:text="TextView"
-		android:layout_below="@+id/info1" android:layout_alignLeft="@+id/info1"
-		android:layout_alignRight="@+id/info1"></TextView>
-	<TextView android:id="@+id/info3" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:text="TextView"
-		android:layout_below="@+id/info2" android:layout_alignLeft="@+id/info2"
-		android:layout_alignRight="@+id/info2"></TextView>
-	<TextView android:id="@+id/info4" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:text="TextView"
-		android:layout_below="@+id/info3" android:layout_alignLeft="@+id/info3"
-		android:layout_alignRight="@+id/info3"></TextView>
-	<TextView android:id="@+id/info5" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:text="TextView"
-		android:layout_below="@+id/info4" android:layout_alignLeft="@+id/info4"
-		android:layout_alignRight="@+id/info4"></TextView>
-	<TextView android:id="@+id/info6" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:text="TextView"
-		android:layout_below="@+id/info5" android:layout_alignLeft="@+id/info5"
-		android:layout_alignRight="@+id/info5"></TextView>
-	<TextView android:id="@+id/info7" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:text="TextView"
-		android:layout_below="@+id/info6" android:layout_alignLeft="@+id/info6"
-		android:layout_alignRight="@+id/info6"></TextView>
-	<TextView android:id="@+id/info8" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:text="TextView"
-		android:layout_below="@+id/info7" android:layout_alignLeft="@+id/info7"
-		android:layout_alignRight="@+id/info7"></TextView>
-	<TextView android:id="@+id/info9" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:text="TextView"
-		android:layout_below="@+id/info8" android:layout_alignLeft="@+id/info8"
-		android:layout_alignRight="@+id/info8"></TextView>
-</RelativeLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/scroller" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:fillViewport="true">
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:gravity="center_horizontal" android:layout_marginLeft="15dip">
+		<TextView android:id="@+id/title" android:textSize="28sp"
+			android:textStyle="bold" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:layout_marginBottom="10dip">
+		</TextView>
+		<ImageView android:id="@+id/image" android:layout_height="400dip"
+			android:layout_width="300dip" android:src="@drawable/icon"
+			android:layout_below="@+id/title" android:scaleType="fitCenter">
+		</ImageView>
+		<TextView android:id="@+id/price" android:layout_height="wrap_content"
+			android:textColor="#00ff00" android:textSize="25sp"
+			android:textStyle="bold" android:layout_toRightOf="@+id/image"
+			android:layout_alignTop="@+id/image" android:layout_alignBottom="@+id/image"
+			android:layout_width="fill_parent" android:gravity="center">
+		</TextView>
+		<TextView android:id="@+id/info1" android:layout_height="wrap_content"
+			android:text="TextView" android:layout_below="@+id/image"
+			android:layout_width="fill_parent"></TextView>
+		<TextView android:id="@+id/info2" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="TextView"
+			android:layout_below="@+id/info1" android:layout_alignLeft="@+id/info1"
+			android:layout_alignRight="@+id/info1"></TextView>
+		<TextView android:id="@+id/info3" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="TextView"
+			android:layout_below="@+id/info2" android:layout_alignLeft="@+id/info2"
+			android:layout_alignRight="@+id/info2"></TextView>
+		<TextView android:id="@+id/info4" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="TextView"
+			android:layout_below="@+id/info3" android:layout_alignLeft="@+id/info3"
+			android:layout_alignRight="@+id/info3"></TextView>
+		<TextView android:id="@+id/info5" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="TextView"
+			android:layout_below="@+id/info4" android:layout_alignLeft="@+id/info4"
+			android:layout_alignRight="@+id/info4"></TextView>
+		<TextView android:id="@+id/info6" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="TextView"
+			android:layout_below="@+id/info5" android:layout_alignLeft="@+id/info5"
+			android:layout_alignRight="@+id/info5"></TextView>
+		<TextView android:id="@+id/info7" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="TextView"
+			android:layout_below="@+id/info6" android:layout_alignLeft="@+id/info6"
+			android:layout_alignRight="@+id/info6"></TextView>
+		<TextView android:id="@+id/info8" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="TextView"
+			android:layout_below="@+id/info7" android:layout_alignLeft="@+id/info7"
+			android:layout_alignRight="@+id/info7"></TextView>
+		<TextView android:id="@+id/info9" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="TextView"
+			android:layout_below="@+id/info8" android:layout_alignLeft="@+id/info8"
+			android:layout_alignRight="@+id/info8"></TextView>
+	</RelativeLayout>
+</ScrollView>
