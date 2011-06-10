@@ -44,15 +44,18 @@ public class RefreshOrdersService extends IntentService {
 	private static final int REFRESH_RATE_IN_SECONDS = 10;
 	public boolean first;
 	private TimerTask tTask;
-	private String url;
-	private List<Order> oList;
+	private static List<Order> oList;
 	
 	public RefreshOrdersService() {
 		super("RefreshOrdersService");
 		this.first = true;
-		this.oList = new ArrayList<Order>();
+		RefreshOrdersService.oList = new ArrayList<Order>();
 	}
-
+	
+	public static List<Order> getOrders() {
+		return RefreshOrdersService.oList;
+	}
+	
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		final ResultReceiver receiver = intent.getParcelableExtra("receiver");
@@ -87,7 +90,7 @@ public class RefreshOrdersService extends IntentService {
 				}
 			};
 		};
-		
+		this.tTask.run();
 		timer.scheduleAtFixedRate(this.tTask, new Date(), 1000 * REFRESH_RATE_IN_SECONDS);
 	}
 	
@@ -152,7 +155,7 @@ public class RefreshOrdersService extends IntentService {
 					return false;
 				}
 				if(this.compareWithOldOrders(newOrders, b)) {
-					this.oList = newOrders;
+					RefreshOrdersService.oList = newOrders;
 					return true;
 				}
 				return false;
@@ -167,13 +170,13 @@ public class RefreshOrdersService extends IntentService {
 	}
 	
 	private boolean compareWithOldOrders(List<Order> old, Bundle b) {
-		if (old.size() != this.oList.size()) {
+		if (old.size() != RefreshOrdersService.oList.size()) {
 			return true;
 		} else {
 			for (int i = 0; i < old.size(); i++) {
-				for (int j = 0; j < this.oList.size(); j++) {
+				for (int j = 0; j < RefreshOrdersService.oList.size(); j++) {
 					Order oi = old.get(i);
-					Order oj = this.oList.get(j);
+					Order oj = RefreshOrdersService.oList.get(j);
 					if (oi.getId().equals(oj.getId())) {
 						if (!(oi.getLatitude().equals(oj.getLatitude()) &&
 							oi.getLongitude().equals(oj.getLongitude()) &&
