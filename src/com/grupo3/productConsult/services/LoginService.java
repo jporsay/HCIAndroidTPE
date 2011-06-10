@@ -67,9 +67,7 @@ public class LoginService extends IntentService {
 		security.addParameter("method", "SignIn");
 		security.addParameter("username", userName);
 		security.addParameter("password", password);
-		String url = security.getFullUrl();
-		DefaultHttpClient client = new DefaultHttpClient();
-		HttpResponse response = client.execute(new HttpGet(url));
+		HttpResponse response = security.getServerResponse();
 		try {
 			XMLParser xp = new XMLParser(response);
 			return this.checkLogin(b, xp);
