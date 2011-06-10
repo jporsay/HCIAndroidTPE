@@ -14,13 +14,21 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.app.IntentService;
+import android.content.Intent;
+
 import com.grupo3.productConsult.Category;
 import com.grupo3.productConsult.Product;
 import com.grupo3.productConsult.utilities.PhoneUtils;
 import com.grupo3.productConsult.utilities.ServerURLGenerator;
 import com.grupo3.productConsult.utilities.XMLParser;
 
-public class CategoriesSearchService {
+public class CategoriesSearchService extends IntentService {
+
+	public CategoriesSearchService(String name) {
+		super(name);
+	}
+
 	private static ServerURLGenerator catalogServer = new ServerURLGenerator(
 			"Catalog");
 	private static ServerURLGenerator commonServer = new ServerURLGenerator(
@@ -29,9 +37,6 @@ public class CategoriesSearchService {
 			"Security");
 	private static ServerURLGenerator orderServer = new ServerURLGenerator(
 			"Order");
-
-	private final static int BOOKS_ID = 1;
-	private final static int MOVIES_ID = 2;
 
 	public static List<Category> fetchCategories()
 			throws ClientProtocolException, IOException {
@@ -63,8 +68,6 @@ public class CategoriesSearchService {
 
 	public static List<Category> fetchSubCategories(int categoryId)
 			throws ClientProtocolException, IOException {
-		List<Category> subCategories = new LinkedList<Category>();
-
 		catalogServer.clearParameters();
 		catalogServer.addParameter("method", "GetSubcategoryList");
 		catalogServer.addParameter("language_id", PhoneUtils.getLanguageId());
@@ -92,5 +95,10 @@ public class CategoriesSearchService {
 		products.add(new Product(32, "Wolverine", 19.0));
 		products.add(new Product(67, "Thinkerbell", 12.5));
 		return products;
+	}
+
+	@Override
+	protected void onHandleIntent(Intent intent) {
+		
 	}
 }
