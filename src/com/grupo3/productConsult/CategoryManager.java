@@ -11,22 +11,22 @@ public class CategoryManager {
 	private static CategoryManager instance = null;
 	private List<Category> categoryList;
 
-	public static CategoryManager getInstance() throws ClientProtocolException, IOException {
+	public static CategoryManager getInstance() {
 		if (instance == null) {
 			instance = new CategoryManager();
 		}
 		return instance;
 	}
 
-	private CategoryManager() throws ClientProtocolException, IOException {
-		categoryList = CategoriesSearchService.fetchCategories();
+	private CategoryManager() {
 	}
 
 	public String[] getCategoryNames() {
 		return getNames(categoryList);
 	}
 
-	public String[] getSubCategoryNames(int index) throws ClientProtocolException, IOException {
+	public String[] getSubCategoryNames(int index)
+			throws ClientProtocolException, IOException {
 		Category c = categoryList.get(index);
 		if (c.getSubCategories().isEmpty()) {
 			int id = c.getId();
@@ -48,4 +48,9 @@ public class CategoryManager {
 		return categoryList;
 	}
 
+	// ------------------------------------------
+
+	public void saveCategoryList(List<Category> categories) {
+		this.categoryList = categories;
+	}
 }
