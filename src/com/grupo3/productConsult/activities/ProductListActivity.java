@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -66,6 +67,7 @@ public class ProductListActivity extends ListActivity {
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				CategoriesSearchService.class);
 		intent.putExtra("command", CategoriesSearchService.LOAD_PRODUCT);
+		intent.putExtra("productId", prodId + "");
 		intent.putExtra("receiver", new ResultReceiver(new Handler()) {
 			@Override
 			protected void onReceiveResult(int resultCode, Bundle resultData) {
@@ -82,6 +84,7 @@ public class ProductListActivity extends ListActivity {
 					startActivity(intent);
 					break;
 				case CategoriesSearchService.STATUS_ERROR:
+					Log.d("FAIL", resultData.getString("error"));
 					break;
 				}
 			}

@@ -19,10 +19,11 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.util.Log;
 
 import com.grupo3.productConsult.Category;
+import com.grupo3.productConsult.PhoneUtils;
 import com.grupo3.productConsult.Product;
-import com.grupo3.productConsult.utilities.PhoneUtils;
 import com.grupo3.productConsult.utilities.ServerURLGenerator;
 import com.grupo3.productConsult.utilities.XMLParser;
 
@@ -31,7 +32,7 @@ public class CategoriesSearchService extends IntentService {
 	public static final String LOAD_CATEGORIES = "1";
 	public static final String LOAD_SUBCATEGORIES = "2";
 	public static final String LOAD_PRODUCTS_BY_SUBCATEGORY = "3";
-	public static final String LOAD_PRODUCT = "3";
+	public static final String LOAD_PRODUCT = "4";
 
 	public static final int STATUS_ERROR = 0;
 	public static final int STATUS_SUCCESS = 1;
@@ -226,6 +227,7 @@ public class CategoriesSearchService extends IntentService {
 			}
 			receiver.send(STATUS_SUCCESS, bundle);
 		} catch (Exception e) {
+			bundle.putString("error", e.getMessage());
 			receiver.send(STATUS_ERROR, bundle);
 		}
 	}
