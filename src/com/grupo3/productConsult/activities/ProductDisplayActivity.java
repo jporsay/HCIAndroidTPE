@@ -33,9 +33,11 @@ public class ProductDisplayActivity extends Activity {
 
 		Bundle recdData = getIntent().getExtras();
 		Product p = (Product) recdData.getSerializable("product");
+		String breadCrumb = recdData.getString("breadCrumb");
+		setTitle(breadCrumb);
+		
 		TextView t = (TextView) findViewById(R.id.title);
 		t.setText(p.getName());
-
 		t = (TextView) findViewById(R.id.price);
 		t.setText(Product.CURRENCY + " " + p.getPrice());
 

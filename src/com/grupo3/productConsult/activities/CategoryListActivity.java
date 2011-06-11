@@ -27,7 +27,7 @@ public class CategoryListActivity extends ListActivity {
 		CategoryManager catManager = CategoryManager.getInstance();
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				catManager.getCategoryNames()));
-
+		setTitle("Product browser");
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
 		lv.setOnItemClickListener(new OnItemClickListener() {
@@ -45,8 +45,8 @@ public class CategoryListActivity extends ListActivity {
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				CategoriesSearchService.class);
 		intent.putExtra("command", CategoriesSearchService.LOAD_SUBCATEGORIES);
-		int catId = CategoryManager.getInstance().getCategoryList().get(catIndex)
-				.getId();
+		int catId = CategoryManager.getInstance().getCategoryList().get(
+				catIndex).getId();
 		intent.putExtra("subCategoryId", catId + "");
 		intent.putExtra("receiver", new ResultReceiver(new Handler()) {
 			@SuppressWarnings("unchecked")
@@ -63,6 +63,8 @@ public class CategoryListActivity extends ListActivity {
 							SubCategoryListActivity.class);
 					Bundle b = new Bundle();
 					b.putString("categoryPos", catIndex + "");
+					b.putString("breadCrumb", CategoryManager.getInstance()
+							.getCategoryList().get(catIndex).getName());
 					intent.putExtras(b);
 					startActivity(intent);
 					break;

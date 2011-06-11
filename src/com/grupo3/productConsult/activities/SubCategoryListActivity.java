@@ -27,6 +27,8 @@ public class SubCategoryListActivity extends ListActivity {
 
 		Bundle recdData = getIntent().getExtras();
 		int catPos = Integer.parseInt(recdData.getString("categoryPos"));
+		String breadCrumb = recdData.getString("breadCrumb");
+		setTitle(breadCrumb + " > ");
 
 		CategoryManager catManager = CategoryManager.getInstance();
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
@@ -52,8 +54,8 @@ public class SubCategoryListActivity extends ListActivity {
 				CategoriesSearchService.class);
 		intent.putExtra("command",
 				CategoriesSearchService.LOAD_PRODUCTS_BY_SUBCATEGORY);
-		Category category = CategoryManager.getInstance().getCategoryList()
-				.get(catIndex);
+		final Category category = CategoryManager.getInstance()
+				.getCategoryList().get(catIndex);
 		int catId = category.getId();
 		int subCatId = category.getSubCategories().get(subCatIndex).getId();
 		intent.putExtra("categoryId", catId + "");
@@ -70,6 +72,10 @@ public class SubCategoryListActivity extends ListActivity {
 							ProductListActivity.class);
 					Bundle b = new Bundle();
 					b.putSerializable("products", productList);
+					String subCatName = category.getSubCategories().get(
+							subCatIndex).getName();
+					b.putString("breadCrumb", getTitle().toString()
+							+ subCatName + " >");
 					intent.putExtras(b);
 					startActivity(intent);
 					break;

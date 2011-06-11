@@ -30,6 +30,8 @@ public class ProductListActivity extends ListActivity {
 
 		Bundle recdData = getIntent().getExtras();
 		currList = (List<Product>) recdData.getSerializable("products");
+		String breadCrumb = recdData.getString("breadCrumb");
+		setTitle(breadCrumb);
 		String[] products = getProductNames();
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				products));
@@ -40,15 +42,6 @@ public class ProductListActivity extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				loadProduct(currList.get(position).getId());
-				/*
-				 * Intent newIntent = new Intent(ProductListActivity.this
-				 * .getApplicationContext(), ProductDisplayActivity.class);
-				 * 
-				 * Bundle bundle = new Bundle(); bundle.putString("productId",
-				 * currList.get(position).getId() + "");
-				 * newIntent.putExtras(bundle);
-				 * startActivityForResult(newIntent, 0);
-				 */
 			}
 		});
 	}
@@ -80,6 +73,8 @@ public class ProductListActivity extends ListActivity {
 							ProductDisplayActivity.class);
 					Bundle b = new Bundle();
 					b.putSerializable("product", product);
+					b.putString("breadCrumb", getTitle().toString()
+							+ ((Product) product).getName());
 					intent.putExtras(b);
 					startActivity(intent);
 					break;
