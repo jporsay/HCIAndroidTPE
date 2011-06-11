@@ -27,8 +27,9 @@ public class CategoryListActivity extends ListActivity {
 		CategoryManager catManager = CategoryManager.getInstance();
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				catManager.getCategoryNames()));
-		setTitle("Product browser");
+		setTitle(R.string.browserTitle);
 		ListView lv = getListView();
+
 		lv.setTextFilterEnabled(true);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,

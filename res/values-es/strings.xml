@@ -12,4 +12,5 @@
     <string name="browseItems">Navegar</string>
     <string name="logOut">Cerrar Sesión</string>
     <string name="orders">Órdenes</string>
+   	<string name="browserTitle">Categorias</string>
 </resources>
