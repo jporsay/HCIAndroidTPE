@@ -1,4 +1,4 @@
-package com.grupo3.productConsult;
+package com.grupo3.productConsult.utilities;
 
 import java.util.Locale;
 

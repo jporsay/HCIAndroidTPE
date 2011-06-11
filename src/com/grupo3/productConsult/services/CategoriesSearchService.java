@@ -22,8 +22,8 @@ import android.os.ResultReceiver;
 import android.util.Log;
 
 import com.grupo3.productConsult.Category;
-import com.grupo3.productConsult.PhoneUtils;
 import com.grupo3.productConsult.Product;
+import com.grupo3.productConsult.utilities.PhoneUtils;
 import com.grupo3.productConsult.utilities.ServerURLGenerator;
 import com.grupo3.productConsult.utilities.XMLParser;
 

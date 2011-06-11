@@ -28,10 +28,10 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 
-import com.grupo3.productConsult.PhoneUtils;
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.activities.MenuActivity;
 import com.grupo3.productConsult.utilities.Order;
+import com.grupo3.productConsult.utilities.PhoneUtils;
 import com.grupo3.productConsult.utilities.ServerURLGenerator;
 import com.grupo3.productConsult.utilities.XMLParser;
 
