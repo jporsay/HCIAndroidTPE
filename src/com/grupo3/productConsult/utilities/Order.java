@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.grupo3.productConsult.R;
 
@@ -14,10 +15,11 @@ public class Order implements Serializable {
 	private String latitude;
 	private String longitude;
 	private String status;
-
+	private static Context context;
 	private Map<String, String> statusNames;
 
-	public Order() {
+	public Order(Context context) {
+		Order.context = context;
 		setStringsNames();
 	}
 
@@ -58,12 +60,10 @@ public class Order implements Serializable {
 	}
 
 	private void setStringsNames() {
-		Application a = new Application();
-		// Hack to getString without being Activity
 		statusNames = new HashMap<String, String>();
-		statusNames.put("1", a.getString(R.string.created));
-		statusNames.put("2", a.getString(R.string.confirmed));
-		statusNames.put("3", a.getString(R.string.transported));
-		statusNames.put("4", a.getString(R.string.delivered));
+		statusNames.put("1", context.getString(R.string.created));
+		statusNames.put("2", context.getString(R.string.confirmed));
+		statusNames.put("3", context.getString(R.string.transported));
+		statusNames.put("4", context.getString(R.string.delivered));
 	}
 }

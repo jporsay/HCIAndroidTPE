@@ -36,7 +36,6 @@ import com.grupo3.productConsult.utilities.ServerURLGenerator;
 import com.grupo3.productConsult.utilities.XMLParser;
 
 public class RefreshOrdersService extends IntentService {
-	private final String TAG = getClass().getSimpleName();
 	public static final int STATUS_ERROR = -1;
 	public static final int STATUS_CONNECTION_ERROR = -2;
 	public static final int STATUS_OK = 0;
@@ -67,7 +66,6 @@ public class RefreshOrdersService extends IntentService {
 		this.tTask = new TimerTask() {
 			public void run() {
 				try {
-					Log.d("RefreshOrdersService", "Run");
 					if (getOrderInfo(receiver, b, userName, authToken)) {
 						Integer order = null;
 						if (b.containsKey("orderId")) {
@@ -83,8 +81,10 @@ public class RefreshOrdersService extends IntentService {
 					receiver.send(STATUS_OK, b);
 				} catch (SocketTimeoutException e) {
 					receiver.send(STATUS_CONNECTION_ERROR, b);
-				} catch (Exception e) {
-					receiver.send(STATUS_ERROR, b);
+				} catch (ClientProtocolException e) {
+
+				} catch (IOException e) {
+
 				}
 			};
 		};
@@ -184,6 +184,7 @@ public class RefreshOrdersService extends IntentService {
 
 	private List<Order> parseOrderResponse(Bundle b, XMLParser xp) {
 		if (xp.getErrorMessage() != null) {
+			Log.d("errorMessage", xp.getErrorMessage());
 			b.putString("errorMessage", xp.getErrorMessage());
 			return null;
 		}
@@ -196,7 +197,7 @@ public class RefreshOrdersService extends IntentService {
 	}
 
 	private void fillOrderData(List<Order> oList, Node order, XMLParser xp) {
-		Order o = new Order();
+		Order o = new Order(getApplicationContext());
 		o.setId(xp.getAttribute((Element) order, "id"));
 		o.setLatitude(xp
 				.getStringFromSingleElement("latitude", (Element) order));
