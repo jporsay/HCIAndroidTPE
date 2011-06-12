@@ -3,7 +3,7 @@ package com.grupo3.productConsult.utilities;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class Order implements Serializable{
+public class Order implements Serializable {
 	private String id;
 	private String latitude;
 	private String longitude;

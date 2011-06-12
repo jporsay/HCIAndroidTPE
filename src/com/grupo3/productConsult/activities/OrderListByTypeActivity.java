@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -65,33 +64,31 @@ public class OrderListByTypeActivity extends ListActivity {
 	}
 	
 	private void launchOrdersByType(int position, final String title) {
-		Log.d("launch", "orders by type");
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				OrderCategoriesListService.class);
-		intent.putExtra("id", orders.get(position).getId());
+		intent.putExtra("id", this.orders.get(position).getId());
 		intent.putExtra("userName", this.userName);
 		intent.putExtra("authToken", this.token);
+		final Order order = this.orders.get(position);
 		intent.putExtra("receiver", new ResultReceiver(new Handler()) {
 			@Override
 			protected void onReceiveResult(int resultCode, Bundle resultData) {
 				super.onReceiveResult(resultCode, resultData);
-				Log.d("received", "results");
 				switch (resultCode) {
 					case OrderCategoriesListService.STATUS_OK:
-						Log.d("ok", "ok");
 						Serializable productList = resultData
 						.getSerializable("products");
 						Intent intent = new Intent(OrderListByTypeActivity.this,
-								ProductListActivity.class);
+								OrderViewActivity.class);
 						Bundle b = new Bundle();
 						b.putSerializable("products", productList);
+						b.putSerializable("order", order);
 						b.putString("breadCrumb", title + " > ");
 						intent.putExtras(b);
 						startActivity(intent);
 					break;
 					
 					case OrderCategoriesListService.STATUS_ERROR:
-						Log.d("error", "error");
 					break;
 				}
 			}
