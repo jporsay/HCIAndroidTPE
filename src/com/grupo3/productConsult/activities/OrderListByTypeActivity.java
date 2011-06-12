@@ -85,7 +85,7 @@ public class OrderListByTypeActivity extends ListActivity {
 								ProductListActivity.class);
 						Bundle b = new Bundle();
 						b.putSerializable("products", productList);
-						b.putString("breadCrumb", title);
+						b.putString("breadCrumb", title + " > ");
 						intent.putExtras(b);
 						startActivity(intent);
 					break;
