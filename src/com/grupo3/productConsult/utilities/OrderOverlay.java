@@ -17,8 +17,8 @@ public class OrderOverlay extends ItemizedOverlay {
 	}
 	
 	public OrderOverlay(Drawable defaultMarker, Context context) {
-		super(defaultMarker);
-		mContext = context;
+		super(boundCenterBottom(defaultMarker));
+		this.mContext = context;
 	}
 
 	public void addOverlay(OverlayItem overlay) {
@@ -39,7 +39,7 @@ public class OrderOverlay extends ItemizedOverlay {
 	@Override
 	protected boolean onTap(int index) {
 		OverlayItem item = mOverlays.get(index);
-		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this.mContext);
 		dialog.setTitle(item.getTitle());
 		dialog.setMessage(item.getSnippet());
 		dialog.show();

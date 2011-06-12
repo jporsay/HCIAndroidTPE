@@ -31,7 +31,7 @@ public class GMaps extends MapActivity {
 	    myMapController.setZoom(10);
 	    List<Overlay> mapOverlays = mapView.getOverlays();
 	    Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin);
-	    OrderOverlay itemizedoverlay = new OrderOverlay(drawable);
+	    OrderOverlay itemizedoverlay = new OrderOverlay(drawable, this);
 	    OverlayItem overlayitem = new OverlayItem(point, "Order", "Your order");
 	    itemizedoverlay.addOverlay(overlayitem);
 	    mapOverlays.add(itemizedoverlay);
