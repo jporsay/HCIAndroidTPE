@@ -13,4 +13,19 @@
 	<string name="logOut">Log Out</string>
 	<string name="orders">Orders</string>
 	<string name="browserTitle">Categories</string>
+
+	<string name="actorsLabel">Actors: </string>
+	<string name="formatLabel">Format: </string>
+	<string name="languageLabel">Language: </string>
+	<string name="subtitlesLabel">Subtitles: </string>
+	<string name="regionLabel">Region: </string>
+	<string name="numberOfDiscsLabel">Number of discs: </string>
+	<string name="releaseDateLabel">Release date: </string>
+	<string name="runTimeLabel">Run time: </string>
+	<string name="asinLabel">ASIN: </string>
+	<string name="authorsLabel">Authors: </string>
+	<string name="publisherLabel">Publisher: </string>
+	<string name="publishedDateLabel">Published date: </string>
+	<string name="isbn10Label">ISBN 10: </string>
+	<string name="isbn13Label">ISBN 13: </string>
 </resources>

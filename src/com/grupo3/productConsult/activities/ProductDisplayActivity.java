@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,9 +18,11 @@ import com.grupo3.productConsult.R;
 
 public class ProductDisplayActivity extends Activity {
 
+	private static final Map<String, Integer> translationsId = new HashMap<String, Integer>();
 	private static final int[] textFieldIds = new int[] { R.id.info1,
 			R.id.info2, R.id.info3, R.id.info4, R.id.info5, R.id.info6,
 			R.id.info6, R.id.info7, R.id.info8 };
+
 	private static final String[] dvd_fields = { "actors", "format",
 			"language", "subtitles", "region", "number_discs", "release_date",
 			"run_time", "ASIN" };
@@ -30,12 +33,13 @@ public class ProductDisplayActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.product);
+		initMap();
 
 		Bundle recdData = getIntent().getExtras();
 		Product p = (Product) recdData.getSerializable("product");
 		String breadCrumb = recdData.getString("breadCrumb");
 		setTitle(breadCrumb);
-		
+
 		TextView t = (TextView) findViewById(R.id.title);
 		t.setText(p.getName());
 		t = (TextView) findViewById(R.id.price);
@@ -49,7 +53,6 @@ public class ProductDisplayActivity extends Activity {
 		}
 
 		String[] fields;
-		Log.d("Category", p.getCategoryId() + "");
 		switch (p.getCategoryId()) {
 		case 1:
 			fields = dvd_fields;
@@ -65,7 +68,7 @@ public class ProductDisplayActivity extends Activity {
 		for (String fieldName : fields) {
 			t = (TextView) findViewById(textFieldIds[i]);
 			String value = p.getProperty(fieldName);
-			t.setText(fieldName + ": " + value);
+			t.setText(getText(translationsId.get(fieldName)) + value);
 			if (value != null) {
 				i++;
 			}
@@ -89,4 +92,20 @@ public class ProductDisplayActivity extends Activity {
 		}
 	}
 
+	public void initMap() {
+		translationsId.put("actors", R.string.actorsLabel);
+		translationsId.put("format", R.string.formatLabel);
+		translationsId.put("language", R.string.languageLabel);
+		translationsId.put("subtitles", R.string.subtitlesLabel);
+		translationsId.put("region", R.string.regionLabel);
+		translationsId.put("number_discs", R.string.numberOfDiscsLabel);
+		translationsId.put("release_date", R.string.releaseDateLabel);
+		translationsId.put("run_time", R.string.runTimeLabel);
+		translationsId.put("ASIN", R.string.asinLabel);
+		translationsId.put("authors", R.string.authorsLabel);
+		translationsId.put("publisher", R.string.publisherLabel);
+		translationsId.put("published_date", R.string.publishedDateLabel);
+		translationsId.put("ISBN_10", R.string.isbn10Label);
+		translationsId.put("ISBN_13", R.string.isbn13Label);
+	}
 }

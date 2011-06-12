@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="companyName">Zen Faktor</string>
-    <string name="logoString">ZF</string>
-    <string name="app_name">Zen Faktor</string>
-    <string name="username">Usuario:</string>
-    <string name="password">Contraseña:</string>
-    <string name="loginText">Iniciar Sesión</string>
-    <string name="categoryTitle">Categorias</string>
-    <string name="subCategoryTitle">Subcategorias</string>
-    <string name="menuTitle">Menú</string>
-    <string name="browseItems">Navegar</string>
-    <string name="logOut">Cerrar Sesión</string>
-    <string name="orders">Órdenes</string>
-   	<string name="browserTitle">Categorias</string>
+	<string name="logoString">ZF</string>
+	<string name="app_name">Zen Faktor</string>
+	<string name="username">Usuario:</string>
+	<string name="password">Contraseña:</string>
+	<string name="loginText">Iniciar Sesión</string>
+	<string name="categoryTitle">Categorias</string>
+	<string name="subCategoryTitle">Subcategorias</string>
+	<string name="menuTitle">Menú</string>
+	<string name="browseItems">Navegar</string>
+	<string name="logOut">Cerrar Sesión</string>
+	<string name="orders">Órdenes</string>
+	<string name="browserTitle">Categorias</string>
+	
+	<string name="actorsLabel">Actores: </string>
+	<string name="formatLabel">Formato: </string>
+	<string name="languageLabel">Lemguaje: </string>
+	<string name="subtitlesLabel">Subtitulos: </string>
+	<string name="regionLabel">Region: </string>
+	<string name="numberOfDiscsLabel">Cant. Discos: </string>
+	<string name="releaseDateLabel">Fecha de emision: </string>
+	<string name="runTimeLabel">Duracion: </string>
+	<string name="asinLabel">ASIN: </string>
+	<string name="authorsLabel">Autores: </string>
+	<string name="publisherLabel">Editorial: </string>
+	<string name="publishedDateLabel">Fecha de publicacion: </string>
+	<string name="isbn10Label">ISBN 10: </string>
+	<string name="isbn13Label">ISBN 13: </string>
 </resources>

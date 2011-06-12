@@ -75,7 +75,7 @@ public class SubCategoryListActivity extends ListActivity {
 					String subCatName = category.getSubCategories().get(
 							subCatIndex).getName();
 					b.putString("breadCrumb", getTitle().toString()
-							+ subCatName + " >");
+							+ subCatName + " > ");
 					intent.putExtras(b);
 					startActivity(intent);
 					break;
