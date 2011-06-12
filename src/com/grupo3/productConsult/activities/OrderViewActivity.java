@@ -27,7 +27,7 @@ public class OrderViewActivity extends Activity {
 		this.order = (Order) b.getSerializable("order");
 	}
 	
-	private void viewOrderItems(final String title) {
+	private void viewOrderItems() {
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				OrderCategoriesListService.class);
 		intent.putExtra("id", order.getId());
