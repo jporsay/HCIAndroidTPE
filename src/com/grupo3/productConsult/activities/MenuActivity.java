@@ -14,7 +14,6 @@ import com.grupo3.productConsult.Category;
 import com.grupo3.productConsult.CategoryManager;
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.CategoriesSearchService;
-import com.grupo3.productConsult.services.OrderCategoriesListService;
 import com.grupo3.productConsult.services.RefreshOrdersService;
 
 public class MenuActivity extends Activity {

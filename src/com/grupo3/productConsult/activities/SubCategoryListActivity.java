@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.grupo3.productConsult.Category;
 import com.grupo3.productConsult.CategoryManager;
+import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.CategoriesSearchService;
 
 public class SubCategoryListActivity extends ListActivity {
@@ -36,7 +37,7 @@ public class SubCategoryListActivity extends ListActivity {
 
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
-		
+
 		Animation a = AnimationUtils.makeInAnimation(getBaseContext(), false);
 		a.setDuration(500);
 		lv.setAnimation(a);
@@ -83,6 +84,9 @@ public class SubCategoryListActivity extends ListActivity {
 					startActivity(intent);
 					break;
 				case CategoriesSearchService.STATUS_ERROR:
+					CharSequence text = getText(R.string.connectionError);
+					Toast.makeText(getApplicationContext(), text,
+							Toast.LENGTH_SHORT).show();
 					break;
 				}
 			}

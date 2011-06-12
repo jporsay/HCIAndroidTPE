@@ -31,7 +31,7 @@ public class CategoryListActivity extends ListActivity {
 		setTitle(R.string.browserTitle);
 		ListView lv = getListView();
 
-		lv.setTextFilterEnabled(true);		
+		lv.setTextFilterEnabled(true);
 		Animation a = AnimationUtils.makeInAnimation(getBaseContext(), false);
 		a.setDuration(500);
 		lv.setAnimation(a);
@@ -74,6 +74,9 @@ public class CategoryListActivity extends ListActivity {
 					startActivity(intent);
 					break;
 				case CategoriesSearchService.STATUS_ERROR:
+					CharSequence text = getText(R.string.connectionError);
+					Toast.makeText(getApplicationContext(), text,
+							Toast.LENGTH_SHORT).show();
 					break;
 				}
 			}

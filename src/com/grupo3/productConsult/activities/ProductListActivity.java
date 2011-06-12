@@ -14,8 +14,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.grupo3.productConsult.Product;
+import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.CategoriesSearchService;
 
 public class ProductListActivity extends ListActivity {
@@ -80,7 +82,9 @@ public class ProductListActivity extends ListActivity {
 					startActivity(intent);
 					break;
 				case CategoriesSearchService.STATUS_ERROR:
-					Log.d("FAIL", resultData.getString("error"));
+					CharSequence text = getText(R.string.connectionError);
+					Toast.makeText(getApplicationContext(), text,
+							Toast.LENGTH_SHORT).show();
 					break;
 				}
 			}
