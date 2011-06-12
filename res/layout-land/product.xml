@@ -50,9 +50,5 @@
 			android:layout_width="fill_parent" android:text="TextView"
 			android:layout_below="@+id/info7" android:layout_alignLeft="@+id/info7"
 			android:layout_alignRight="@+id/info7"></TextView>
-		<TextView android:id="@+id/info9" android:layout_height="wrap_content"
-			android:layout_width="fill_parent" android:text="TextView"
-			android:layout_below="@+id/info8" android:layout_alignLeft="@+id/info8"
-			android:layout_alignRight="@+id/info8"></TextView>
 	</RelativeLayout>
 </ScrollView>

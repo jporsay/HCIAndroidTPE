@@ -31,11 +31,11 @@ public class CategoryListActivity extends ListActivity {
 		setTitle(R.string.browserTitle);
 		ListView lv = getListView();
 
-		lv.setTextFilterEnabled(true);
-		
+		lv.setTextFilterEnabled(true);		
 		Animation a = AnimationUtils.makeInAnimation(getBaseContext(), false);
 		a.setDuration(500);
 		lv.setAnimation(a);
+
 	}
 
 	@Override

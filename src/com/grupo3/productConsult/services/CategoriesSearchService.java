@@ -116,7 +116,7 @@ public class CategoriesSearchService extends IntentService {
 		return null;
 	}
 
-	private static Product parseProduct(XMLParser parser, Node node) {
+	public static Product parseProduct(XMLParser parser, Node node) {
 		int id = Integer.parseInt(node.getAttributes().getNamedItem("id")
 				.getNodeValue());
 		String name = parser.getStringFromSingleElement("name", (Element) node);

@@ -10,10 +10,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.grupo3.productConsult.Product;

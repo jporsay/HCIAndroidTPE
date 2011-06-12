@@ -89,7 +89,10 @@ public class MenuActivity extends Activity {
 	}
 
 	public void doViewOrders(View button) {
-		Intent intent = new Intent(MenuActivity.this, OrderCategoriesListService.class);
-		startService(intent);
+		Bundle b = getIntent().getExtras();
+		Intent intent = new Intent(MenuActivity.this, OrderListActivity.class);
+		intent.putExtra("userName", b.getString("userName"));
+		intent.putExtra("authToken", b.getString("authToken"));
+		startActivity(intent);
 	}
 }
