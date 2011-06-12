@@ -9,8 +9,6 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -26,17 +24,11 @@ public class OrderListActivity extends ListActivity {
 		this.refreshList();
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
-		final OrderListActivity me = this;
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				me.launchOrdersByTypeActivity(position + 1);
-			}
-		});
-		
 	}
 	
-	private void launchOrdersByTypeActivity(int type) {
+	@Override
+	protected void onListItemClick(ListView l, View view, int position, long id) {
+		int type = position + 1;
 		Bundle b = getIntent().getExtras();
 		String userName = b.getString("userName");
 		String token = b.getString("authToken");
@@ -45,7 +37,6 @@ public class OrderListActivity extends ListActivity {
 		intent.putExtra("authToken", token);
 		intent.putExtra("type", Integer.toString(type));
 		startActivity(intent);
-		
 	}
 	
 	private void refreshList() {
