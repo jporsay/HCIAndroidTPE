@@ -15,6 +15,9 @@
 	<string name="orders">Órdenes</string>
 	<string name="browserTitle">Categorias</string>
 	
+	<string name="orderUpdated">Orden actualizada: </string>
+	<string name="orderModified">Su orden ha sido modificada</string>
+	
 	<string name="actorsLabel">Actores: </string>
 	<string name="formatLabel">Formato: </string>
 	<string name="languageLabel">Lemguaje: </string>

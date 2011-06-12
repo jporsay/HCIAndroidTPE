@@ -45,17 +45,17 @@ public class RefreshOrdersService extends IntentService {
 	public boolean first;
 	private TimerTask tTask;
 	private static List<Order> oList;
-	
+
 	public RefreshOrdersService() {
 		super("RefreshOrdersService");
 		this.first = true;
 		RefreshOrdersService.oList = new ArrayList<Order>();
 	}
-	
+
 	public static List<Order> getOrders() {
 		return RefreshOrdersService.oList;
 	}
-	
+
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		final ResultReceiver receiver = intent.getParcelableExtra("receiver");
@@ -82,10 +82,8 @@ public class RefreshOrdersService extends IntentService {
 					}
 					receiver.send(STATUS_OK, b);
 				} catch (SocketTimeoutException e) {
-					Log.e(TAG, e.getMessage());
 					receiver.send(STATUS_CONNECTION_ERROR, b);
 				} catch (Exception e) {
-					Log.e(TAG, e.getMessage());
 					receiver.send(STATUS_ERROR, b);
 				}
 			};
@@ -115,24 +113,12 @@ public class RefreshOrdersService extends IntentService {
 		CharSequence contentText;
 		// TODO use correct class
 		Intent notificationIntent = new Intent(this, MenuActivity.class);
-		if (langId.equals(PhoneUtils.ENGLISH)) {
-			contentTitle = "Order changed";
-		} else {
-			contentTitle = "Orden actualizada";
-		}
+		contentTitle = getString(R.string.orderModified);
 		if (order != null) {
-			if (langId.equals(PhoneUtils.ENGLISH)) {
-				contentText = "Order " + order + " has been updated";
-			} else {
-				contentText = "La îrden " + order + " ha sido actualizada";
-			}
+			contentText = getString(R.string.orderUpdated) + " " + order;
 			notificationIntent.putExtra("orderId", order);
 		} else {
-			if (langId.equals(PhoneUtils.ENGLISH)) {
-				contentText = "An order has been created or deleted";
-			} else {
-				contentText = "Se ha creado o borrado una ï¿½rden";
-			}
+			contentText = getString(R.string.orderModified);
 		}
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				notificationIntent, 0);
