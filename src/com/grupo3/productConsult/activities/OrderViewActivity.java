@@ -1,32 +1,74 @@
 package com.grupo3.productConsult.activities;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.grupo3.productConsult.services.OrderCategoriesListService;
-import com.grupo3.productConsult.utilities.Order;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.grupo3.productConsult.R;
+import com.grupo3.productConsult.services.OrderCategoriesListService;
+import com.grupo3.productConsult.utilities.Order;
 
 public class OrderViewActivity extends Activity {
 	private String id;
 	private String userName;
 	private String token;
 	private Order order;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.order_info);
 		Bundle b = getIntent().getExtras();
+
 		this.userName = b.getString("userName");
 		this.token = b.getString("authToken");
 		this.order = (Order) b.getSerializable("order");
+		setInformation(b);
 	}
-	
+
+	private void setInformation(Bundle data) {
+		TextView t = (TextView) findViewById(R.id.title);
+		t.setText("Order Information");
+		setLabels();
+		setValues();
+	}
+
+	private void setLabels() {
+		TextView t;
+		t = (TextView) findViewById(R.id.orderStatusLabel);
+		t.setText("Status: ");
+		t = (TextView) findViewById(R.id.itemCountLabel);
+		t.setText("Product count: ");
+		t = (TextView) findViewById(R.id.shippedDateLabel);
+		t.setText("Shipped date: ");
+		t = (TextView) findViewById(R.id.locationLabel);
+		t.setText("Location");
+
+		Button b;
+		b = (Button) findViewById(R.id.viewProductsBtn);
+		b.setText("View product list");
+		b = (Button) findViewById(R.id.viewMapBtn);
+		b.setText("View order location");
+	}
+
+	private void setValues() {
+		TextView t;
+		t = (TextView) findViewById(R.id.orderStatusValue);
+		t.setText(order.getStatusName());
+		t = (TextView) findViewById(R.id.itemCountValue);
+		t.setText("10");
+		t = (TextView) findViewById(R.id.shippedDateValue);
+		t.setText("TODO");
+		t = (TextView) findViewById(R.id.locationValue);
+		String coord = "( " + order.getLatitude() + ", " + order.getLongitude()
+				+ " )";
+		t.setText(coord);
+	}
+
 	private void viewOrderItems() {
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				OrderCategoriesListService.class);
@@ -39,14 +81,14 @@ public class OrderViewActivity extends Activity {
 			protected void onReceiveResult(int resultCode, Bundle resultData) {
 				super.onReceiveResult(resultCode, resultData);
 				switch (resultCode) {
-					case OrderCategoriesListService.STATUS_OK:
-						Intent intent = new Intent(OrderViewActivity.this,
-								ProductListActivity.class);
-						intent.putExtras(b);
-						startActivity(intent);
+				case OrderCategoriesListService.STATUS_OK:
+					Intent intent = new Intent(OrderViewActivity.this,
+							ProductListActivity.class);
+					intent.putExtras(b);
+					startActivity(intent);
 					break;
-					
-					case OrderCategoriesListService.STATUS_ERROR:
+
+				case OrderCategoriesListService.STATUS_ERROR:
 					break;
 				}
 			}
