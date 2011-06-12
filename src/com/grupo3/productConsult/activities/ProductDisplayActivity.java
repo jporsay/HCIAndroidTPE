@@ -10,7 +10,10 @@ import java.util.Map;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.grupo3.productConsult.Product;
@@ -44,7 +47,7 @@ public class ProductDisplayActivity extends Activity {
 		t.setText(p.getName());
 		t = (TextView) findViewById(R.id.price);
 		t.setText(Product.CURRENCY + " " + p.getPrice());
-
+		
 		Object obj = fetch(p.getImgSrc());
 		if (obj != null) {
 			Drawable img = Drawable.createFromStream((InputStream) obj, "src");
@@ -68,7 +71,7 @@ public class ProductDisplayActivity extends Activity {
 		for (String fieldName : fields) {
 			t = (TextView) findViewById(textFieldIds[i]);
 			String value = p.getProperty(fieldName);
-			t.setText(getText(translationsId.get(fieldName)) + value);
+			t.setText(getText(translationsId.get(fieldName)) + " " + value);
 			if (value != null) {
 				i++;
 			}

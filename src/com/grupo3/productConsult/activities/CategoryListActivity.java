@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,6 +32,10 @@ public class CategoryListActivity extends ListActivity {
 		ListView lv = getListView();
 
 		lv.setTextFilterEnabled(true);
+		
+		Animation a = AnimationUtils.makeInAnimation(getBaseContext(), false);
+		a.setDuration(500);
+		lv.setAnimation(a);
 	}
 
 	@Override
