@@ -4,10 +4,11 @@
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="7" />
+   	<uses-permission android:name="android.permission.INTERNET" />
 
-	<uses-permission android:name="android.permission.INTERNET" />
-	
     <application android:icon="@drawable/icon" android:label="@string/app_name">
+    	<uses-library android:name="com.google.android.maps" />
+    	
         <activity android:name=".activities.SplashActivity"
                   android:label="@string/app_name">
             <intent-filter>
@@ -46,7 +47,11 @@
         <activity android:name=".activities.OrderListByTypeActivity" 
         		  android:label="@string/orders">
         </activity>
-        
+
+        <activity android:name=".activities.GMaps" 
+        		  android:label="@string/orders"
+        		  android:theme="@android:style/Theme.NoTitleBar">
+        </activity>
         <service android:name=".services.LoginService"></service>
 		<service android:name=".services.RefreshOrdersService"></service>
         <service android:name=".services.CategoriesSearchService"></service>
