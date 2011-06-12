@@ -27,7 +27,7 @@
 	  <Button
 	  	android:id="@+id/mBrowse"
 	  	android:layout_height="wrap_content"
-  		android:layout_width="wrap_content"
+  		android:layout_width="200dip"
 	  	android:text="@string/browseItems"
 	  	android:textSize="40sp"
 	  	android:onClick="doViewCategories"
@@ -46,7 +46,7 @@
 	  <Button
 	  	android:id="@+id/mOrders"
 		android:layout_height="wrap_content"
-  		android:layout_width="wrap_content"
+  		android:layout_width="200dip"
 	  	android:text="@string/orders"
 	  	android:textSize="40sp"
 	  	android:onClick="doViewOrders"
@@ -67,7 +67,7 @@
 	  	android:text="@string/logOut"
 	  	android:textSize="40sp"
 	  	android:layout_height="wrap_content"
-	  	android:layout_width="wrap_content"
+	  	android:layout_width="200dip"
 	  	android:onClick="doLogOut"
 	  />
   </RelativeLayout>
