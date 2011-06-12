@@ -31,6 +31,10 @@ public class CategoryListActivity extends ListActivity {
 		setTitle(R.string.browserTitle);
 		ListView lv = getListView();
 
+		CharSequence text = getText(R.string.listHint);
+		Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG)
+				.show();
+
 		lv.setTextFilterEnabled(true);
 		Animation a = AnimationUtils.makeInAnimation(getBaseContext(), false);
 		a.setDuration(500);

@@ -44,4 +44,6 @@
 
 	<string name="connectionError">There seems to be a connectivity problem. Please
 		check your internet access.</string>
+		
+	<string name="listHint">Hint: Type in some text at any time to filter the lists!</string>
 </resources>

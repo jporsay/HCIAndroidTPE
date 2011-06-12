@@ -42,6 +42,9 @@
 	<string name="orderShippedDateLabel">Fecha de salida: </string>
 	<string name="orderLocationLabel">Posicion: </string>
 
-	<string name="connectionError">Parece haber un problema de coneccion. Por favor
+	<string name="connectionError">Ayuda: Parece haber un problema de coneccion. Por favor
 		revise su conección a internet.</string>
+
+	<string name="listHint">Escriba un texto en cualquier momento para filtar
+		resultados!</string>
 </resources>
