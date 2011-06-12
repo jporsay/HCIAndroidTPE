@@ -58,11 +58,11 @@ public class OrderViewActivity extends Activity {
 	private void setValues() {
 		TextView t;
 		t = (TextView) findViewById(R.id.orderStatusValue);
-		t.setText(order.getStatusName());
+		t.setText(" " + order.getStatusName());
 		t = (TextView) findViewById(R.id.shippedDateValue);
-		t.setText("TODO");
+		t.setText(" " + "TODO");
 		t = (TextView) findViewById(R.id.locationValue);
-		String coord = "( " + order.getLatitude() + ", " + order.getLongitude()
+		String coord = " ( " + order.getLatitude() + ", " + order.getLongitude()
 				+ " )";
 		t.setText(coord);
 	}
