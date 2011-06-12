@@ -1,6 +1,9 @@
 package com.grupo3.productConsult.utilities;
 
-public class Order {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Order implements Serializable{
 	private String id;
 	private String latitude;
 	private String longitude;

@@ -12,4 +12,10 @@
     <string name="browseItems">Browse</string>
     <string name="logOut">Log Out</string>
     <string name="orders">Orders</string>
+    
+    <string name="created">Created</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="transported">Transported</string>
+    <string name="delivered">Delivered</string>
+    <string name="orderTitle">Order</string>
 </resources>

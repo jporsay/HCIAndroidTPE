@@ -19,7 +19,6 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.util.Log;
 
 import com.grupo3.productConsult.Category;
 import com.grupo3.productConsult.Product;
@@ -117,7 +116,7 @@ public class CategoriesSearchService extends IntentService {
 		return null;
 	}
 
-	private static Product parseProduct(XMLParser parser, Node node) {
+	public static Product parseProduct(XMLParser parser, Node node) {
 		int id = Integer.parseInt(node.getAttributes().getNamedItem("id")
 				.getNodeValue());
 		String name = parser.getStringFromSingleElement("name", (Element) node);

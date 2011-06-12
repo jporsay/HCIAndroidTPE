@@ -38,8 +38,6 @@ public class SubCategoryListActivity extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				CharSequence text = ((TextView) view).getText();
-				Toast.makeText(getApplicationContext(), text,
-						Toast.LENGTH_SHORT).show();
 				loadProductList(position);
 			}
 		});

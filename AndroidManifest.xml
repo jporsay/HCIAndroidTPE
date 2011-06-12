@@ -39,6 +39,14 @@
         		  android:label="Product">
         </activity>
         
+        <activity android:name=".activities.OrderListActivity" 
+        		  android:label="@string/orders">
+        </activity>
+
+        <activity android:name=".activities.OrderListByTypeActivity" 
+        		  android:label="@string/orders">
+        </activity>
+        
         <service android:name=".services.LoginService"></service>
 		<service android:name=".services.RefreshOrdersService"></service>
         <service android:name=".services.CategoriesSearchService"></service>

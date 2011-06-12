@@ -124,7 +124,7 @@ public class RefreshOrdersService extends IntentService {
 			if (langId.equals(PhoneUtils.ENGLISH)) {
 				contentText = "Order " + order + " has been updated";
 			} else {
-				contentText = "La ï¿½rden " + order + " ha sido actualizada";
+				contentText = "La îrden " + order + " ha sido actualizada";
 			}
 			notificationIntent.putExtra("orderId", order);
 		} else {

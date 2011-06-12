@@ -12,4 +12,10 @@
     <string name="browseItems">Navegar</string>
     <string name="logOut">Cerrar Sesión</string>
     <string name="orders">Órdenes</string>
+    
+    <string name="created">Creadas</string>
+    <string name="confirmed">Confirmadas</string>
+    <string name="transported">Transportadas</string>
+    <string name="delivered">Entregadas</string>
+    <string name="orderTitle">Órden</string>
 </resources>
