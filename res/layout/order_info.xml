@@ -60,9 +60,11 @@
 		android:layout_height="wrap_content" android:gravity="center_horizontal"
 		android:layout_below="@+id/textInformation" android:layout_marginTop="25sp">
 		<Button android:id="@+id/viewProductsBtn" android:text="Button"
-			android:layout_height="wrap_content" android:layout_width="250dip"></Button>
+			android:layout_height="wrap_content" android:layout_width="250dip"
+			android:onClick="viewOrderItems"/>
 		<Button android:id="@+id/viewMapBtn" android:text="Button"
 			android:layout_height="wrap_content" android:layout_width="250dip"
-			android:layout_below="@+id/viewProductsBtn" android:layout_marginTop="10sp"></Button>
+			android:layout_below="@+id/viewProductsBtn" android:layout_marginTop="10sp"
+			android:onClick="viewOnMap"/>
 	</RelativeLayout>
 </RelativeLayout>

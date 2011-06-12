@@ -1,5 +1,6 @@
 package com.grupo3.productConsult.activities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,6 @@ import android.widget.TextView;
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.OrderCategoriesListService;
 import com.grupo3.productConsult.services.RefreshOrdersService;
-import com.grupo3.productConsult.activities.GMaps;
 import com.grupo3.productConsult.utilities.Order;
 
 public class OrderListByTypeActivity extends ListActivity {
@@ -70,24 +70,25 @@ public class OrderListByTypeActivity extends ListActivity {
 		intent.putExtra("userName", this.userName);
 		intent.putExtra("authToken", this.token);
 		final Order order = this.orders.get(position);
+		final String userN = this.userName;
+		final String toK = this.token;
 		intent.putExtra("receiver", new ResultReceiver(new Handler()) {
 			@Override
 			protected void onReceiveResult(int resultCode, Bundle resultData) {
 				super.onReceiveResult(resultCode, resultData);
 				switch (resultCode) {
 					case OrderCategoriesListService.STATUS_OK:
-						Intent intent = new Intent(OrderListByTypeActivity.this, GMaps.class);
-						intent.putExtra("latitude", order.getLatitude());
-						intent.putExtra("longitude", order.getLongitude());
-						/*Serializable productList = resultData
+						Serializable productList = resultData
 						.getSerializable("products");
 						Intent intent = new Intent(OrderListByTypeActivity.this,
 								OrderViewActivity.class);
 						Bundle b = new Bundle();
 						b.putSerializable("products", productList);
-						b.putSerializable("order", order);
+						b.putSerializable("order", (Serializable) order);
+						b.putString("userName", userN);
+						b.putString("authToken", toK);
 						b.putString("breadCrumb", title + " > ");
-						intent.putExtras(b);*/
+						intent.putExtras(b);
 						startActivity(intent);
 					break;
 					

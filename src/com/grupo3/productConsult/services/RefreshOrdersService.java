@@ -67,7 +67,6 @@ public class RefreshOrdersService extends IntentService {
 		this.tTask = new TimerTask() {
 			public void run() {
 				try {
-					Log.d("RefreshOrdersService", "Run");
 					if (getOrderInfo(receiver, b, userName, authToken)) {
 						Integer order = null;
 						if (b.containsKey("orderId")) {
@@ -82,11 +81,11 @@ public class RefreshOrdersService extends IntentService {
 					}
 					receiver.send(STATUS_OK, b);
 				} catch (SocketTimeoutException e) {
-					Log.e(TAG, e.getMessage());
 					receiver.send(STATUS_CONNECTION_ERROR, b);
-				} catch (Exception e) {
-					Log.e(TAG, e.getMessage());
-					receiver.send(STATUS_ERROR, b);
+				} catch (ClientProtocolException e) {
+					
+				} catch (IOException e) {
+					
 				}
 			};
 		};
@@ -198,6 +197,7 @@ public class RefreshOrdersService extends IntentService {
 
 	private List<Order> parseOrderResponse(Bundle b, XMLParser xp) {
 		if (xp.getErrorMessage() != null) {
+			Log.d("errorMessage", xp.getErrorMessage());
 			b.putString("errorMessage", xp.getErrorMessage());
 			return null;
 		}
@@ -210,7 +210,7 @@ public class RefreshOrdersService extends IntentService {
 	}
 
 	private void fillOrderData(List<Order> oList, Node order, XMLParser xp) {
-		Order o = new Order();
+		Order o = new Order(getApplicationContext());
 		o.setId(xp.getAttribute((Element) order, "id"));
 		o.setLatitude(xp
 				.getStringFromSingleElement("latitude", (Element) order));

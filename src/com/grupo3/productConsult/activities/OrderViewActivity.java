@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,7 +15,6 @@ import com.grupo3.productConsult.services.OrderCategoriesListService;
 import com.grupo3.productConsult.utilities.Order;
 
 public class OrderViewActivity extends Activity {
-	private String id;
 	private String userName;
 	private String token;
 	private Order order;
@@ -25,7 +26,9 @@ public class OrderViewActivity extends Activity {
 		Bundle b = getIntent().getExtras();
 
 		this.userName = b.getString("userName");
+		Log.d("userName", this.userName);
 		this.token = b.getString("authToken");
+		Log.d("token", this.token);
 		this.order = (Order) b.getSerializable("order");
 		setInformation(b);
 	}
@@ -69,7 +72,15 @@ public class OrderViewActivity extends Activity {
 		t.setText(coord);
 	}
 
-	private void viewOrderItems() {
+	
+	public void viewOnMap(View button) {
+		Intent intent = new Intent(OrderViewActivity.this, GMaps.class);
+		intent.putExtra("latitude", order.getLatitude());
+		intent.putExtra("longitude", order.getLongitude());
+		startActivity(intent);
+	}
+	
+	public void viewOrderItems(View button) {
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				OrderCategoriesListService.class);
 		intent.putExtra("id", order.getId());
