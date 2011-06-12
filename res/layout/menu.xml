@@ -69,6 +69,7 @@
 	  	android:layout_height="wrap_content"
 	  	android:layout_width="200dip"
 	  	android:onClick="doLogOut"
+	  	android:layout_marginTop="20dip"
 	  />
   </RelativeLayout>
 </RelativeLayout>
