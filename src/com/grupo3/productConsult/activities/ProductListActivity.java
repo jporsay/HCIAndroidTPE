@@ -10,13 +10,10 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.grupo3.productConsult.Product;
-import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.CategoriesSearchService;
 
 public class ProductListActivity extends ListActivity {
@@ -33,24 +30,23 @@ public class ProductListActivity extends ListActivity {
 		String breadCrumb = recdData.getString("breadCrumb");
 		setTitle(breadCrumb);
 		String[] products = getProductNames();
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-				products));
+		setListAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, products));
 
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				loadProduct(currList.get(position).getId());
-			}
-		});
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View view, int position, long id) {
+		loadProduct(currList.get(position).getId());
 	}
 
 	private String[] getProductNames() {
 		String[] names = new String[currList.size()];
 		int i = 0;
 		for (Product c : currList) {
-			names[i++] = c.getName() + "  " + Product.CURRENCY + " "
+			names[i++] = c.getName() + " - " + Product.CURRENCY + " "
 					+ c.getPrice();
 		}
 		return names;

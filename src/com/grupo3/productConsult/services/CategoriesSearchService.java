@@ -19,7 +19,6 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.util.Log;
 
 import com.grupo3.productConsult.Category;
 import com.grupo3.productConsult.Product;
