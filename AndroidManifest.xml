@@ -47,6 +47,10 @@
         		  android:label="@string/orders">
         </activity>
         
+		<activity android:name=".activities.OrderViewActivity" 
+        		  android:label="@string/orders">
+        </activity>
+        
         <service android:name=".services.LoginService"></service>
 		<service android:name=".services.RefreshOrdersService"></service>
         <service android:name=".services.CategoriesSearchService"></service>
