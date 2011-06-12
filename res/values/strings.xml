@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="companyName">Zen Faktor</string>
-    <string name="orderTitle">Order</string>
+	<string name="orderTitle">Order</string>
 	<string name="logoString">ZF</string>
 	<string name="app_name">Zen Faktor</string>
 	<string name="username">Username:</string>
@@ -17,7 +17,7 @@
 
 	<string name="orderUpdated">Order updated: </string>
 	<string name="orderModified">Your order has been modified</string>
-		
+
 	<string name="actorsLabel">Actors: </string>
 	<string name="formatLabel">Format: </string>
 	<string name="languageLabel">Language: </string>
@@ -33,12 +33,15 @@
 	<string name="isbn10Label">ISBN 10: </string>
 	<string name="isbn13Label">ISBN 13: </string>
 
-    <string name="created">Created</string>
-    <string name="confirmed">Confirmed</string>
-    <string name="transported">Transported</string>
-    <string name="delivered">Delivered</string>
-    
-    <string name="orderStatusLabel">Status: </string>
-    <string name="orderShippedDateLabel">Shipped date: </string>
-    <string name="orderLocationLabel">Location: </string>
+	<string name="created">Created</string>
+	<string name="confirmed">Confirmed</string>
+	<string name="transported">Transported</string>
+	<string name="delivered">Delivered</string>
+
+	<string name="orderStatusLabel">Status: </string>
+	<string name="orderShippedDateLabel">Shipped date: </string>
+	<string name="orderLocationLabel">Location: </string>
+
+	<string name="connectionError">There seems to be a connectivity problem. Please
+		check your internet access.</string>
 </resources>

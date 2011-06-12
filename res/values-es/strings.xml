@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="companyName">Zen Faktor</string>
-    <string name="orderTitle">Órden</string>
+	<string name="orderTitle">Órden</string>
 	<string name="logoString">ZF</string>
 	<string name="app_name">Zen Faktor</string>
 	<string name="username">Usuario:</string>
@@ -14,10 +14,10 @@
 	<string name="logOut">Cerrar Sesión</string>
 	<string name="orders">Órdenes</string>
 	<string name="browserTitle">Categorias</string>
-	
+
 	<string name="orderUpdated">Orden actualizada: </string>
 	<string name="orderModified">Su orden ha sido modificada</string>
-	
+
 	<string name="actorsLabel">Actores: </string>
 	<string name="formatLabel">Formato: </string>
 	<string name="languageLabel">Lemguaje: </string>
@@ -33,12 +33,15 @@
 	<string name="isbn10Label">ISBN 10: </string>
 	<string name="isbn13Label">ISBN 13: </string>
 
-    <string name="created">Creadas</string>
-    <string name="confirmed">Confirmadas</string>
-    <string name="transported">Transportadas</string>
-    <string name="delivered">Entregadas</string>
-    
+	<string name="created">Creadas</string>
+	<string name="confirmed">Confirmadas</string>
+	<string name="transported">Transportadas</string>
+	<string name="delivered">Entregadas</string>
+
 	<string name="orderStatusLabel">Estado: </string>
-    <string name="orderShippedDateLabel">Fecha de salida: </string>
-    <string name="orderLocationLabel">Posicion: </string>
+	<string name="orderShippedDateLabel">Fecha de salida: </string>
+	<string name="orderLocationLabel">Posicion: </string>
+
+	<string name="connectionError">Parece haber un problema de coneccion. Por favor
+		revise su conección a internet.</string>
 </resources>
