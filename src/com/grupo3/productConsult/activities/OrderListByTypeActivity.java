@@ -17,9 +17,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.grupo3.productConsult.R;
-import com.grupo3.productConsult.services.CategoriesSearchService;
 import com.grupo3.productConsult.services.OrderCategoriesListService;
 import com.grupo3.productConsult.services.RefreshOrdersService;
 import com.grupo3.productConsult.utilities.Order;
@@ -53,18 +53,18 @@ public class OrderListByTypeActivity extends ListActivity {
 	}
 	
 	private void setClickCallback() {
-		ListView lv = getListView();
+		final ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
 		final OrderListByTypeActivity me = this;
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				me.launchOrdersByType(position);
+				me.launchOrdersByType(position, (String)((TextView)view).getText());
 			}
 		});
 	}
 	
-	private void launchOrdersByType(int position) {
+	private void launchOrdersByType(int position, final String title) {
 		Log.d("launch", "orders by type");
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				OrderCategoriesListService.class);
@@ -85,6 +85,7 @@ public class OrderListByTypeActivity extends ListActivity {
 								ProductListActivity.class);
 						Bundle b = new Bundle();
 						b.putSerializable("products", productList);
+						b.putString("breadCrumb", title);
 						intent.putExtras(b);
 						startActivity(intent);
 					break;

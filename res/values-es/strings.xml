@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="companyName">Zen Faktor</string>
-    <string name="created">Creadas</string>
-    <string name="confirmed">Confirmadas</string>
-    <string name="transported">Transportadas</string>
-    <string name="delivered">Entregadas</string>
     <string name="orderTitle">Órden</string>
 	<string name="logoString">ZF</string>
 	<string name="app_name">Zen Faktor</string>
@@ -33,4 +29,9 @@
 	<string name="publishedDateLabel">Fecha de publicacion: </string>
 	<string name="isbn10Label">ISBN 10: </string>
 	<string name="isbn13Label">ISBN 13: </string>
+
+    <string name="created">Creadas</string>
+    <string name="confirmed">Confirmadas</string>
+    <string name="transported">Transportadas</string>
+    <string name="delivered">Entregadas</string>
 </resources>
