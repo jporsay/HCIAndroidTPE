@@ -40,14 +40,11 @@ public class OrderViewActivity extends Activity {
 	private void setLabels() {
 		TextView t;
 		t = (TextView) findViewById(R.id.orderStatusLabel);
-		t.setText("Status: ");
-		t = (TextView) findViewById(R.id.itemCountLabel);
-		t.setText("Product count: ");
+		t.setText(R.string.orderStatusLabel);
 		t = (TextView) findViewById(R.id.shippedDateLabel);
-		t.setText("Shipped date: ");
+		t.setText(R.string.orderShippedDateLabel);
 		t = (TextView) findViewById(R.id.locationLabel);
-		t.setText("Location");
-
+		t.setText(R.string.orderLocationLabel);
 		Button b;
 		b = (Button) findViewById(R.id.viewProductsBtn);
 		b.setText("View product list");
@@ -59,8 +56,6 @@ public class OrderViewActivity extends Activity {
 		TextView t;
 		t = (TextView) findViewById(R.id.orderStatusValue);
 		t.setText(order.getStatusName());
-		t = (TextView) findViewById(R.id.itemCountValue);
-		t.setText("10");
 		t = (TextView) findViewById(R.id.shippedDateValue);
 		t.setText("TODO");
 		t = (TextView) findViewById(R.id.locationValue);

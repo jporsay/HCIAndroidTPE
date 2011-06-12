@@ -21,20 +21,9 @@
 			android:layout_alignBottom="@+id/orderStatus" android:paddingTop="5sp">
 		</TextView>
 
-		<TextView android:id="@+id/itemCountLabel" android:text="TextView"
+		<TextView android:id="@+id/shippedDateLabel" android:text="TextView"
 			android:layout_height="wrap_content" android:layout_below="@+id/orderStatusLabel"
 			android:layout_width="wrap_content" android:layout_alignLeft="@+id/orderStatusLabel"
-			android:textSize="20sp">
-		</TextView>
-		<TextView android:id="@+id/itemCountValue" android:text="TextView"
-			android:layout_height="wrap_content" android:layout_toRightOf="@+id/itemCountLabel"
-			android:layout_width="wrap_content" android:layout_alignTop="@+id/itemCountLabel"
-			android:layout_alignBottom="@+id/itemCountLabel" android:paddingTop="5sp">
-		</TextView>
-
-		<TextView android:id="@+id/shippedDateLabel" android:text="TextView"
-			android:layout_height="wrap_content" android:layout_below="@+id/itemCountLabel"
-			android:layout_width="wrap_content" android:layout_alignLeft="@+id/itemCountLabel"
 			android:textSize="20sp">
 		</TextView>
 		<TextView android:id="@+id/shippedDateValue" android:text="TextView"

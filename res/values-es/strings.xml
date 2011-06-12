@@ -34,4 +34,8 @@
     <string name="confirmed">Confirmadas</string>
     <string name="transported">Transportadas</string>
     <string name="delivered">Entregadas</string>
+    
+	<string name="orderStatusLabel">Estado: </string>
+    <string name="orderShippedDateLabel">Fecha de salida: </string>
+    <string name="orderLocationLabel">Posicion: </string>
 </resources>
