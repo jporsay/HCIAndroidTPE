@@ -7,29 +7,29 @@
 	<string name="username">Usuario:</string>
 	<string name="password">Contraseña:</string>
 	<string name="loginText">Iniciar Sesión</string>
-	<string name="categoryTitle">Categorias</string>
-	<string name="subCategoryTitle">Subcategorias</string>
+	<string name="categoryTitle">Categorías</string>
+	<string name="subCategoryTitle">Subcategorías</string>
 	<string name="menuTitle">Menú</string>
 	<string name="browseItems">Navegar</string>
 	<string name="logOut">Cerrar Sesión</string>
 	<string name="orders">Órdenes</string>
-	<string name="browserTitle">Categorias</string>
+	<string name="browserTitle">Categorías</string>
 
 	<string name="orderUpdated">Orden actualizada: </string>
 	<string name="orderModified">Su orden ha sido modificada</string>
 
 	<string name="actorsLabel">Actores: </string>
 	<string name="formatLabel">Formato: </string>
-	<string name="languageLabel">Lemguaje: </string>
-	<string name="subtitlesLabel">Subtitulos: </string>
-	<string name="regionLabel">Region: </string>
+	<string name="languageLabel">Lenguaje: </string>
+	<string name="subtitlesLabel">Subtítulos: </string>
+	<string name="regionLabel">Región: </string>
 	<string name="numberOfDiscsLabel">Cant. Discos: </string>
-	<string name="releaseDateLabel">Fecha de emision: </string>
-	<string name="runTimeLabel">Duracion: </string>
+	<string name="releaseDateLabel">Fecha de emisión: </string>
+	<string name="runTimeLabel">Duración: </string>
 	<string name="asinLabel">ASIN: </string>
 	<string name="authorsLabel">Autores: </string>
 	<string name="publisherLabel">Editorial: </string>
-	<string name="publishedDateLabel">Fecha de publicacion: </string>
+	<string name="publishedDateLabel">Fecha de publicación: </string>
 	<string name="isbn10Label">ISBN 10: </string>
 	<string name="isbn13Label">ISBN 13: </string>
 
@@ -42,8 +42,8 @@
 	<string name="orderShippedDateLabel">Fecha de salida: </string>
 	<string name="orderLocationLabel">Posicion: </string>
 
-	<string name="connectionError">Ayuda: Parece haber un problema de coneccion. Por favor
-		revise su conección a internet.</string>
+	<string name="connectionError">Ayuda: Parece haber un problema de conexión. Por favor
+		revise su conexión a internet.</string>
 
 	<string name="listHint">Escriba un texto en cualquier momento para filtar
 		resultados!</string>
