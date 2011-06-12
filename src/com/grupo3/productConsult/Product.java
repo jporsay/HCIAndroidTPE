@@ -16,10 +16,7 @@ public class Product implements Serializable {
 	private double price;
 	private float salesRank;
 	private Map<String, String> properties;
-
 	private int categoryId;
-
-	// private int subCategoryId;
 
 	public Product(int id, String name, double price) {
 		properties = new HashMap<String, String>();

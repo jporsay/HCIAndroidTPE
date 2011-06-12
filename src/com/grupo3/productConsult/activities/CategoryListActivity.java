@@ -9,11 +9,11 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.grupo3.productConsult.Category;
 import com.grupo3.productConsult.CategoryManager;
@@ -25,10 +25,12 @@ public class CategoryListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		CategoryManager catManager = CategoryManager.getInstance();
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
-				catManager.getCategoryNames()));
-
+		setListAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, catManager
+						.getCategoryNames()));
+		setTitle(R.string.browserTitle);
 		ListView lv = getListView();
+
 		lv.setTextFilterEnabled(true);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -38,12 +40,20 @@ public class CategoryListActivity extends ListActivity {
 		});
 	}
 
+	@Override
+	protected void onListItemClick(ListView l, View view, int position, long id) {
+		CharSequence text = ((TextView) view).getText();
+		Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT)
+				.show();
+		loadSubCategory(position);
+	}
+
 	private void loadSubCategory(final int catIndex) {
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				CategoriesSearchService.class);
 		intent.putExtra("command", CategoriesSearchService.LOAD_SUBCATEGORIES);
-		int catId = CategoryManager.getInstance().getCategoryList().get(catIndex)
-				.getId();
+		int catId = CategoryManager.getInstance().getCategoryList().get(
+				catIndex).getId();
 		intent.putExtra("subCategoryId", catId + "");
 		intent.putExtra("receiver", new ResultReceiver(new Handler()) {
 			@SuppressWarnings("unchecked")
@@ -60,6 +70,8 @@ public class CategoryListActivity extends ListActivity {
 							SubCategoryListActivity.class);
 					Bundle b = new Bundle();
 					b.putString("categoryPos", catIndex + "");
+					b.putString("breadCrumb", CategoryManager.getInstance()
+							.getCategoryList().get(catIndex).getName());
 					intent.putExtras(b);
 					startActivity(intent);
 					break;
