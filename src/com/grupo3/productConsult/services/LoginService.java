@@ -26,7 +26,6 @@ public class LoginService extends IntentService {
 
 	public LoginService() {
 		super("LoginService");
-
 	}
 
 	@Override

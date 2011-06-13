@@ -8,14 +8,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -25,7 +22,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.util.Log;
 
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.activities.MenuActivity;
@@ -178,7 +174,6 @@ public class RefreshOrdersService extends IntentService {
 
 	private List<Order> parseOrderResponse(Bundle b, XMLParser xp) {
 		if (xp.getErrorMessage() != null) {
-			Log.d("errorMessage", xp.getErrorMessage());
 			b.putString("errorMessage", xp.getErrorMessage());
 			return null;
 		}
