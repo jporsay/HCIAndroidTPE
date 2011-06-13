@@ -39,7 +39,7 @@
 	<string name="delivered">Delivered</string>
 
 	<string name="orderStatusLabel">Status: </string>
-	<string name="orderShippedDateLabel">Shipped date: </string>
+	<string name="orderShippedDateLabel">Created date: </string>
 	<string name="orderLocationLabel">Location: </string>
 	<string name="orderInformation">Order Information</string>
 	<string name="orderProductBtn">View product list</string>
