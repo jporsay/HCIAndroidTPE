@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.grupo3.productConsult.Category;
@@ -24,13 +25,19 @@ public class MenuActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.menu);
 		if (!refreshOrderStarted) {
+			this.toggleOrders(false);
 			this.startOrderRefreshService(getIntent().getExtras());
 			refreshOrderStarted = true;
 		}
-		setContentView(R.layout.menu);
 	}
 
+	public void toggleOrders(boolean enabled) {
+		final Button button = (Button) findViewById(R.id.mOrders);
+		button.setEnabled(enabled);
+	}
+	
 	public void doLogOut(View button) {
 		isLoggedIn = false;
 		Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
@@ -46,11 +53,15 @@ public class MenuActivity extends Activity {
 				RefreshOrdersService.class);
 		intent.putExtra("userName", b.getString("userName"));
 		intent.putExtra("authToken", b.getString("authToken"));
+		final MenuActivity me = this;
 		intent.putExtra("receiver", new ResultReceiver(new Handler()) {
 			@Override
 			protected void onReceiveResult(int resultCode, Bundle resultData) {
 				super.onReceiveResult(resultCode, resultData);
 				switch (resultCode) {
+				case RefreshOrdersService.STATUS_OK:
+					me.toggleOrders(true);
+					break;
 				case RefreshOrdersService.STATUS_ERROR:
 					if (resultData.containsKey("errorMessage")) {
 						String errorMessage = resultData
