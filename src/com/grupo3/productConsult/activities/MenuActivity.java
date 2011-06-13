@@ -3,6 +3,7 @@ package com.grupo3.productConsult.activities;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,8 @@ import com.grupo3.productConsult.services.CategoriesSearchService;
 import com.grupo3.productConsult.services.RefreshOrdersService;
 
 public class MenuActivity extends Activity {
+	private boolean isLoggedIn = true;;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,10 +28,16 @@ public class MenuActivity extends Activity {
 	}
 
 	public void doLogOut(View button) {
-
+		isLoggedIn = false;
+		Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
+		startActivity(intent);
 	}
 
 	public void startOrderRefreshService(Bundle b) {
+		if (!isLoggedIn) {
+			showLoginErrorStatus();
+			return;
+		}
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				RefreshOrdersService.class);
 		intent.putExtra("userName", b.getString("userName"));
@@ -38,12 +47,6 @@ public class MenuActivity extends Activity {
 			protected void onReceiveResult(int resultCode, Bundle resultData) {
 				super.onReceiveResult(resultCode, resultData);
 				switch (resultCode) {
-				case RefreshOrdersService.STATUS_OK:
-					break;
-
-				case RefreshOrdersService.STATUS_CONNECTION_ERROR:
-					break;
-
 				case RefreshOrdersService.STATUS_ERROR:
 					if (resultData.containsKey("errorMessage")) {
 						String errorMessage = resultData
@@ -52,7 +55,6 @@ public class MenuActivity extends Activity {
 								Toast.LENGTH_SHORT).show();
 					}
 					break;
-
 				default:
 					break;
 				}
@@ -62,6 +64,10 @@ public class MenuActivity extends Activity {
 	}
 
 	public void doViewCategories(View button) {
+		if (!isLoggedIn) {
+			showLoginErrorStatus();
+			return;
+		}
 		if (CategoryManager.getInstance().categoriesLoaded()) {
 			startCategoriesActivity();
 			return;
@@ -89,7 +95,17 @@ public class MenuActivity extends Activity {
 		startService(intent);
 	}
 
+	private void showLoginErrorStatus() {
+		CharSequence errorMessage = getText(R.string.notLoggedIn);
+		Context cont = getApplicationContext();
+		Toast.makeText(cont, errorMessage, Toast.LENGTH_LONG).show();
+	}
+
 	public void doViewOrders(View button) {
+		if (!isLoggedIn) {
+			showLoginErrorStatus();
+			return;
+		}
 		Bundle b = getIntent().getExtras();
 		Intent intent = new Intent(MenuActivity.this, OrderListActivity.class);
 		intent.putExtra("userName", b.getString("userName"));

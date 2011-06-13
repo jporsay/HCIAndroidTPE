@@ -50,4 +50,6 @@
 
 	<string name="listHint">Escriba un texto en cualquier momento para filtar
 		resultados!</string>
+	<string name="notLoggedIn">Necesita registrarse para acceder al sitio
+	</string>
 </resources>
