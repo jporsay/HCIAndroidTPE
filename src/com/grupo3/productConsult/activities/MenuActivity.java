@@ -62,6 +62,10 @@ public class MenuActivity extends Activity {
 	}
 
 	public void doViewCategories(View button) {
+		if (CategoryManager.getInstance().categoriesLoaded()) {
+			startCategoriesActivity();
+			return;
+		}
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				CategoriesSearchService.class);
 		intent.putExtra("command", CategoriesSearchService.LOAD_CATEGORIES);
@@ -75,9 +79,7 @@ public class MenuActivity extends Activity {
 					List<Category> categories = (List<Category>) resultData
 							.getSerializable("categories");
 					CategoryManager.getInstance().saveCategoryList(categories);
-					Intent intent = new Intent(MenuActivity.this,
-							CategoryListActivity.class);
-					startActivity(intent);
+					startCategoriesActivity();
 					break;
 				case CategoriesSearchService.STATUS_ERROR:
 					break;
@@ -92,6 +94,12 @@ public class MenuActivity extends Activity {
 		Intent intent = new Intent(MenuActivity.this, OrderListActivity.class);
 		intent.putExtra("userName", b.getString("userName"));
 		intent.putExtra("authToken", b.getString("authToken"));
+		startActivity(intent);
+	}
+
+	private void startCategoriesActivity() {
+		Intent intent = new Intent(MenuActivity.this,
+				CategoryListActivity.class);
 		startActivity(intent);
 	}
 }
