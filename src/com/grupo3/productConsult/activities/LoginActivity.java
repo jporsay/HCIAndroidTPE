@@ -53,7 +53,7 @@ public class LoginActivity extends Activity {
 				case LoginService.STATUS_ERROR:
 					if (resultData.containsKey("errorMessage")) {
 						String errorMessage = resultData.getString("errorMessage");
-						Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
 					}
 					break;
 					
