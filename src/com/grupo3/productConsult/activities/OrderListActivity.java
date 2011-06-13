@@ -8,6 +8,7 @@ import java.util.Map;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -112,5 +113,16 @@ public class OrderListActivity extends ListActivity {
 		strings.put("3", getString(R.string.transported));
 		strings.put("4", getString(R.string.delivered));
 		return strings;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_MENU) {
+			Intent intent = new Intent(this, MenuActivity.class);
+			intent.putExtras(getIntent());
+			startActivity(intent);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

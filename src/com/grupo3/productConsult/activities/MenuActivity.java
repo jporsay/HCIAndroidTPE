@@ -18,12 +18,16 @@ import com.grupo3.productConsult.services.CategoriesSearchService;
 import com.grupo3.productConsult.services.RefreshOrdersService;
 
 public class MenuActivity extends Activity {
+	private static boolean refreshOrderStarted = false;
 	private boolean isLoggedIn = true;;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.startOrderRefreshService(getIntent().getExtras());
+		if (!refreshOrderStarted) {
+			this.startOrderRefreshService(getIntent().getExtras());
+			refreshOrderStarted = true;
+		}
 		setContentView(R.layout.menu);
 	}
 

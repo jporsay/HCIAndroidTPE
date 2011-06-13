@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -38,7 +39,6 @@ public class CategoryListActivity extends ListActivity {
 		Animation a = AnimationUtils.makeInAnimation(getBaseContext(), false);
 		a.setDuration(500);
 		lv.setAnimation(a);
-
 	}
 
 	@Override
@@ -93,5 +93,16 @@ public class CategoryListActivity extends ListActivity {
 				.getCategoryList().get(catIndex).getName());
 		intent.putExtras(b);
 		startActivity(intent);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_MENU) {
+			Intent intent = new Intent(this, MenuActivity.class);
+			intent.putExtras(getIntent());
+			startActivity(intent);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

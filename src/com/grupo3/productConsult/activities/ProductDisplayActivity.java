@@ -8,8 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,7 +46,7 @@ public class ProductDisplayActivity extends Activity {
 		t.setText(p.getName());
 		t = (TextView) findViewById(R.id.price);
 		t.setText(Product.CURRENCY + " " + p.getPrice());
-		
+
 		Object obj = fetch(p.getImgSrc());
 		if (obj != null) {
 			Drawable img = Drawable.createFromStream((InputStream) obj, "src");
@@ -107,5 +109,16 @@ public class ProductDisplayActivity extends Activity {
 		translationsId.put("published_date", R.string.publishedDateLabel);
 		translationsId.put("ISBN_10", R.string.isbn10Label);
 		translationsId.put("ISBN_13", R.string.isbn13Label);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_MENU) {
+			Intent intent = new Intent(this, MenuActivity.class);
+			intent.putExtras(getIntent());
+			startActivity(intent);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
