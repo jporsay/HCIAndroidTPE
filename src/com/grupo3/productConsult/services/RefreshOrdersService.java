@@ -11,7 +11,6 @@ import java.util.TimerTask;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -81,10 +80,8 @@ public class RefreshOrdersService extends IntentService {
 					receiver.send(STATUS_OK, b);
 				} catch (SocketTimeoutException e) {
 					receiver.send(STATUS_CONNECTION_ERROR, b);
-				} catch (ClientProtocolException e) {
-
-				} catch (IOException e) {
-
+				} catch (Exception e) {
+					receiver.send(STATUS_ERROR, b);
 				}
 			};
 		};
@@ -150,12 +147,9 @@ public class RefreshOrdersService extends IntentService {
 				return true;
 			}
 			return false;
-		} catch (ParseException e) {
-			Log.d("parse error", e.getMessage());
-		} catch (ParserConfigurationException e) {
-			Log.d("parse error", e.getMessage());
-		} catch (SAXException e) {
-			Log.d("parse error", e.getMessage());
+		} catch (Exception e) {
+			b.putString("error", e.getMessage());
+			receiver.send(STATUS_CONNECTION_ERROR, b);
 		}
 		return false;
 	}

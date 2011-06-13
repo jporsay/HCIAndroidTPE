@@ -1,21 +1,14 @@
 package com.grupo3.productConsult.services;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
-import android.util.Log;
 
 import com.grupo3.productConsult.Product;
 import com.grupo3.productConsult.utilities.ServerURLGenerator;
@@ -61,7 +54,6 @@ public class OrderCategoriesListService extends IntentService {
 				receiver.send(STATUS_OK, b);
 			}
 		} catch (Exception e) {
-			Log.e("error", e.getMessage());
 			b.putString("error", e.getMessage());
 			receiver.send(STATUS_ERROR, b);
 		}

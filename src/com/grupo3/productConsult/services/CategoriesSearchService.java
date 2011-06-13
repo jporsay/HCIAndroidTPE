@@ -57,11 +57,9 @@ public class CategoriesSearchService extends IntentService {
 				categories.add(parseCategory(parser, catNodes.item(i)));
 			}
 			return categories;
-		} catch (ParseException e) {
-		} catch (ParserConfigurationException e) {
-		} catch (SAXException e) {
+		} catch (Exception e) {
+			return null;
 		}
-		return null;
 	}
 
 	private static Category parseCategory(XMLParser parser, Node node) {
@@ -203,7 +201,12 @@ public class CategoriesSearchService extends IntentService {
 		try {
 			if (LOAD_CATEGORIES.equals(command)) {
 				categories = fetchCategories();
-				bundle.putSerializable("categories", (Serializable) categories);
+				if (categories != null) {
+					bundle.putSerializable("categories",
+							(Serializable) categories);
+				} else {
+					throw new Exception("Connection error");
+				}
 			} else if (LOAD_SUBCATEGORIES.equals(command)) {
 				int id = Integer.parseInt(intent
 						.getStringExtra("subCategoryId"));

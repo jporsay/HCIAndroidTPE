@@ -18,15 +18,15 @@ import com.grupo3.productConsult.utilities.XMLParser;
 public class LoginService extends IntentService {
 
 	public static final String DO_LOGIN = "doLogin";
-	
+
 	public static final int STATUS_ERROR = -1;
 	public static final int STATUS_CONNECTION_ERROR = -2;
 	public static final int STATUS_OK = 0;
 	private final String TAG = getClass().getSimpleName();
-	
+
 	public LoginService() {
 		super("LoginService");
-		
+
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class LoginService extends IntentService {
 		Bundle b = new Bundle();
 		try {
 			if (command.equals(DO_LOGIN)) {
-				if(doLogin(receiver, b, user, password)) {
+				if (doLogin(receiver, b, user, password)) {
 					receiver.send(STATUS_OK, b);
 				} else {
 					receiver.send(STATUS_ERROR, b);
@@ -47,18 +47,15 @@ public class LoginService extends IntentService {
 		} catch (SocketTimeoutException e) {
 			Log.e(TAG, e.getMessage());
 			receiver.send(STATUS_CONNECTION_ERROR, b);
-		} catch (ClientProtocolException e) {
-			Log.e(TAG, e.getMessage());
-			receiver.send(STATUS_ERROR, b);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
 			receiver.send(STATUS_ERROR, b);
 		}
 	}
-	
-	private boolean doLogin(ResultReceiver r, Bundle b, String userName, String password)
-		throws IOException, ClientProtocolException {
-		
+
+	private boolean doLogin(ResultReceiver r, Bundle b, String userName,
+			String password) throws IOException, ClientProtocolException {
+
 		ServerURLGenerator security = new ServerURLGenerator("Security");
 		security.addParameter("method", "SignIn");
 		security.addParameter("username", userName);
@@ -70,9 +67,9 @@ public class LoginService extends IntentService {
 		} catch (Exception e) {
 		}
 		return false;
-		
+
 	}
-	
+
 	private boolean checkLogin(Bundle b, XMLParser xp) {
 		if (xp.getErrorMessage() != null) {
 			b.putString("errorMessage", xp.getErrorMessage());
