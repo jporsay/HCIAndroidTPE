@@ -22,11 +22,11 @@ import com.grupo3.productConsult.utilities.ServerURLGenerator;
 import com.grupo3.productConsult.utilities.XMLParser;
 
 public class OrderCategoriesListService extends IntentService {
-	
+
 	public static final int STATUS_ERROR = -1;
 	public static final int STATUS_CONNECTION_ERROR = -2;
 	public static final int STATUS_OK = 0;
-	
+
 	public OrderCategoriesListService() {
 		super("OrderCategoriesListService");
 	}
@@ -37,12 +37,13 @@ public class OrderCategoriesListService extends IntentService {
 		String userName = i.getExtras().getString("userName");
 		String authToken = i.getExtras().getString("authToken");
 		String orderId = i.getExtras().getString("id");
-		
+
 		ServerURLGenerator order = new ServerURLGenerator("Order");
 		order.addParameter("method", "GetOrder");
 		order.addParameter("authentication_token", authToken);
 		order.addParameter("username", userName);
 		order.addParameter("order_id", orderId);
+		Bundle b = new Bundle();
 		try {
 			HttpResponse response;
 			response = order.getServerResponse();
@@ -52,30 +53,18 @@ public class OrderCategoriesListService extends IntentService {
 				NodeList items = xp.getElements("product_id");
 				ArrayList<Product> products = new ArrayList<Product>();
 				for (int j = 0; j < items.getLength(); j++) {
-					Log.d("id", items.item(j).getFirstChild().getNodeValue());
-					products.add(CategoriesSearchService.fetchProduct(new Integer(items.item(j).getFirstChild().getNodeValue())));
+					products.add(CategoriesSearchService
+							.fetchProduct(new Integer(items.item(j)
+									.getFirstChild().getNodeValue())));
 				}
-				Bundle b = new Bundle();
 				b.putSerializable("products", products);
 				receiver.send(STATUS_OK, b);
 			}
-		} catch (ClientProtocolException e) {
-			Log.e("error", "ClientProtocolException");
-			e.printStackTrace();
-		} catch (IOException e) {
-			Log.e("error", "IOException");
-			e.printStackTrace();
-		} catch (ParseException e) {
-			Log.e("error", "ParseException");
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			Log.e("error", "ParserConfigurationException");
-			e.printStackTrace();
-		} catch (SAXException e) {
-			Log.e("error", "SAXException");
-			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e("error", e.getMessage());
+			b.putString("error", e.getMessage());
+			receiver.send(STATUS_ERROR, b);
 		}
 	}
-	
-	
+
 }
