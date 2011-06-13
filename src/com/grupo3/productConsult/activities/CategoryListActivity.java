@@ -32,8 +32,7 @@ public class CategoryListActivity extends ListActivity {
 		ListView lv = getListView();
 
 		CharSequence text = getText(R.string.listHint);
-		Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG)
-				.show();
+		Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
 
 		lv.setTextFilterEnabled(true);
 		Animation a = AnimationUtils.makeInAnimation(getBaseContext(), false);
@@ -47,7 +46,11 @@ public class CategoryListActivity extends ListActivity {
 		CharSequence text = ((TextView) view).getText();
 		Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT)
 				.show();
-		loadSubCategory(position);
+		if (!CategoryManager.getInstance().subCategoryLoaded(position)) {
+			loadSubCategory(position);
+		} else {
+			startSubCategoriesActivity(position);
+		}
 	}
 
 	private void loadSubCategory(final int catIndex) {
@@ -68,14 +71,7 @@ public class CategoryListActivity extends ListActivity {
 							.getSerializable("subCategories");
 					CategoryManager.getInstance().saveSubCategories(catIndex,
 							subCategories);
-					Intent intent = new Intent(CategoryListActivity.this,
-							SubCategoryListActivity.class);
-					Bundle b = new Bundle();
-					b.putString("categoryPos", catIndex + "");
-					b.putString("breadCrumb", CategoryManager.getInstance()
-							.getCategoryList().get(catIndex).getName());
-					intent.putExtras(b);
-					startActivity(intent);
+					startSubCategoriesActivity(catIndex);
 					break;
 				case CategoriesSearchService.STATUS_ERROR:
 					CharSequence text = getText(R.string.connectionError);
@@ -86,5 +82,16 @@ public class CategoryListActivity extends ListActivity {
 			}
 		});
 		startService(intent);
+	}
+
+	private void startSubCategoriesActivity(int catIndex) {
+		Intent intent = new Intent(CategoryListActivity.this,
+				SubCategoryListActivity.class);
+		Bundle b = new Bundle();
+		b.putString("categoryPos", catIndex + "");
+		b.putString("breadCrumb", CategoryManager.getInstance()
+				.getCategoryList().get(catIndex).getName());
+		intent.putExtras(b);
+		startActivity(intent);
 	}
 }
