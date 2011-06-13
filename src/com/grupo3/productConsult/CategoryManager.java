@@ -1,5 +1,7 @@
 package com.grupo3.productConsult;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class CategoryManager {
@@ -14,6 +16,7 @@ public class CategoryManager {
 	}
 
 	private CategoryManager() {
+		categoryList = new ArrayList<Category>();
 	}
 
 	public String[] getCategoryNames() {
@@ -38,11 +41,21 @@ public class CategoryManager {
 		return categoryList;
 	}
 
-	public void saveCategoryList(List<Category> categories) {
-		this.categoryList = categories;
+	public void saveCategoryList(Collection<Category> categories) {
+		this.categoryList.clear();
+		this.categoryList.addAll(categories);
 	}
 
 	public void saveSubCategories(int index, List<Category> subCategories) {
 		categoryList.get(index).setSubCategories(subCategories);
+	}
+
+	public boolean categoriesLoaded() {
+		return !this.categoryList.isEmpty();
+	}
+
+	public boolean subCategoryLoaded(int index) {
+		Category c = this.categoryList.get(index);
+		return c != null && !c.getSubCategories().isEmpty();
 	}
 }

@@ -2,6 +2,7 @@ package com.grupo3.productConsult;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Category implements Serializable {
@@ -29,8 +30,9 @@ public class Category implements Serializable {
 		return subCategories;
 	}
 
-	public void setSubCategories(List<Category> subCategories) {
-		this.subCategories = subCategories;
+	public void setSubCategories(Collection<Category> subCategories) {
+		this.subCategories.clear();
+		this.subCategories.addAll(subCategories);
 	}
 
 	@Override
