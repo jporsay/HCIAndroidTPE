@@ -41,9 +41,12 @@
 	<string name="orderStatusLabel">Estado: </string>
 	<string name="orderShippedDateLabel">Fecha de salida: </string>
 	<string name="orderLocationLabel">Posicion: </string>
+	<string name="orderInformation">Informacion de la orden</string>
+	<string name="orderProductBtn">Ver lista de productos</string>
+	<string name="orderLocationBtn">Ver posicion de la orden</string>
 
-	<string name="connectionError">Ayuda: Parece haber un problema de conexión. Por favor
-		revise su conexión a internet.</string>
+	<string name="connectionError">Ayuda: Parece haber un problema de conexión. Por
+		favor revise su conexión a internet.</string>
 
 	<string name="listHint">Escriba un texto en cualquier momento para filtar
 		resultados!</string>

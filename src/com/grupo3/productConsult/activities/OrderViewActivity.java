@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.OrderCategoriesListService;
@@ -26,16 +26,14 @@ public class OrderViewActivity extends Activity {
 		Bundle b = getIntent().getExtras();
 
 		this.userName = b.getString("userName");
-		Log.d("userName", this.userName);
 		this.token = b.getString("authToken");
-		Log.d("token", this.token);
 		this.order = (Order) b.getSerializable("order");
 		setInformation(b);
 	}
 
 	private void setInformation(Bundle data) {
 		TextView t = (TextView) findViewById(R.id.title);
-		t.setText("Order Information");
+		t.setText(R.string.orderInformation);
 		setLabels();
 		setValues();
 	}
@@ -50,9 +48,9 @@ public class OrderViewActivity extends Activity {
 		t.setText(R.string.orderLocationLabel);
 		Button b;
 		b = (Button) findViewById(R.id.viewProductsBtn);
-		b.setText("View product list");
+		b.setText(R.string.orderProductBtn);
 		b = (Button) findViewById(R.id.viewMapBtn);
-		b.setText("View order location");
+		b.setText(R.string.orderLocationBtn);
 	}
 
 	private void setValues() {
@@ -60,21 +58,20 @@ public class OrderViewActivity extends Activity {
 		t = (TextView) findViewById(R.id.orderStatusValue);
 		t.setText(" " + order.getStatusName());
 		t = (TextView) findViewById(R.id.shippedDateValue);
-		t.setText(" " + "TODO");
+		t.setText(" " + order.getShippedDate());
 		t = (TextView) findViewById(R.id.locationValue);
-		String coord = " ( " + order.getLatitude() + ", " + order.getLongitude()
-				+ " )";
+		String coord = " ( " + order.getLatitude() + ", "
+				+ order.getLongitude() + " )";
 		t.setText(coord);
 	}
 
-	
 	public void viewOnMap(View button) {
 		Intent intent = new Intent(OrderViewActivity.this, GMaps.class);
 		intent.putExtra("latitude", order.getLatitude());
 		intent.putExtra("longitude", order.getLongitude());
 		startActivity(intent);
 	}
-	
+
 	public void viewOrderItems(View button) {
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				OrderCategoriesListService.class);
@@ -95,6 +92,9 @@ public class OrderViewActivity extends Activity {
 					break;
 
 				case OrderCategoriesListService.STATUS_ERROR:
+					CharSequence text = getText(R.string.connectionError);
+					Toast.makeText(getApplicationContext(), text,
+							Toast.LENGTH_SHORT).show();
 					break;
 				}
 			}

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.grupo3.productConsult.R;
@@ -57,6 +56,11 @@ public class Order implements Serializable {
 
 	public String getStatusName() {
 		return statusNames.get(getStatus());
+	}
+
+	// TODO: parse date from xml!
+	public String getShippedDate() {
+		return "";
 	}
 
 	private void setStringsNames() {
