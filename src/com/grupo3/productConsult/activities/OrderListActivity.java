@@ -22,9 +22,9 @@ public class OrderListActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.refreshList();
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
+		this.refreshList();
 	}
 	
 	@Override
