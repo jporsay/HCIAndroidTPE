@@ -16,6 +16,7 @@ public class Order implements Serializable {
 	private String status;
 	private static Context context;
 	private Map<String, String> statusNames;
+	private String createdDate;
 
 	public Order(Context context) {
 		Order.context = context;
@@ -58,9 +59,8 @@ public class Order implements Serializable {
 		return statusNames.get(getStatus());
 	}
 
-	// TODO: parse date from xml!
 	public String getShippedDate() {
-		return "";
+		return createdDate;
 	}
 
 	private void setStringsNames() {
@@ -69,5 +69,9 @@ public class Order implements Serializable {
 		statusNames.put("2", context.getString(R.string.confirmed));
 		statusNames.put("3", context.getString(R.string.transported));
 		statusNames.put("4", context.getString(R.string.delivered));
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
 	}
 }

@@ -193,6 +193,8 @@ public class RefreshOrdersService extends IntentService {
 		o.setLongitude(xp.getStringFromSingleElement("longitude",
 				(Element) order));
 		o.setStatus(xp.getStringFromSingleElement("status", (Element) order));
+		o.setCreatedDate(xp.getStringFromSingleElement("created_date",
+				(Element) order));
 		oList.add(o);
 	}
 }
