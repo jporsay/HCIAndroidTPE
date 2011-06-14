@@ -56,18 +56,6 @@ Vista de Categorías, Subcategorías y productos
 \begin_layout Standard
 Si bien se trató de ser lo mas fiel posible al diseño original, se hizieron
  cambios leves.
- 
-\end_layout
-
-\begin_layout Standard
-No se pudo implementar la flecha 
-\begin_inset Formula $“>”$
-\end_inset
-
- a la derecha de cada item (que da al usuario una sensasión de ubicación
- de las cosas) ya que por falta de tiempo, se consideró que usar el tiempo
- en cumplir con toda la funcionalidad pedida era mas importante.
- 
 \end_layout
 
 \begin_layout Standard
@@ -132,25 +120,71 @@ Filtro, paginación y ordenamiento de la información
 \end_layout
 
 \begin_layout Standard
-Inicialmente se pensó en implementar una barra de búsqueda en la parte superior
- de la pantalla para filtar los resultados producidos por el servidor.
+Al principio del trabajo se pensó en implementar una barra de búsqueda en
+ la parte superior de la pantalla.
  Sin embargo, al momento de comenzar a programar, se encontró que android
  ya ofrecía una de estas (y de hecho era casi igual a la pensada originalmente!).
- Aun 
-\begin_inset Newline newline
+ Aunque por falta de tiempo, no se pudo llegar a implementar esta funcionalidad
+ ni la de paginación (load on demand).
+ 
+\end_layout
+
+\begin_layout Standard
+En cuanto al filtro, este si fue aplicado y en cualquier momento se puede
+ ingresar texto y la lista se fija si hay algun producto que 
+\begin_inset Formula $contenga$
 \end_inset
 
+ las palabras ingresadas.
+ Como no es para nada intuitivo el ingresar un texto sin que halla ningun
+ lugar para escribir (solo seleccionar) se optó inicualmente por crear un
+ menu 
+\begin_inset Formula $ayuda$
+\end_inset
 
+ en el menú principal en donde se hable sobre esto (y posiblemente sobre
+ otras cosas mas).
+ Pero, por experiencia, se sabe que el usuario no ingresará en este menu
+ a menos que le sea imprescindible.
+ Por lo que se tuvo que pensar otra solucion, ya que no se quiere ofrecer
+ funcionalidad que no se use devido a la que no es 
+\begin_inset Quotes eld
+\end_inset
+
+visible
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+La solución que se actualmenteencuentra aplicada es la de mostrar un texto
+ volando por un corto intervalo de tiempo, en un lugar poco invasivo en
+ la pantalla y por supuesto, no modal.
 \end_layout
 
 \begin_layout Subsection*
-Menu principal
+Menú principal
 \end_layout
 
 \begin_layout Standard
 Para simplicidad de la aplicación y mejor aprovechamiento del espacio en
  la pantalla, se trató de reducir al minimo la cantidad de objetos a mostrar.
+ Actualmente (y debido a la cantidad de funcionalidad) solo se tienen tres
+ botones.
+ Uno para ver productos y otro para ver ordenes existentes y por supuesto,
+ botón para desloguearse.
  
+\end_layout
+
+\begin_layout Standard
+Por experiencia en trabajos anteriores, se sabe que no es una buena práctica,
+ habilitar botones al usuario cuando en realidad no tiene sentido debido
+ al estado en el que la aplciacipon se encuentra.
+ Y es por esto que el botón de ver oredenes se desactiva automaticamente
+ cuando el servidor indica que el usuario actual no posee ordenes.
 \end_layout
 
 \begin_layout Section
@@ -163,25 +197,19 @@ Luego de concluido el trabajo práctico, nos dimos cuenta sobre el potencial
 \begin_inset Formula $Andorid$
 \end_inset
 
- y lo fácil que es diseñar aplicaciones con este (aunque no esta de más
- mencionar el complicado arranque desde 
+ y lo fácil que es diseñar aplicaciones con esta herramienta (no esta de
+ más mencionar el complicado arranque desde 
 \begin_inset Formula $0$
 \end_inset
 
- ).
+).
  
 \end_layout
 
 \begin_layout Standard
-Nos hubiese resultado muy 
-\begin_inset Quotes eld
-\end_inset
-
-no se la palabra
-\begin_inset Quotes erd
-\end_inset
-
- poder probar nuestro resultado en un 
+No esta de mas mencionar que nos hubiese resultado muy intereante poder
+ probar nuestro resultado final en un aparato real ya que después de todo
+ es donde esta destinada a andar.
 \end_layout
 
 \end_body
