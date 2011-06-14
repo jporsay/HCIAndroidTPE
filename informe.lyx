@@ -1,0 +1,188 @@
+#LyX 1.6.5 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Informe HCI TPE2
+\end_layout
+
+\begin_layout Section
+Decisiones de diseño
+\end_layout
+
+\begin_layout Subsection*
+Vista de Categorías, Subcategorías y productos 
+\end_layout
+
+\begin_layout Standard
+Si bien se trató de ser lo mas fiel posible al diseño original, se hizieron
+ cambios leves.
+ 
+\end_layout
+
+\begin_layout Standard
+No se pudo implementar la flecha 
+\begin_inset Formula $“>”$
+\end_inset
+
+ a la derecha de cada item (que da al usuario una sensasión de ubicación
+ de las cosas) ya que por falta de tiempo, se consideró que usar el tiempo
+ en cumplir con toda la funcionalidad pedida era mas importante.
+ 
+\end_layout
+
+\begin_layout Standard
+En cuanto a las listas, se optó por:
+\end_layout
+
+\begin_layout Itemize
+Agregar el precio a cada producto, ya que este dato es lo primero que el
+ usuario mira al momento de tomar una decisión.
+\end_layout
+
+\begin_layout Itemize
+Usar una tipografia mas grande.
+ Cuando se diseñó el menú, este aparentaba ser mas 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+“agradable”
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+ cuando cada item utilizaba una única línea, pero al ver los resultados
+ obtenidos en la práctica, se decidió que era un buen cambio.
+ Además, no se había tenido en cuenta a los usuarios con problemas de visión
+ (hay que tener presente que estos son dispositivos con pantallas muy reducidas
+ y que además uno puede encontrarse en ambientes muy iluminados y no verse
+ bien el brillo de la pantalla).
+\end_layout
+
+\begin_layout Itemize
+Se agregó un texto en la parte inferior de la pantalla que muestra por unos
+ segundos la opción seleccionada (para complementar al breadcrumb que puede
+ no prestarsele mucha atención debido a su tamaño).
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En cuanto a la vista de producto, se logró implementar una pantalla muy
+ fiel a la planeada.
+ Un detalle muy importante que hay que resaltar es el hecho que al momento
+ de listar los datos del producto, se usa la misma tipografía para la etiqueta
+ y su valor, esto se vería muchisimo mejor si fuese como en la vista de
+ información de ordenes.
+ 
+\end_layout
+
+\begin_layout Subsection*
+Filtro, paginación y ordenamiento de la información 
+\end_layout
+
+\begin_layout Standard
+Inicialmente se pensó en implementar una barra de búsqueda en la parte superior
+ de la pantalla para filtar los resultados producidos por el servidor.
+ Sin embargo, al momento de comenzar a programar, se encontró que android
+ ya ofrecía una de estas (y de hecho era casi igual a la pensada originalmente!).
+ Aun 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Menu principal
+\end_layout
+
+\begin_layout Standard
+Para simplicidad de la aplicación y mejor aprovechamiento del espacio en
+ la pantalla, se trató de reducir al minimo la cantidad de objetos a mostrar.
+ 
+\end_layout
+
+\begin_layout Section
+Conculsiones
+\end_layout
+
+\begin_layout Standard
+Luego de concluido el trabajo práctico, nos dimos cuenta sobre el potencial
+ de 
+\begin_inset Formula $Andorid$
+\end_inset
+
+ y lo fácil que es diseñar aplicaciones con este (aunque no esta de más
+ mencionar el complicado arranque desde 
+\begin_inset Formula $0$
+\end_inset
+
+ ).
+ 
+\end_layout
+
+\begin_layout Standard
+Nos hubiese resultado muy 
+\begin_inset Quotes eld
+\end_inset
+
+no se la palabra
+\begin_inset Quotes erd
+\end_inset
+
+ poder probar nuestro resultado en un 
+\end_layout
+
+\end_body
+\end_document
