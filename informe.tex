@@ -4,7 +4,9 @@
 %% Do not edit unless you really know what you are doing.
 \documentclass[english]{article}
 \usepackage[T1]{fontenc}
-\usepackage[latin9]{inputenc}
+%%gonzalo: latin9, yo: utf8
+\usepackage[utf8]{inputenc}
+%%\usepackage[latin9]{inputenc}
 \usepackage{babel}
 
 \begin{document}
@@ -25,23 +27,23 @@ En cuanto a las listas, se optó por:
 \begin{itemize}
 \item Agregar el precio a cada producto, ya que este dato es lo primero
 que el usuario mira al momento de tomar una decisión.
-\item Usar una tipografia mas grande. Cuando se diseñó el menú, este aparentaba
+\item Usar una tipografía mas grande. Cuando se diseñó el menú, este aparentaba
 ser mas \textquotedblleft{}agradable\textquotedblright{} cuando cada
 item utilizaba una única línea, pero al ver los resultados obtenidos
 en la práctica, se decidió que era un buen cambio. Además, no se había
 tenido en cuenta a los usuarios con problemas de visión (hay que tener
 presente que estos son dispositivos con pantallas muy reducidas y
 que además uno puede encontrarse en ambientes muy iluminados y no
-verse bien el brillo de la pantalla).
+verse bien el brillo de la pantalla) ni a los usuarios con dedos grandes, a los que puede dificultarse seleccionar un ítem de la lista debido a su tamaño reducido.
 \item Se agregó un texto en la parte inferior de la pantalla que muestra
 por unos segundos la opción seleccionada (para complementar al breadcrumb
-que puede no prestarsele mucha atención debido a su tamaño).\\
+que puede no ser notado debido a su tamaño).\\
 
 \end{itemize}
 En cuanto a la vista de producto, se logró implementar una pantalla
 muy fiel a la planeada. Un detalle muy importante que hay que resaltar
 es el hecho que al momento de listar los datos del producto, se usa
-la misma tipografía para la etiqueta y su valor, esto se vería muchisimo
+la misma tipografía para la etiqueta y su valor, esto se vería muchísimo
 mejor si fuese como en la vista de información de ordenes. 
 
 
@@ -54,20 +56,20 @@ hecho era casi igual a la pensada originalmente!). Aunque por falta
 de tiempo, no se pudo llegar a implementar esta funcionalidad ni la
 de paginación (load on demand). 
 
-En cuanto al filtro, este si fue aplicado y en cualquier momento se
-puede ingresar texto y la lista se fija si hay algun producto que
+En cuanto al filtro, éste si fue aplicado. En cualquier momento se
+puede ingresar texto y la lista se fija si hay algún producto que
 $contenga$ las palabras ingresadas. Como no es para nada intuitivo
-el ingresar un texto sin que halla ningun lugar para escribir (solo
-seleccionar) se optó inicualmente por crear un menu $ayuda$ en el
+el ingresar un texto sin que halla ningún lugar para escribir (solo
+seleccionar) se optó inicialmente por crear un menu $ayuda$ en el
 menú principal en donde se hable sobre esto (y posiblemente sobre
 otras cosas mas). Pero, por experiencia, se sabe que el usuario no
 ingresará en este menu a menos que le sea imprescindible. Por lo que
-se tuvo que pensar otra solucion, ya que no se quiere ofrecer funcionalidad
-que no se use devido a la que no es {}``visible''. 
+se tuvo que pensar otra solución, ya que no se quiere ofrecer funcionalidad
+que no se use por no ser ``visible''
 
-La solución que se actualmenteencuentra aplicada es la de mostrar
-un texto volando por un corto intervalo de tiempo, en un lugar poco
-invasivo en la pantalla y por supuesto, no modal.
+La solución que se actualmente encuentra aplicada es la de mostrar
+un texto en un $Toast$ por un corto intervalo de tiempo, en un lugar poco
+invasivo en la pantalla.
 
 
 \subsection*{Menú principal}
@@ -76,19 +78,19 @@ Para simplicidad de la aplicación y mejor aprovechamiento del espacio
 en la pantalla, se trató de reducir al minimo la cantidad de objetos
 a mostrar. Actualmente (y debido a la cantidad de funcionalidad) solo
 se tienen tres botones. Uno para ver productos y otro para ver ordenes
-existentes y por supuesto, botón para desloguearse. 
+existentes y un botón para desloguearse. 
 
 Por experiencia en trabajos anteriores, se sabe que no es una buena
 práctica, habilitar botones al usuario cuando en realidad no tiene
-sentido debido al estado en el que la aplciacipon se encuentra. Y
-es por esto que el botón de ver oredenes se desactiva automaticamente
+sentido debido al estado en el que la aplicación se encuentra. Y
+es por esto que el botón de ver ordenes se desactiva automaticamente
 cuando el servidor indica que el usuario actual no posee ordenes.
 
 
-\section{Conculsiones}
+\section{Conclusiones}
 
 Luego de concluido el trabajo práctico, nos dimos cuenta sobre el
-potencial de $Andorid$ y lo fácil que es diseñar aplicaciones con
+potencial de $Android$ y lo fácil que es diseñar aplicaciones con
 esta herramienta (no esta de más mencionar el complicado arranque
 desde $0$). 
 
