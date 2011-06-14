@@ -10,11 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.RefreshOrdersService;
+import com.grupo3.productConsult.utilities.CustomAdapter;
 import com.grupo3.productConsult.utilities.Order;
 
 public class OrderListActivity extends ListActivity {
@@ -25,6 +27,9 @@ public class OrderListActivity extends ListActivity {
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
 		this.refreshList();
+		Animation a = AnimationUtils.makeInAnimation(getBaseContext(), false);
+		a.setDuration(500);
+		lv.setAnimation(a);
 	}
 	
 	@Override
@@ -41,7 +46,7 @@ public class OrderListActivity extends ListActivity {
 	}
 	
 	private void refreshList() {
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, this.getListItems()));
+		setListAdapter(new CustomAdapter(this, R.layout.list_item, this.getListItems()));
 	}
 	
 	private boolean listContains(List<String> l, String s) {

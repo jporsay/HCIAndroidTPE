@@ -12,13 +12,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.grupo3.productConsult.Product;
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.CategoriesSearchService;
+import com.grupo3.productConsult.utilities.CustomAdapter;
 
 public class ProductListActivity extends ListActivity {
 
@@ -34,8 +34,8 @@ public class ProductListActivity extends ListActivity {
 		String breadCrumb = recdData.getString("breadCrumb");
 		setTitle(breadCrumb);
 		String[] products = getProductNames();
-		setListAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, products));
+		setListAdapter(new CustomAdapter(this,
+				R.layout.list_item, products));
 
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);

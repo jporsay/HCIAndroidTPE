@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="10dp"
-    android:textSize="16sp" >
-</TextView>
+    android:layout_height="?android:attr/listPreferredItemHeight"
+
+    android:padding="6dip">
+
+
+    <TextView
+    	android:id="@+id/listText"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_weight="1"
+	    android:padding="10dp"
+	    android:textSize="22sp" />
+    
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="0"
+        android:layout_marginRight="6dip"
+        android:src="@drawable/expander_ic_minimized" />
+</LinearLayout>

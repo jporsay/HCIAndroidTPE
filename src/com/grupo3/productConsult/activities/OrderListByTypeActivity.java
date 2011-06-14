@@ -13,15 +13,17 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.OrderCategoriesListService;
 import com.grupo3.productConsult.services.RefreshOrdersService;
+import com.grupo3.productConsult.utilities.CustomAdapter;
 import com.grupo3.productConsult.utilities.Order;
 
 public class OrderListByTypeActivity extends ListActivity {
@@ -40,6 +42,11 @@ public class OrderListByTypeActivity extends ListActivity {
 		this.setViewTitle();
 		this.loadOrders();
 		this.setClickCallback();
+		ListView lv = getListView();
+		lv.setTextFilterEnabled(true);
+		Animation a = AnimationUtils.makeInAnimation(getBaseContext(), false);
+		a.setDuration(500);
+		lv.setAnimation(a);
 	}
 	
 	private void setViewTitle() {
@@ -59,7 +66,7 @@ public class OrderListByTypeActivity extends ListActivity {
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				me.launchOrdersByType(position, (String)((TextView)view).getText());
+				me.launchOrdersByType(position, (String)((TextView)view.findViewById(R.id.listText)).getText());
 			}
 		});
 	}
@@ -103,7 +110,7 @@ public class OrderListByTypeActivity extends ListActivity {
 	
 	private void loadOrders() {
 		this.fillOrders();
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, this.getItemStringList()));
+		setListAdapter(new CustomAdapter(this, R.layout.list_item, this.getItemStringList()));
 	}
 	
 	private List<String> getItemStringList() {
