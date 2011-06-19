@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
         if (s != null) {
 	        TextView tt = (TextView) v.findViewById(R.id.listText);
 	        if (tt != null) {
-	        	tt.setText(s);
+	        	tt.setText(Html.fromHtml(s));
 	        }
         }
         return v;
