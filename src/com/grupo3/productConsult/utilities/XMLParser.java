@@ -14,6 +14,7 @@ import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -31,12 +32,10 @@ public class XMLParser {
 
 		HttpEntity r_entity = r.getEntity();
 		String xmlString = EntityUtils.toString(r_entity);
-
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		InputSource inStream = new InputSource();
 		inStream.setCharacterStream(new StringReader(xmlString));
-
 		return db.parse(inStream);
 	}
 
@@ -68,15 +67,30 @@ public class XMLParser {
 
 	public String getStringFromSingleElement(String tag) {
 		Element e = (Element) this.xml.getElementsByTagName(tag).item(0);
-		return e.getFirstChild().getNodeValue();
+		Node n = (Node) e;
+		return this.buildText(n);
 	}
 
 	public String getStringFromSingleElement(String tag, Element root) {
 		Element e = (Element) root.getElementsByTagName(tag).item(0);
-		return e.getFirstChild().getNodeValue();
+		Node n = (Node) e;
+		return this.buildText(n);
 	}
 
+	private String buildText(Node n) {
+		NodeList nl = n.getChildNodes();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < nl.getLength(); i++) {
+			Node tn = nl.item(i);
+			if (tn.getNodeType() == Node.TEXT_NODE) {
+				sb.append(tn.getNodeValue());
+			}
+		}
+		return sb.toString();
+	}
+	
 	public String getAttribute(Element element, String attribute) {
 		return element.getAttribute(attribute);
 	}
+	
 }
