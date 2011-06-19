@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.grupo3.productConsult.utilities.PhoneUtils;
+
 public class CategoryManager {
 	private static CategoryManager instance = null;
 	private List<Category> categoryList;
@@ -29,6 +31,9 @@ public class CategoryManager {
 	}
 
 	private String[] getNames(List<Category> categories) {
+		if (categories == null) {
+			return new String[] {};
+		}
 		String[] categoryNames = new String[categories.size()];
 		int i = 0;
 		for (Category subCat : categories) {
@@ -51,11 +56,14 @@ public class CategoryManager {
 	}
 
 	public boolean categoriesLoaded() {
-		return !this.categoryList.isEmpty();
+		return !this.categoryList.isEmpty()
+				&& categoryList.get(0).getLocale().equals(
+						PhoneUtils.getLanguageId());
 	}
 
 	public boolean subCategoryLoaded(int index) {
 		Category c = this.categoryList.get(index);
-		return c != null && !c.getSubCategories().isEmpty();
+		return c != null && !c.getSubCategories().isEmpty()
+				&& c.getLocale().equals(PhoneUtils.getLanguageId());
 	}
 }
