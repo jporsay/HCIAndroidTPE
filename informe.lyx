@@ -3,9 +3,12 @@
 \begin_document
 \begin_header
 \textclass article
-\use_default_options true
+\begin_preamble
+% Preview source code
+\end_preamble
+\use_default_options false
 \language english
-\inputencoding auto
+\inputencoding utf8
 \font_roman default
 \font_sans default
 \font_typewriter default
@@ -17,6 +20,7 @@
 
 \graphics default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -35,7 +39,6 @@
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
-\author "" 
 \author "" 
 \end_header
 
@@ -59,46 +62,36 @@ Si bien se trató de ser lo mas fiel posible al diseño original, se hizieron
 \end_layout
 
 \begin_layout Standard
-En cuanto a las listas, se optó por:
+En cuanto a las listas, se optó por: 
 \end_layout
 
 \begin_layout Itemize
 Agregar el precio a cada producto, ya que este dato es lo primero que el
  usuario mira al momento de tomar una decisión.
+ 
 \end_layout
 
 \begin_layout Itemize
-Usar una tipografia mas grande.
+Usar una tipografía mas grande.
  Cuando se diseñó el menú, este aparentaba ser mas 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\noun off
-\color none
-“agradable”
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\noun default
-\color inherit
- cuando cada item utilizaba una única línea, pero al ver los resultados
- obtenidos en la práctica, se decidió que era un buen cambio.
+\begin_inset Quotes grd
+\end_inset
+
+agradable” cuando cada item utilizaba una única línea, pero al ver los resultado
+s obtenidos en la práctica, se decidió que era un buen cambio.
  Además, no se había tenido en cuenta a los usuarios con problemas de visión
  (hay que tener presente que estos son dispositivos con pantallas muy reducidas
  y que además uno puede encontrarse en ambientes muy iluminados y no verse
- bien el brillo de la pantalla).
+ bien el brillo de la pantalla) ni a los usuarios con dedos grandes, a los
+ que puede dificultarse seleccionar un ítem de la lista debido a su tamaño
+ reducido.
+ 
 \end_layout
 
 \begin_layout Itemize
 Se agregó un texto en la parte inferior de la pantalla que muestra por unos
  segundos la opción seleccionada (para complementar al breadcrumb que puede
- no prestarsele mucha atención debido a su tamaño).
+ no ser notado debido a su tamaño).
 \begin_inset Newline newline
 \end_inset
 
@@ -106,13 +99,61 @@ Se agregó un texto en la parte inferior de la pantalla que muestra por unos
 \end_layout
 
 \begin_layout Standard
+En cuanto a su implementación, por experiencia con el trabajo práctico anterior,
+ se implemento un "
+\begin_inset Formula $category$
+\end_inset
+
+ 
+\begin_inset Formula $manager$
+\end_inset
+
+", que se encarga de almacenar una lista de categorías y subcategorías que
+ ya fueron pedidas al servidor y de esta manera, se reduce a uno la cantidad
+ de peticiones de cada categoría.
+ Consideramos esto un detalle muy importante a tener en cuenta ya que (por
+ lo general), los dispositivos moviles poseen conecciones a internet mediante
+ 3g (coneciones muy inferiores a las que se tienen en el hogar) y que además
+ es cobradas por paquetes.
+ Por lo que el uso del programa terminaría saliendole muy caro al cliente
+ si va y viene constatemente en la lista.
+\begin_inset Newline newline
+\end_inset
+
+ Se consideró hacer lo mismo para el listado de productos, pero se presentaba
+ el problema que pueden llegar a existir cientos de productos en el servidor
+ y esto resultar en un programa final mas lento (debido a demasiada información
+ cargada en memoria
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Se tuvo en cuenta el hecho de usar una lista de tamaño fijo en la que se
+ guarden los últimos elementos consultados y los demás sean descartados,
+ pero se dejó esto para una futura implementación ya que se tenían otras
+ prioridades de funcionalidad mas importantes.
+\end_layout
+
+\end_inset
+
+).
+\begin_inset Newline newline
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
 En cuanto a la vista de producto, se logró implementar una pantalla muy
  fiel a la planeada.
  Un detalle muy importante que hay que resaltar es el hecho que al momento
  de listar los datos del producto, se usa la misma tipografía para la etiqueta
- y su valor, esto se vería muchisimo mejor si fuese como en la vista de
+ y su valor, esto se vería muchísimo mejor si fuese como en la vista de
  información de ordenes.
- 
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection*
@@ -126,19 +167,19 @@ Al principio del trabajo se pensó en implementar una barra de búsqueda en
  ya ofrecía una de estas (y de hecho era casi igual a la pensada originalmente!).
  Aunque por falta de tiempo, no se pudo llegar a implementar esta funcionalidad
  ni la de paginación (load on demand).
- 
 \end_layout
 
 \begin_layout Standard
-En cuanto al filtro, este si fue aplicado y en cualquier momento se puede
- ingresar texto y la lista se fija si hay algun producto que 
+En cuanto al filtro, éste si fue aplicado.
+ En cualquier momento se puede ingresar texto y la lista se fija si hay
+ algún producto que 
 \begin_inset Formula $contenga$
 \end_inset
 
  las palabras ingresadas.
- Como no es para nada intuitivo el ingresar un texto sin que halla ningun
- lugar para escribir (solo seleccionar) se optó inicualmente por crear un
- menu 
+ Como no es para nada intuitivo el ingresar un texto sin que halla ningún
+ lugar para escribir (solo seleccionar) se optó inicialmente por crear un
+ menú 
 \begin_inset Formula $ayuda$
 \end_inset
 
@@ -146,8 +187,8 @@ En cuanto al filtro, este si fue aplicado y en cualquier momento se puede
  otras cosas mas).
  Pero, por experiencia, se sabe que el usuario no ingresará en este menu
  a menos que le sea imprescindible.
- Por lo que se tuvo que pensar otra solucion, ya que no se quiere ofrecer
- funcionalidad que no se use devido a la que no es 
+ Por lo que se tuvo que pensar otra solución, ya que no se quiere ofrecer
+ funcionalidad que no se use por no ser 
 \begin_inset Quotes eld
 \end_inset
 
@@ -156,13 +197,20 @@ visible
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Standard
-La solución que se actualmenteencuentra aplicada es la de mostrar un texto
- volando por un corto intervalo de tiempo, en un lugar poco invasivo en
- la pantalla y por supuesto, no modal.
+La solución que actualmente se encuentra aplicada es la de mostrar un texto
+ corto explicando la funcionalidad mencionada en un 
+\begin_inset Formula $Toast$
+\end_inset
+
+ por un corto intervalo de tiempo.
+ Por supuerto, en un lugar poco invasivo en la pantalla.
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection*
@@ -171,43 +219,46 @@ Menú principal
 
 \begin_layout Standard
 Para simplicidad de la aplicación y mejor aprovechamiento del espacio en
- la pantalla, se trató de reducir al minimo la cantidad de objetos a mostrar.
+ la pantalla, se trató de reducir al mínimo la cantidad de objetos a mostrar.
  Actualmente (y debido a la cantidad de funcionalidad) solo se tienen tres
  botones.
- Uno para ver productos y otro para ver ordenes existentes y por supuesto,
- botón para desloguearse.
- 
+ Uno para ver productos, otro para ver ordenes existentes y un botón para
+ desloguearse.
 \end_layout
 
 \begin_layout Standard
 Por experiencia en trabajos anteriores, se sabe que no es una buena práctica,
  habilitar botones al usuario cuando en realidad no tiene sentido debido
- al estado en el que la aplciacipon se encuentra.
- Y es por esto que el botón de ver oredenes se desactiva automaticamente
+ al estado en el que la aplicación se encuentra.
+ Y es por esto que el botón de ver ordenes se desactiva automaticamente
  cuando el servidor indica que el usuario actual no posee ordenes.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Section
-Conculsiones
+Conclusiones
 \end_layout
 
 \begin_layout Standard
 Luego de concluido el trabajo práctico, nos dimos cuenta sobre el potencial
  de 
-\begin_inset Formula $Andorid$
+\begin_inset Formula $Android$
 \end_inset
 
- y lo fácil que es diseñar aplicaciones con esta herramienta (no esta de
- más mencionar el complicado arranque desde 
-\begin_inset Formula $0$
-\end_inset
-
-).
- 
+, lo fácil que es diseñar aplicaciones con esta herramienta (sin mencionar
+ el complicado arranque desde cero) y que nos pareció una idea muy innovadora
+ que se halla implementado el uso de este framework en el curso .
 \end_layout
 
 \begin_layout Standard
-No esta de mas mencionar que nos hubiese resultado muy intereante poder
+No esta de más mencionar que nos hubiese resultado muy interesante poder
  probar nuestro resultado final en un aparato real ya que después de todo
  es donde esta destinada a andar.
 \end_layout
