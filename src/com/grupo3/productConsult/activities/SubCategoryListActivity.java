@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -29,7 +30,7 @@ public class SubCategoryListActivity extends ListActivity {
 		Bundle recdData = getIntent().getExtras();
 		int catPos = Integer.parseInt(recdData.getString("categoryPos"));
 		String breadCrumb = recdData.getString("breadCrumb");
-		setTitle(breadCrumb + " > ");
+		setTitle(Html.fromHtml(breadCrumb + " > "));
 
 		CategoryManager catManager = CategoryManager.getInstance();
 		setListAdapter(new CustomAdapter(this,

@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +41,7 @@ public class ProductDisplayActivity extends Activity {
 		Bundle recdData = getIntent().getExtras();
 		Product p = (Product) recdData.getSerializable("product");
 		String breadCrumb = recdData.getString("breadCrumb");
-		setTitle(breadCrumb);
+		setTitle(Html.fromHtml(breadCrumb));
 
 		TextView t = (TextView) findViewById(R.id.title);
 		t.setText(p.getName());

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -32,7 +33,7 @@ public class ProductListActivity extends ListActivity {
 		Bundle recdData = getIntent().getExtras();
 		currList = (List<Product>) recdData.getSerializable("products");
 		String breadCrumb = recdData.getString("breadCrumb");
-		setTitle(breadCrumb);
+		setTitle(Html.fromHtml(breadCrumb));
 		String[] products = getProductNames();
 		setListAdapter(new CustomAdapter(this,
 				R.layout.list_item, products));
