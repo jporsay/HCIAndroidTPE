@@ -66,7 +66,7 @@ public class OrderListByTypeActivity extends ListActivity {
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				me.launchOrdersByType(position, (String)((TextView)view.findViewById(R.id.listText)).getText());
+				me.launchOrdersByType(position, ((TextView)view.findViewById(R.id.listText)).getText().toString());
 			}
 		});
 	}
