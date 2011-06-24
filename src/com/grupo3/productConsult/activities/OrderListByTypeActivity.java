@@ -16,9 +16,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.grupo3.productConsult.R;
 import com.grupo3.productConsult.services.OrderCategoriesListService;
@@ -31,6 +31,7 @@ public class OrderListByTypeActivity extends ListActivity {
 	private String userName;
 	private String token;
 	private List<Order> orders;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,17 +49,17 @@ public class OrderListByTypeActivity extends ListActivity {
 		a.setDuration(500);
 		lv.setAnimation(a);
 	}
-	
+
 	private void setViewTitle() {
 		Map<String, String> strings = new HashMap<String, String>();
 		strings.put("1", getString(R.string.created));
 		strings.put("2", getString(R.string.confirmed));
 		strings.put("3", getString(R.string.transported));
 		strings.put("4", getString(R.string.delivered));
-		
+
 		setTitle(strings.get(this.type));
 	}
-	
+
 	private void setClickCallback() {
 		final ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
@@ -66,11 +67,13 @@ public class OrderListByTypeActivity extends ListActivity {
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				me.launchOrdersByType(position, ((TextView)view.findViewById(R.id.listText)).getText().toString());
+				TextView tv = (TextView) view.findViewById(R.id.listText);
+				String text =  tv.getText().toString();
+				me.launchOrdersByType(position, text);
 			}
 		});
 	}
-	
+
 	private void launchOrdersByType(int position, final String title) {
 		Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
 				OrderCategoriesListService.class);
@@ -85,44 +88,45 @@ public class OrderListByTypeActivity extends ListActivity {
 			protected void onReceiveResult(int resultCode, Bundle resultData) {
 				super.onReceiveResult(resultCode, resultData);
 				switch (resultCode) {
-					case OrderCategoriesListService.STATUS_OK:
-						Serializable productList = resultData
-						.getSerializable("products");
-						Intent intent = new Intent(OrderListByTypeActivity.this,
-								OrderViewActivity.class);
-						Bundle b = new Bundle();
-						b.putSerializable("products", productList);
-						b.putSerializable("order", (Serializable) order);
-						b.putString("userName", userN);
-						b.putString("authToken", toK);
-						b.putString("breadCrumb", title + " > ");
-						intent.putExtras(b);
-						startActivity(intent);
+				case OrderCategoriesListService.STATUS_OK:
+					Serializable productList = resultData
+							.getSerializable("products");
+					Intent intent = new Intent(OrderListByTypeActivity.this,
+							OrderViewActivity.class);
+					Bundle b = new Bundle();
+					b.putSerializable("products", productList);
+					b.putSerializable("order", (Serializable) order);
+					b.putString("userName", userN);
+					b.putString("authToken", toK);
+					b.putString("breadCrumb", title + " > ");
+					intent.putExtras(b);
+					startActivity(intent);
 					break;
-					
-					case OrderCategoriesListService.STATUS_ERROR:
+
+				case OrderCategoriesListService.STATUS_ERROR:
 					break;
 				}
 			}
 		});
 		startService(intent);
 	}
-	
+
 	private void loadOrders() {
 		this.fillOrders();
-		setListAdapter(new CustomAdapter(this, R.layout.list_item, this.getItemStringList()));
+		setListAdapter(new CustomAdapter(this, R.layout.list_item, this
+				.getItemStringList()));
 	}
-	
+
 	private List<String> getItemStringList() {
 		List<String> strings = new ArrayList<String>();
-		
-		for( Order o : this.orders) {
+
+		for (Order o : this.orders) {
 			strings.add(getString(R.string.orderTitle) + " " + o.getId());
 		}
-		
+
 		return strings;
 	}
-	
+
 	private void fillOrders() {
 		List<Order> orders = RefreshOrdersService.getOrders();
 		for (int i = 0; i < orders.size(); i++) {
@@ -132,7 +136,7 @@ public class OrderListByTypeActivity extends ListActivity {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_MENU) {
